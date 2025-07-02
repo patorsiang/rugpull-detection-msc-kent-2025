@@ -1,0 +1,38 @@
+# === General Settings ===
+project_name: "Rug Pull Scam Detection"
+seed: 42
+use_gpu: true
+
+# === Data Settings ===
+data:
+  train_path: "ml/data/processed/train.csv"
+  test_path: "ml/data/processed/test.csv"
+  batch_size: 32
+  shuffle: true
+
+# === Preprocessing ===
+preprocessing:
+  normalize: true
+  drop_columns: ["timestamp", "unnecessary_field"]
+  target_column: "label"
+
+# === Model Settings ===
+model:
+  type: "random_forest"
+  parameters:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+
+# === Training Settings ===
+training:
+  epochs: 10
+  learning_rate: 0.001
+  early_stopping: true
+  validation_split: 0.2
+
+# === Output ===
+output:
+  model_dir: "ml/models/"
+  logs_dir: "ml/logs/"
+  save_model: true

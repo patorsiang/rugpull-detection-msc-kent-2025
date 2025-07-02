@@ -1,0 +1,73 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# === Jupyter Notebooks Checkpoints ===
+.ipynb_checkpoints/
+
+# === Environments ===
+.env
+.env.*
+.venv/
+venv/
+ENV/
+env/
+
+# === ML Artifacts ===
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+*.pt
+*.onnx
+*.ckpt
+*.tflite
+*.sav
+
+# === Data Files ===
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.json
+*.db
+*.sqlite3
+data/raw/
+data/processed/
+
+# === Model Results & Outputs ===
+models/
+outputs/
+logs/
+checkpoints/
+
+# === Frontend (React/Next.js) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+out/
+build/
+
+# === VS Code ===
+.vscode/
+
+# === macOS & System Files ===
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+*.pid
+*.tar
+docker-compose.override.yml

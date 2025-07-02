@@ -1,0 +1,1 @@
+# rugpull-scam-detector

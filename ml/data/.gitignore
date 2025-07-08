@@ -1,0 +1,14 @@
+# Ignore everything
+external/*
+
+# Allow zip files anywhere
+!external/*.zip
+
+# Allow data in interim
+!interim/**
+
+# Allow .gitkeep files anywhere
+!**/.gitkeep
+
+# Allow README.md
+!README.md

@@ -1,0 +1,644 @@
+Project Name,Chain,Address,Open Source,Source,Hidden Balance Modification,Hidden Mint/Burn,Address Restrict,Amount Restrict,Modifiable External Call,TimeStamp Restrict,Modifiable Tax Address,Modifiable Tax Rate,label_combo
+GMETA,BSC,0X93023F1D3525E273F291B6F76D2F5027A39BF302,Yes,https://twitter.com/BeosinAlert/status/1681240663868973056,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+Sudorare,ETH,0X5404EFAFDD8CC30053069DF2A1B0C4BA881B3E1E,Yes,https://x.com/PeckShieldAlert/status/1561967493912363008,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+DRAC Network,ETH,0X10F6F2B97F3AB29583D9D38BABF2994DF7220C21,Yes,https://twitter.com/PeckShieldAlert/status/1551409593397350401,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+DHE,BSC,0X11CBC781DADAAD13FC3A361772C80B1C027820AF,Yes,https://twitter.com/CertiKAlert/status/1539031511114063873,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ElonMVP,BSC,0X3E597EA168A85AA2AE5E2C4333665BCD875ED10F,Yes,https://twitter.com/PeckShieldAlert/status/1536223027717111808,0.0,0.0,1,0,0,0,0,0,Address Restrict
+BabyElon,BSC,0X292E89D5D5BDAB3AF2F5838C194C1983F0140B43,Yes,https://de.fi/rekt-database/babyelon,0.0,0.0,1,0,0,0,0,0,Address Restrict
+StarMan,BSC,0XEF20505C8B343D12DA174BF9D8495C1CE2670989,Yes,https://de.fi/rekt-database/starman,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Armadillo Coin,BSC,0XC71D244F7AD6C869ECBF13CBD9ACAE31718BE4F8,Yes,https://x.com/PeckShieldAlert/status/1531880431947481093,0.0,0.0,1,0,0,0,0,0,Address Restrict
+LV PLUS,BSC,0X5927B72440D8A8B8C6CA5A8BE60E88975F9063FC,Yes,https://de.fi/rekt-database/lv_metaverse,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Pokemoney,BSC,0X32FF5B4C3B1744F0344D96FA2F87799ED2805749,No,https://twitter.com/PeckShieldAlert/status/1530122357125181441,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Hunter,BSC,0X1E4402FA427A7A835FC64EA6D051404CE767A569,Yes,https://twitter.com/CertiKAlert/status/1523153063875575809,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+MaxAPY Finance,BSC,0XCB6CD204D783DC8D66896A6DEF5867D332228D7B,Yes,https://twitter.com/PeckShieldAlert/status/1516676658350428160,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+BNB DEFI,BSC,0X455DEDACBE41C178953119847F2B95E2D9AD0A1D,Yes,https://twitter.com/PeckShieldAlert/status/1508626057913520128,1.0,0.0,0,0,0,0,0,1,"Hidden Balance Modification,Modifiable Tax Rate"
+BuccaneerFi,BSC,0X831467B7B6BF9C705DC87899D48B57EE55C8D5CC,Yes,https://twitter.com/PeckShieldAlert/status/1508337292020445187,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+BabyMuskCoin,BSC,0XAF507F297B5EFF8339315C4226977972734438B0,Yes,https://twitter.com/CertiKCommunity/status/1491483014467047437?s=19,1.0,0.0,1,0,0,0,0,1,"Hidden Balance Modification,Address Restrict,Modifiable Tax Rate"
+IEGT,BSC,0X8D07F605926837EA0F9E1E24DBA0FB348CB3E97D,Yes,https://slowmist.medium.com/beware-of-covert-rug-pulls-exit-scams-driven-by-contract-storage-manipulation-3631c8cbe1a,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+VPANDA DAO,BSC,0X2A8DBA970BA9750FA1C81B1BE4C0E19C1AACCA9D,Yes,https://twitter.com/PeckShieldAlert/status/1670745691440943106,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+USEA,BSC,0XDF7FF95AA3D855A6FB21399432166A92FDCF1B1A,Yes,https://de.fi/rekt-database/usea,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Swaprum,Arbitrum,0X2AE25460C44D578E6F41AB900A7A5425B6492C16,Yes,https://twitter.com/hackenclub/status/1659499442041417729?s=46&t=DLwbX9Nw4QECiyZQ0av-fg,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+DMAN,ETH,0X9A3FB36BF72A387FCC821A38EE9F50F1A0EB8CBD,Yes,https://hacked.slowmist.io/search/,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+GNS,ETH,0XE7E63E244C52B2230666E263657BA8DB2B6B3705,Yes,https://hacked.slowmist.io/search/,1.0,0.0,0,0,0,0,0,1,"Hidden Balance Modification,Modifiable Tax Rate"
+PEPG,ETH,0X25D8F027FD25EECBCD812521FB2F75F175807A91,Yes,https://hacked.slowmist.io/search/,1.0,0.0,0,0,0,0,0,1,"Hidden Balance Modification,Modifiable Tax Rate"
+Art Coin,ETH,0X1250B98CBDE9F99F4C42DCDACEE193221F17EB50,Yes,https://bitcoinist.com/project-losses-over-331000-setup-flaw-on-uniswap-v3/,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+WSB Coin,ETH,0X0414D8C87B271266A5864329FB4932BBE19C0C49,Yes,https://de.fi/rekt-database/wsb,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Arbtomb,Arbitrum,0XAF391EAA53FB34AE2E83E975F03461A936991245,Yes,https://de.fi/rekt-database/arbtomb,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Kokomo Finance,OP.ETH,0X7DA25BC4CFAED3F29414C6779676E53B19A356F5,Yes,https://de.fi/rekt-database/kokomo_finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ArbiSwap,Arbitrum,0X9DB8A10C7FE60D84397860B3AF2E686D4F90C2B7,Yes,https://arbiscan.io/tx/0x54ca307057b38110f60fce515ba35321fde82b876b4a2abf77368924903216e1,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Wegrocoin,BSC,0X5946FE65AB9DC66A961234502EE96776E4FA9F52,Yes,https://twitter.com/PeckShieldAlert/status/1486500426174189573,1.0,0.0,1,1,0,0,0,0,"Hidden Balance Modification,Address Restrict,Amount Restrict"
+InfinityToken,BSC,0X52E4339B4B9FF254738D6E971E83440F60DC029C,Yes,https://coincodecap.com/infinity-token-rugged-more-than-1390-wbnb,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Flare,BSC,0X85AA3F04E539E426CBB55C0D584EA99CFE1D96A1,Yes,https://de.fi/rekt-database/flare,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Blur Finance,BSC,0X4165084A6E5388CE53C9D9892F904A2712DD943A,Yes,https://twitter.com/PeckShieldAlert/status/1557259094058102785,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Julia,ETH,0XA7CD93ED3133D82781CC17460FE1500B69A1B514,Yes,https://de.fi/rekt-database/julia,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Memecoin,ETH,0X3417D4FA067806F8F70C2A692548048962B7AC45,Yes,https://de.fi/rekt-database/memecoin,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+Jewels,ETH,0XA2E8B27500D3BAE6DAAD122BDD8F405B65752175,Yes,https://de.fi/rekt-database/jewels,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Gemini Ai,ETH,0XDBC0E0C94707256AC2DE70F0B0E182C9287663F6,Yes,https://twitter.com/PeckShieldAlert/status/1732735122452201617,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+TITANX,ETH,0XAF3302F7A83CB4E66B8F9450B00E7644E605878D,Yes,https://de.fi/rekt-database/titanx,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Arbix Finance,BSC,0XD20EF93050C0943F74F5F8FF0CC97C74139D6437,Yes,https://de.fi/rekt-database/arbix,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+BNB HEROES,BSC,0XD25631648E3AD4863332319E8E0D6F2A8EC6F267,Yes,https://de.fi/rekt-database/bnb_heroes,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Mercenary,BSC,0XE0E279EE10E3BDC9B7577F5548DD46FCA2E7E111,Yes,https://de.fi/rekt-database/mercenary,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+FileSystemVideo,BSC,0XE9C7A827A4BA133B338B844C19241C864E95D75F,Yes,https://de.fi/rekt-database/filesystemvideo,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+DollarDoge,BSC,0X454876D97098528D83E661ED3DDF19B10E397352,Yes,https://de.fi/rekt-database/dollardoge,1.0,0.0,0,1,0,0,0,1,"Hidden Balance Modification,Amount Restrict,Modifiable Tax Rate"
+Raptor2,BSC,0XC51B24E6809B4E4578BE862C4BE19D8D767755BA,Yes,https://de.fi/rekt-database/raptor2,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Web3Memes,BSC,0XBAD6EA539B1B9F150D6D0B95EF4F45AF70BF0BCD,Yes,https://de.fi/rekt-database/web3memes,0.0,0.0,1,0,0,0,0,0,Address Restrict
+TheCatWorld,BSC,0XF22807575D019A0192395D8A5244A8BFC51D9C58,Yes,https://de.fi/rekt-database/thecatworld,0.0,0.0,0,1,0,1,0,1,"Amount Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+Peace doge X,BSC,0X06FA8DEB5E82D2C05C7CE51F8C82E5E3DE3F2A29,Yes,https://de.fi/rekt-database/peace%20doge,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Elonmoon,BSC,0X6F8A43AF478C3991572D655A994CCDD6405D8CDE,Yes,https://de.fi/rekt-database/elonmoon,0.0,0.0,1,0,0,0,0,0,Address Restrict
+GHOSTP2E,BSC,0X34CB0F01489ED5D0A55F0F6D5155EFC137FCCDDB,Yes,https://de.fi/rekt-database/ghostp2e,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+ZoroInu(Zoro),BSC,0X05AD901CF196CBDCEAB3F8E602A47AADB1A2E69D,Yes,https://skynet.certik.com/projects/zoro-inu,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+Moonbird,BSC,0X3B23A0FFBC53198D86FA5927E8EE32F7EF699A14,Yes,https://rugdoc.io/project/moonbird-finance/,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+PragmaMoney,Fantom,0XFEC3A505F67136033B27618ADD93329256101B4B,Yes,https://twitter.com/CertiKAlert/status/1522323459367448576,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+GOAT,ETH,0X74EDAF28FC4B9E6A1618D613839DAAF6A9D075DB,Yes,https://x.com/PeckShieldAlert/status/1523550360140664832,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+SHIDAO,BSC,0XC59D46CE32D8652536B5AE96DED0242E04923FD6,Yes,https://x.com/CertiKAlert/status/1529620537248567296,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Magic,BSC,0X37760475953A7B37FDCEE8D6C7506D9624565C84,Yes,https://de.fi/rekt-database/Magic,0.0,1.0,1,0,0,0,1,0,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address"
+SportMove,BSC,0X254433199984F5F43FFDA965D83A927635AFD300,Yes,https://de.fi/rekt-database/Sport%20Move,0.0,0.0,1,0,0,1,0,1,"Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+BreedTech,BSC,0X60B10129E83451B974260918A7A8E5AE3C44512B,Yes,https://de.fi/rekt-database/BreedTech,0.0,0.0,1,0,0,1,0,1,"Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+LlamaCoin,BSC,0X4D0710507B655B4038642CE0716C6E7E673C7597,Yes,https://de.fi/rekt-database/LlamaCoin,0.0,0.0,1,0,0,0,0,0,Address Restrict
+FlokiMoon,BSC,0X085AC603E691217CD33EDDDF587EFF09C04AF9E1,Yes,https://de.fi/rekt-database/FlokiMoon,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ADAF,BSC,0XDC1DCD09A17C23EE77568B4EABA16EDD3D0503A3,Yes,https://de.fi/rekt-database/ADAF,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+FOMODAO,BSC,0X5DD4EC212BD8E9FA42D278E09B6D6857E4ABAECA,Yes,https://de.fi/rekt-database/FOMO%20DAO,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Verify,BSC,0X3F52FF3137B52FCA2F96F41656632EE8D5E79401,Yes,https://de.fi/rekt-database/Verify,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+DarkLight,BSC,0X2D1BEC79F2789A454134EFAAB9C4CAA28F3C5828,Yes,https://de.fi/rekt-database/Dark%20Light,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+BabyDAO,BSC,0XF2D5D38FA88F9E2BE0830351275D0724F96B0F5F,Yes,https://de.fi/rekt-database/BabyDAO,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ForestTigerPro,BSC,0X486EB84E0C8469197A2F392B633C51B401ABF757,Yes,https://de.fi/rekt-database/Forest%20Tiger%20Pro,0.0,0.0,1,0,0,1,0,0,"Address Restrict,TimeStamp Restrict"
+retawatchcoin(RTW),BSC,0XDF9427170B3AB5E26039591797B538A82391EAC2,Yes,https://de.fi/rekt-database/RETAWATCH,0.0,0.0,0,0,0,0,1,1,"Modifiable Tax Address,Modifiable Tax Rate"
+ElronToken,BSC,0XF17F7827403C166FDA782CEB17B29900D1A2AD15,Yes,https://de.fi/rekt-database/Elron%20Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+NeotericFinance,BSC,0X733A90389DB7D9C246D064A257E5652F7BE36B8A,Yes,https://de.fi/rekt-database/Neoteric%20Finance,1.0,0.0,1,1,0,1,0,1,"Hidden Balance Modification,Address Restrict,Amount Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+FreedomProtocol,BSC,0X880BCE9321C79CAC1D290DE6D31DDE722C606165,Yes,https://de.fi/rekt-database/Freedom%20Protocol%20%7C%20Raccoon%20Network,0.0,0.0,1,0,0,1,0,1,"Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+RaccoonNetwork,BSC,0X371CF78DBA846E253EA3E714E4A749EA722A6258,Yes,https://de.fi/rekt-database/Freedom%20Protocol%20%7C%20Raccoon%20Network,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+LarpFinance(LARP),ETH,0X422252B656BCB93F2C3823737BF0BEA0DA5B02AB,Yes,https://de.fi/rekt-database/LARP,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+MetaverseBNQ,BSC,0X3EC24487F8511E7E5E03D069563A7ABECDAD9452,Yes,https://de.fi/rekt-database/Brand%20New%20Quest%20Metaverse,0.0,1.0,0,0,0,0,1,1,"Hidden Mint/Burn,Modifiable Tax Address,Modifiable Tax Rate"
+HashFree,BSC,0X7DD5B0514463F83EEA3F7AAE55361EA97B6D968C,Yes,https://de.fi/rekt-database/HashFree,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+FIOProtocol,Polygon,0X4303D63AA85574C0EADA2116791A8318D9A07F4D,Yes,https://de.fi/rekt-database/FIO%20Protocol,0.0,1.0,1,0,0,0,1,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address,Modifiable Tax Rate"
+GEMDAO,BSC,0X1C5E99C04A1FCC474CDFDEC39B80ADD760C0C713,Yes,https://de.fi/rekt-database/GEMDAO,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Nut2Earn,BSC,0XB4DA61B4B8F720876023812A282410705EB594F3,Yes,https://de.fi/rekt-database/Nut2Earn,0.0,0.0,0,0,0,0,1,1,"Modifiable Tax Address,Modifiable Tax Rate"
+HUT,BSC,0X95914A07749D7EBBFA36753C3781371C45B2DB27,Yes,https://de.fi/rekt-database/HUT,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+PDR,BSC,0X11FCB937052C7CDFEAC85887A6E71510FC486CFD,Yes,https://de.fi/rekt-database/PDR,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Dogioh,ETH,0X790540FF6117205AC6EF132A5782BA4F4A611355,Yes,https://de.fi/rekt-database/Dogioh,0.0,1.0,0,0,0,0,1,1,"Hidden Mint/Burn,Modifiable Tax Address,Modifiable Tax Rate"
+ArcadeEarn,BSC,0X9D848CA913EEFB0730F54A117370F929573CDD0A,Yes,https://de.fi/rekt-database/ArcadeEarn,0.0,0.0,1,0,0,1,0,1,"Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+GMT,BSC,0X59375348E069FA7E0EB58B98F72D2DEE078259C9,Yes,https://de.fi/rekt-database/GMT,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+MarvelMetauniverse,BSC,0X706BABD2A336FD61653CF8D13DDEEFF66CF624BF,Yes,https://de.fi/rekt-database/Marvel%20Metauniverse,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+GalaxyCoin,BSC,0X2629C46C0700222A18194B5EDE91752FAB626631,Yes,https://de.fi/rekt-database/Galaxy%20Coin,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Carillonium,BSC,0X2D1E3BE4DFD27D8D6C8F9568AF27E3D8EC44D4A1,Yes,https://de.fi/rekt-database/Carillonium,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+MetaMagicCoin,BSC,0XE62935529B59C1C9A3F5D01323F791E309B007C3,Yes,https://de.fi/rekt-database/Meta%20Magic%20Coin,0.0,1.0,0,0,0,0,1,1,"Hidden Mint/Burn,Modifiable Tax Address,Modifiable Tax Rate"
+Cornerchain,BSC,0XCF030EF1E14A7719AEBE2471319B5547B4F22887,Yes,https://de.fi/rekt-database/Cornerchain,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+TSUKA,BSC,0X4E8842F6CAF3F64037DF67C8427000DAE207F56C,Yes,https://de.fi/rekt-database/TSUKA,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+BNQToken,BSC,0X06C61725B98F1EF191D41E6B4F1E0AA50BD465D5,Yes,https://de.fi/rekt-database/BNQ%20Token,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+HPD,BSC,0X70FAF21D51E663A24CFFEE1F1C22ED94C975CC7C,Yes,https://de.fi/rekt-database/HPD,1.0,0.0,0,0,0,0,1,0,"Hidden Balance Modification,Modifiable Tax Address"
+SherLOCK,BSC,0X817B5054392199FED877E1DFDF4BDA7234691E8E,Yes,https://de.fi/rekt-database/SherLOCK,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+TIGER,BSC,0X5F351820674CCD9203EE9B019031647F31EFD2D9,Yes,https://de.fi/rekt-database/TIGER,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+Dollar,BSC,0X781163F0110B69DCBB2289339E3EA16D040966D5,Yes,https://de.fi/rekt-database/Dollar,0.0,0.0,1,0,0,0,0,0,Address Restrict
+NWN,BSC,0X95E6823F1FC728FD34CC79C36B69935ACFC862E9,Yes,https://de.fi/rekt-database/NWN,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+e-STD,BSC,0X7AA4B6937DE7118BF4C8E56F9DF3A99CEFB64C1A,Yes,https://de.fi/rekt-database/e-STD,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+TheMicroElements(TME),BSC,0XD631464F596E2FF3B9FE67A0AE10F6B73637F71E,Yes,https://de.fi/rekt-database/The%20Micro%20Elements,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+FlokiChain,BSC,0XA48D94E1CCA09C4867D710CD24F002CB6AA196D3,Yes,https://de.fi/rekt-database/FlokiChain,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+MetaF_DAO(FD),BSC,0XB5723EDF367583B28F123DD436EEF343F013D36B,Yes,https://de.fi/rekt-database/MetaFinanceDAO,0.0,0.0,0,0,0,1,0,1,"TimeStamp Restrict,Modifiable Tax Rate"
+LGT,BSC,0XD21D53FA113DD5769AA1B603C296D6AE15D0044A,Yes,https://de.fi/rekt-database/LGT,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+KHABYFanToken(KFT),BSC,0XE1E17B24F32CFE85A3C1AB63F14082D70592F6EE,Yes,https://de.fi/rekt-database/KHABY%20Fan%20Token,1.0,0.0,0,0,0,0,0,1,"Hidden Balance Modification,Modifiable Tax Rate"
+FDB,BSC,0X18A2E0BA304112134BD407744FF0B0A03AE77327,Yes,https://de.fi/rekt-database/FDB,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+SHOK,BSC,0XE1F41F5F11E89C674D6C6C23899F7773322756F2,Yes,https://de.fi/rekt-database/SHOK,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+DDCX,BSC,0X2A895AFAEB582B5C914DAA3DEECC08C9705C9FBC,Yes,https://de.fi/rekt-database/DDCX,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Ranger,BSC,0XC9EFD09C8170E5CE43219967A0564A9B610E5EA2,Yes,https://www.panewslab.com/zh/sqarticledetails/3b6ha25t.html,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+TrustBridge(TWG),BSC,0X737F5942D70F8F433D65823535E7AE1DE1950D8E,Yes,https://de.fi/rekt-database/Trust%20Bridge,0.0,0.0,1,1,0,0,1,0,"Address Restrict,Amount Restrict,Modifiable Tax Address"
+BGE,BSC,0XBD7AFA932F59F0E451D57BA523BA379E7545A4B3,Yes,https://de.fi/rekt-database/BGE,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Lymex,BSC,0X448F861728F4ED28914F42B4C8C0FF70B8BD637B,Yes,https://de.fi/rekt-database/Lymex,0.0,0.0,1,0,0,0,0,0,Address Restrict
+BTDog,BSC,0X3E7960A0CD30DFDE3C57E071936B98C7E98C8303,Yes,https://de.fi/rekt-database/BTDOG,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+DeFiSafe(dSafe),BSC,0X761776F726168C9DF6DC63D5864880801E21F403,Yes,https://de.fi/rekt-database/DeFi%20Safe,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+LotterySwap(LOTTO),BSC,0X605CFB514A2845902E17ED3C9416BD461E3F2E1B,Yes,https://de.fi/rekt-database/Lottery%20Swap,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+FairCoin(Fair),BSC,0XC5C24CB9177A130128FB15B0B0A74A502974F379,Yes,https://de.fi/rekt-database/Fair%20Token,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+SpaceCat(SCAT),BSC,0X22A681B2B57050AB42CB4A426D56A733C6CA859A,Yes,https://de.fi/rekt-database/SCAT,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+HLG,BSC,0X10F9CCB9CFCA4AD48BC9256C22ADE8303CF5E95E,Yes,https://de.fi/rekt-database/HLG,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+NWTToken,BSC,0X2C44C71DF4DBD3634E43AB0BC6DCB809D5286443,Yes,https://de.fi/rekt-database/NWT%20Token,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Cezar,BSC,0X71C349EECC025F1B618F7674AD5EFCB9DDA135E9,Yes,https://de.fi/rekt-database/Cezar%20Hard%20Fork,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Artificialintelligencerobot(AIT),BSC,0XD5B33544D03F54F4E4556FE6CC53254C4FF43EF7,Yes,https://de.fi/rekt-database/Artificial%20intelligence%20robot,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Fake PIToken,Polygon,0X0022167E3B9F409E1FF6BB206EC6B276C372B277,Yes,https://de.fi/rekt-database/Fake PIToken,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Lifeform (fake),ETH,0X829D2578AA1B013665E421AE894D055DA2120CC8,Yes,https://de.fi/rekt-database/Lifeform (fake),1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+NovaMind,ETH,0X9CB6DD255A6BBE32130CE645EC45C0A3E9D87A4A,Yes,https://de.fi/rekt-database/NovaMind,0.0,0.0,1,0,0,0,0,0,Address Restrict
+SAGA (Fake),BSC,0X77FBA84956AD63713652DDD1A574AD2C8F1BCDCF,Yes,https://de.fi/rekt-database/SAGA (Fake),0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+Fake Ethena Labs,BSC,0XC2902F4B0C0B7EBAE02AD1D85676C3AFBB3D25B9,Yes,https://de.fi/rekt-database/Fake Ethena Labs,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Fake EigenLayer,ETH,0X1A4F05BD24C95147608657C26CD931C7B246CD21,Yes,https://de.fi/rekt-database/Fake EigenLayer,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Fake Polyhedra Network,ETH,0XE5295855523C5802FEB6D70105CF00BFE8F9C832,Yes,https://de.fi/rekt-database/Fake Polyhedra Network,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+OrdiZK,ETH,0XB4FC1FC74EFFA5DC15A031EB8159302CFA4F1288,Yes,https://de.fi/rekt-database/OrdiZK,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Ore,ETH,0X7B6FF2312C22177458B24A441A0B2BF9528DAC57,Yes,https://de.fi/rekt-database/Ore,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+LongNoseDog,BSC,0XFAE06DE70E34D7390F1826DBFC7253E4328F29A5,Yes,https://de.fi/rekt-database/LongNoseDog,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Xai,BSC,0X1D152E6352493FCE07F17A90823CD21C51815C81,Yes,https://de.fi/rekt-database/Xai,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Do Right,BSC,0X920A7CBD0B5AED31827385783E7AF245331CA9EE,Yes,https://de.fi/rekt-database/Do Right,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+stoicDAO,ETH,0XB281D84989C06E2A6CCDC5EA7BF1663C79A1C31A,Yes,https://de.fi/rekt-database/stoicDAO,0.0,0.0,0,0,0,1,0,0,TimeStamp Restrict
+Abattoir of Zir,ETH,0X1A59BE240AA89685145967322DFAB3EBA7E574DB,Yes,https://de.fi/rekt-database/Abattoir of Zir,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+CKD TOKEN,BSC,0X583E9B5EBB7B67157F7817CE3D57A2604FC83881,Yes,https://de.fi/rekt-database/CKD TOKEN,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+CoinPanda_ETH,ETH,0XBBDCE1ED0986106E9EFCA252A1B24AAF6C34876C,Yes,https://de.fi/rekt-database/CoinPanda_ETH,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+MYX Finance,ETH,0X6FE3E5D5459D7FD7AA7B6AB15C4EFDD7164944C8,Yes,https://de.fi/rekt-database/MYX Finance,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+AssetClub,ETH,0XE2FBCB75746D30B836BEF7FA8E29F84E4190E79B,Yes,https://de.fi/rekt-database/AssetClub,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Expanso,ETH,0XA26B031AD7DD0EF0DF4D6AF983B3B77EFFBDBC86,Yes,https://de.fi/rekt-database/Expanso,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Changpeng Zhao,BSC,0X7AB51257164F6E9E6ED932AA676E3E6479F1B732,Yes,https://de.fi/rekt-database/Changpeng Zhao,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+AISurf,BSC,0X564A4F365C9A60617ED0947893A2C23B0B79E8C2,Yes,https://de.fi/rekt-database/AISurf,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+PAPABEAR,BSC,0X90F06678589C5A5CA2BC7424506A393BAA2E76F8,Yes,https://de.fi/rekt-database/PAPABEAR,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+RepubliK,BSC,0XA024FCEAF429CA78B0B2A18FD274FBE229B1ED0E,Yes,https://de.fi/rekt-database/RepubliK,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+DigiFund,BSC,0XD4ACE1E96AC89A4612C12BB0BCADBD29D1EAB19C,Yes,https://de.fi/rekt-database/DigiFund,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+IPMB,BSC,0XB11D8DD1D5A13BBDD80C8C3E9C28F7ABD6714FAB,Yes,https://de.fi/rekt-database/IPMB,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Creso,BSC,0X1300E8702240429A4F3F66CB6AB2DEF51C0A2EE7,Yes,https://de.fi/rekt-database/Creso,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Web,BSC,0XC6E8B0A6249E51B5B55B85AF847EF884517604D6,Yes,https://de.fi/rekt-database/Web,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+GigaDAO,BSC,0X2530AB5B6508B3167494D57612613F68E11D8080,Yes,https://de.fi/rekt-database/GigaDAO,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+DarkProtocol,BSC,0X106AABCDE28B1C6FD93ED99A5AE12DFC31813629,Yes,https://de.fi/rekt-database/DarkProtocol,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+TrustPad,BSC,0XF9333D7A78F00BA4AEA964043D577C34AF2497F8,Yes,https://de.fi/rekt-database/TrustPad,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Builders NFT,BSC,0XDE0CF62D54A53F2C72A345BEA4C0E9B6158F0662,Yes,https://de.fi/rekt-database/Builders NFT,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+MEMEPAD,ETH,0X51348A7C3969E670B1763D4B1C17441804EA001D,Yes,https://de.fi/rekt-database/MEMEPAD,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Openfabric AI,BSC,0X91F8A9975604110C27630EFAA069D3F6A4B844E7,Yes,https://de.fi/rekt-database/Openfabric AI,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+L7 DEX,BSC,0X8B1D897AE48A0F6EE118EAE829F2C1C8D48E44B7,Yes,https://de.fi/rekt-database/L7 DEX,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+IVY,BSC,0XF99F2AEC50ADFDE23CC67AB6240168B0A59F1D30,Yes,https://de.fi/rekt-database/IVY,0.0,0.0,1,0,0,0,1,0,"Address Restrict,Modifiable Tax Address"
+2049,BSC,0X996F581341881A796481916C6B3F34F1B74FFCDF,Yes,https://de.fi/rekt-database/2049,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+MarbleX,BSC,0X30D79364DDC7C4A88A8DC753389FABD4FCDE6B04,Yes,https://de.fi/rekt-database/MarbleX,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+CommEX,BSC,0XD1C3EE0F845BCC38A8CB9DC5337DFD5A372BB8ED,Yes,https://de.fi/rekt-database/CommEX,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+EigenLayer,BSC,0X14AC066AC2CD24CBDE31F78659C11F13AB61E4E7,Yes,https://de.fi/rekt-database/EigenLayer,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+DUO,BSC,0X1ED990BDCAEF4B13B01F4996DDE59ECD04F1343A,Yes,https://de.fi/rekt-database/DUO,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+BNBpay,BSC,0XADD62696DB2C2FB7DE8E0F07F422E03BF69646A2,Yes,https://de.fi/rekt-database/BNBpay,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Yzer Token,ETH,0XCBB391907A492A1E721BB16AE0563243E2B71987,Yes,https://de.fi/rekt-database/Yzer Token,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Boost Coin,ETH,0X302CAE5DCF8F051D0177043C3438020B89B33218,Yes,https://de.fi/rekt-database/Boost Coin,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Symbiosis,ETH,0XBE862864614FB652E663EA82FC3ADEAD65E73D29,Yes,https://de.fi/rekt-database/Symbiosis,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Kizuna AI,ETH,0X15D5FED8F86732EFEC2C62E94AE8D434ADD7AF1E,Yes,https://de.fi/rekt-database/Kizuna AI,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Hachiko,ETH,0X7BFEBD989EF62F7F794D9936908565DA42FA6D70,Yes,https://de.fi/rekt-database/Hachiko,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+LayerZero,BSC,0X2266362F414BF2476C5465DC2EA953FE2A99AE1C,Yes,https://de.fi/rekt-database/LayerZero,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Frontfanz,BSC,0X1F373733ED5D6999908EA80B69B2D9CD2D63D98B,Yes,https://de.fi/rekt-database/Frontfanz,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Friend Tech,ETH,0X2CF82A3AD32AA580110278022A6493B631044BEF,Yes,https://de.fi/rekt-database/Friend Tech,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Snake EYes,ETH,0X56D7E6A12F56DFCA75FBB3F62B6F647F56F63445,Yes,https://de.fi/rekt-database/Snake EYes,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Jigsaw saw you,ETH,0XC58713AB4F62000AD9A59A913C97B89BB8F62282,Yes,https://de.fi/rekt-database/Jigsaw saw you,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Gladiator,ETH,0XE9C28E4F233D3C64E2274E75701952EF35696D47,Yes,https://de.fi/rekt-database/Gladiator,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+KUKUCoin,ETH,0X593A3E0037C18237E153F9D00797926866EE923D,Yes,https://de.fi/rekt-database/KUKUCoin,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+CIRCLE (fake),BSC,0X84EF2E2E977062DA3CFC12C038FA3CE2D42D01B1,Yes,https://de.fi/rekt-database/CIRCLE (fake),0.0,0.0,0,1,0,0,0,0,Amount Restrict
+GGBOND,ETH,0XF6AF193B542CE3FD00F120A49E1A5C343F74CF4A,Yes,https://de.fi/rekt-database/GGBOND,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Coin,ETH,0X517AC17DBCD76F97C994DFE3D322F0C2FF9EDA17,Yes,https://de.fi/rekt-database/Coin,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Plankton Plankton,ETH,0X7A1ABB5B9BAAB8D971A318800DD43C8FB91B37BA,Yes,https://de.fi/rekt-database/Plankton Plankton,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Tommy VICE CITY,ETH,0X19273D7F057A0ED9AE63D3FA025A852C5A430829,Yes,https://de.fi/rekt-database/Tommy VICE CITY,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+LK-99 Protocol,ETH,0X883E2496DF47C07C7F2987691F99D491328D98C1,Yes,https://de.fi/rekt-database/LK-99 Protocol,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+DeriTrade,BSC,0X738EA75B01D8DB931B4374C6EBD3DE82D7D3A272,Yes,https://de.fi/rekt-database/DeriTrade,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Satori,BSC,0X6DF52FC4C234600D2D1F064C33BE762146964BB1,Yes,https://de.fi/rekt-database/Satori,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+One For The Books,ETH,0X2A763105E8ABF596F9FB1A3FD07E776A26720B08,Yes,https://de.fi/rekt-database/One For The Books,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Majin Buu,ETH,0XF746D527336E299CE53E2ED337C2668D6CFB7C5E,Yes,https://de.fi/rekt-database/Majin Buu,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+RAIDEN GOD Thunder,ETH,0X13E9E6160B3E48CFC07B6B8C0AEED2EF3CC66BC9,Yes,https://de.fi/rekt-database/RAIDEN GOD Thunder,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Hu Tao Spirit Soother,ETH,0XC29284EF3551767B37A2CCBD54CFCBD30384B58C,Yes,https://de.fi/rekt-database/Hu Tao Spirit Soother,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+zkSync Copycat,BSC,0X8F2775E4BE08055C7DD4EBF654628B183106A8E1,Yes,https://de.fi/rekt-database/zkSync Copycat,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Terk The Gorilla,ETH,0XEA05110CE800719CC041E5FE79490AF0D94D803F,Yes,https://de.fi/rekt-database/Terk The Gorilla,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Bare Bear,ETH,0X9D41227C99C75CCCBF4FC65CB3585A5798E77009,Yes,https://de.fi/rekt-database/Bare Bear,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+ROACH RACE,ETH,0XAC17A40635C3C3F824562B77E79CE2F5C5295BED,Yes,https://de.fi/rekt-database/ROACH RACE,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Popeye the Sailor,ETH,0X0F5DD8D652B3910FEEBF6DAE75DF794A35E2FD93,Yes,https://de.fi/rekt-database/Popeye the Sailor,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Kaonashi the Faceless,ETH,0X3EB4FC424FAB9100A64C87DC19602ED03CB1B4B3,Yes,https://de.fi/rekt-database/Kaonashi the Faceless,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+AORcoin,BSC,0X8E404E8CACE57DDB2E18978FDCC44753338F363A,Yes,https://de.fi/rekt-database/AORcoin,0.0,0.0,1,0,0,1,0,0,"Address Restrict,TimeStamp Restrict"
+Wettok Market,BSC,0XCED59C3249F20CA36FBA764BFDD9D94F471B3154,Yes,https://de.fi/rekt-database/Wettok Market,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Gandalf The Grey,ETH,0XF419707B7C8CC13FA2803E8AA57F248B20510319,Yes,https://de.fi/rekt-database/Gandalf The Grey,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Scooby Pepe,ETH,0X8E2AADA8069C2FCE1139DE697870E83F4145A8AB,Yes,https://de.fi/rekt-database/Scooby Pepe,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Toothless - How to train meme,ETH,0X807A7F15E3AA1B2188C71AB744369D422B2DE3AF,Yes,https://de.fi/rekt-database/Toothless - How to train meme,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Patex,BSC,0X231B69254D48DE6E96C395100B3D9BCE8D658E49,Yes,https://de.fi/rekt-database/Patex,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+ROBIN HOOD,ETH,0X5DB5BBD56BD5B5BD456B537B6759A768EA2883DE,Yes,https://de.fi/rekt-database/ROBIN HOOD,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+MOJO,ETH,0XB330C402506B61BA6E351DA7D217C4BB52364333,Yes,https://de.fi/rekt-database/MOJO,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+DMD,BSC,0XDD63525FAB69A97224962A076A642BFCF0714F2E,Yes,https://de.fi/rekt-database/DMD,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+PAULY,ETH,0XF1F8444B084D8D92F121EC4194AB8EDDBC74CDC8,Yes,https://de.fi/rekt-database/PAULY,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Agent Smith,ETH,0XE9BE1172E2A12DEADA42FD397FF8D4D9ED227A30,Yes,https://de.fi/rekt-database/Agent Smith,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+AI C-3PO,ETH,0XA2036F15F47D6C85D9A9338390496032B9823CE5,Yes,https://de.fi/rekt-database/AI C-3PO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+fren,ETH,0X37941B3FDB2BD332E667D452A58BE01BCACB923E,Yes,https://de.fi/rekt-database/fren,0.0,0.0,1,0,0,0,0,0,Address Restrict
+The Onigiri Neko,ETH,0XB4615AAD766F6DE3C55330099E907FF7F13F1582,Yes,https://de.fi/rekt-database/The Onigiri Neko,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Jar Jar Binks,ETH,0X1EE508008B30248AC6B077DF6904CFCA4C63785B,Yes,https://de.fi/rekt-database/Jar Jar Binks,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ZUCK,ETH,0X70730A580C7DC0A635029AED8DD5EDB7D150AF4A,Yes,https://de.fi/rekt-database/ZUCK,0.0,0.0,1,0,0,0,0,0,Address Restrict
+PEPEHUB,ETH,0XC3C51C071E5F1ECA09575AC35E90956AE3B27311,Yes,https://de.fi/rekt-database/PEPEHUB,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+MIKE and SID Tokens,ETH,0X8B99BB8DDD8103CBECCC3B20C4B0038CA65A51AE,Yes,https://de.fi/rekt-database/MIKE and SID Tokens,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+DubaiCEO,ETH,0X4876C5892D975780405F1B73802221B2850FEB8E,Yes,https://de.fi/rekt-database/DubaiCEO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ArchWay Fake,BSC,0XE6EFF43CA45B23470E36C9148F1BEB24CA38D572,Yes,https://de.fi/rekt-database/ArchWay Fake,0.0,0.0,1,1,0,1,0,0,"Address Restrict,Amount Restrict,TimeStamp Restrict"
+mCoin,BSC,0X6D86F0A41C3966CEF8EA139648DB707E912563C9,Yes,https://de.fi/rekt-database/mCoin,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Beamsplittr,ETH,0X05C9B6764A153FAF4262D3885A845AF694775953,Yes,https://de.fi/rekt-database/Beamsplittr,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+EthBread Token,BSC,0XC84E1748376781C09703C1292D9DD659EBFC0C8B,Yes,https://de.fi/rekt-database/EthBread Token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Greatest Of All Time (GOAT),ETH,0XCC63F8F2DEF2202F928B594FF80D8BA30D447D7E,Yes,https://de.fi/rekt-database/Greatest Of All Time (GOAT),0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+GUIDO The Mechanics,ETH,0X7907C5172ED24EB569F0C45141CE4E27851B9146,Yes,https://de.fi/rekt-database/GUIDO The Mechanics,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+BAT Token,BSC,0XBD2F6B7A19F2449675F7432D29D1DC1150CCD08F,Yes,https://de.fi/rekt-database/BAT Token,0.0,0.0,1,0,0,0,0,0,Address Restrict
+SpaceX Copycat,ETH,0X3BB1C03E4ED495ACD60476211859729DC579502F,Yes,https://de.fi/rekt-database/SpaceX Copycat,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+ETE Token,BSC,0X367F87879BB49117CC0D0E92EC65BB2AABB2B823,Yes,https://de.fi/rekt-database/ETE Token,0.0,0.0,1,0,0,0,0,0,Address Restrict
+OkayLetsGo,ETH,0X5DBB9F64CD96E2DBBCA58D14863D615B67B42F2E,Yes,https://de.fi/rekt-database/OkayLetsGo,0.0,0.0,1,0,0,0,0,0,Address Restrict
+SCT Token,BSC,0X4EE98216499B81A9942E7AA77970B68C792FF679,Yes,https://de.fi/rekt-database/SCT Token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+MoveCash,BSC,0XF3DBDF718667874E19EF368721A10409345FC218,Yes,https://de.fi/rekt-database/MoveCash,0.0,0.0,1,0,0,0,0,0,Address Restrict
+POOPEPE token,ETH,0X36206DEBFAF4C686BE01E5E68FDEA66D09B4319A,Yes,https://de.fi/rekt-database/POOPEPE token,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+BitPaid,BSC,0X40F75ED09C7BC89BF596CE0FF6FB2FF8D02AC019,Yes,https://de.fi/rekt-database/BitPaid,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+GN,ETH,0XC5019E129B75D380D3D837B8E609DEC6C8F5D044,Yes,https://de.fi/rekt-database/GN,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+fcdep,BSC,0X66FFF5BB007C4885A00FC14BDB1EEE389B804EF7,Yes,https://de.fi/rekt-database/fcdep,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Pepe Coin,BSC,0X79879C0A8B949458DFA60CA7A8DF24F59E42BB1B,Yes,https://de.fi/rekt-database/Pepe Coin,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+ANT Token,BSC,0XD029FDBF7B826C97982F3DABE4F930D9148363FE,Yes,https://de.fi/rekt-database/ANT Token,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Move token,BSC,0XED0624512D6D4C8E6B1335D5039B53E82400E037,Yes,https://de.fi/rekt-database/Move token,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+ChainGPT,BSC,0X6E70EE54564298E7F1DC0523F8190AEF8529EBBF,Yes,https://de.fi/rekt-database/ChainGPT,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Iwr token,BSC,0XB9934562D37E5A6C883DE7CE54D6FEBB36DCBFDA,Yes,https://de.fi/rekt-database/Iwr token,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Theory Craft Fames,BSC,0X5459B93A1BDF9CB027E70CDF7BFC450E41FDF326,Yes,https://de.fi/rekt-database/Theory Craft Fames,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+XCAD,BSC,0X2F8726192D599806E1EABBED1687E48E38E56489,Yes,https://de.fi/rekt-database/XCAD,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+PCORE,BSC,0X76D44D2D4056B48C30A2EEACBD1583D3C7087A6D,Yes,https://de.fi/rekt-database/PCORE,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Script Token,BSC,0XD4AC227EB1A4C0384AAE06F7808F08BB8F516EBF,Yes,https://de.fi/rekt-database/Script Token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Arbitrum token,BSC,0X62DFDB6E54B4E876E5E7003A71097DDD5AFFAA05,Yes,https://de.fi/rekt-database/Arbitrum token,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+BWR,BSC,0X0725A39120E3987DC88856800C409260286616C2,Yes,https://de.fi/rekt-database/BWR,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Finance,BSC,0X636CC5D886F928C2E33D0D52B0FCAE0155CBCE25,Yes,https://de.fi/rekt-database/Finance,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+DESTINY Protocol,BSC,0X673246C704B6BA3982549230E9B05ACF07C255B6,Yes,https://de.fi/rekt-database/DESTINY Protocol,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+EC token,BSC,0XE7A4D4669AD6B445F213E213768D0673C2637795,Yes,https://de.fi/rekt-database/EC token,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Project culs,BSC,0XC31ABB4BE8D38772B90B46BE7E88F84CFE08CEF9,Yes,https://de.fi/rekt-database/Project culs,0.0,0.0,1,0,0,0,0,0,Address Restrict
+APPLE,BSC,0X8F81BBC8CD2484B252E8288528CF2EC903619369,Yes,https://de.fi/rekt-database/APPLE,0.0,0.0,1,0,0,0,0,0,Address Restrict
+SpaceID,BSC,0X8993BB142C1BE4DD22C1F79B3A68B18852B55AAD,Yes,https://de.fi/rekt-database/SpaceID,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+LightLink token,BSC,0X44CE3A2E98125C1C370BEB6FBA6E8BC19CAB3FD9,Yes,https://de.fi/rekt-database/LightLink token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Sloth Climb,BSC,0XBCC1AE526D8BEBAB02AF19945A866DDC0DF80F37,Yes,https://de.fi/rekt-database/Sloth Climb,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Block Chain Games,BSC,0X6185521D06F17AB5FBE187DC9A699C3C021090D5,Yes,https://de.fi/rekt-database/Block Chain Games,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+ProTradeX,BSC,0XA73835D6337719F316AD66F3C11AC6CC9BCF7B07,Yes,https://de.fi/rekt-database/ProTradeX,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Hex Trust Token,BSC,0X0003018BA02BACAFC28CD8926D4A46A4BB20D76A,Yes,https://de.fi/rekt-database/Hex Trust Token,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+JNB Token,BSC,0X9119E3F30C18B9E6B16AB6589534391E5E4A5653,Yes,https://de.fi/rekt-database/JNB Token,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+MOON Token,BSC,0X5A6B8DAD072BB9257DCD6B3125126C0637AA2F0A,Yes,https://de.fi/rekt-database/MOON Token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+OBB Token,BSC,0XD23B64DBD334D12C38F09CC9EB23350AA1034C30,Yes,https://de.fi/rekt-database/OBB Token,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Coin Merge,ETH,0XC48B4814FAED1CCC885DD6FDE62A6474AECBB19A,Yes,https://de.fi/rekt-database/Coin Merge,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Dreams Come True,BSC,0X48A0B5F2D0F36598F470334F4FE21900BF2BF71B,Yes,https://de.fi/rekt-database/Dreams Come True,0.0,0.0,1,0,0,1,0,0,"Address Restrict,TimeStamp Restrict"
+SUI Token,BSC,0X29BB058CC9F11EC778A6691A4EA4C54186837112,Yes,https://de.fi/rekt-database/SUI Token,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+Zodiac Credit,BSC,0X436F510A72F7972996B07DC2EDEAFA26308539E7,Yes,https://de.fi/rekt-database/Zodiac Credit,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+ROT Token,BSC,0XC631A358C9EF5DA18144A185B7122735D4C04BE9,Yes,https://de.fi/rekt-database/ROT Token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+DOXED,BSC,0XEDA3EB7A5494443BEB800CD4CC70388228CEE84E,Yes,https://de.fi/rekt-database/DOXED,0.0,0.0,1,1,0,1,0,0,"Address Restrict,Amount Restrict,TimeStamp Restrict"
+Dictum Exchange,Arbitrum,0XFD808D72761AD2423F100C53AA2F2C7F133DEF0A,Yes,https://de.fi/rekt-database/Dictum Exchange,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Snowflake,BSC,0XE0F463832295ADF63EB6CA053413A3F9CD8BF685,Yes,https://de.fi/rekt-database/Snowflake,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+BTC-por,BSC,0X7E20FEC0E64E81E4B9812BD4886CD1FD3AD4DF45,Yes,https://de.fi/rekt-database/BTC-por,0.0,0.0,1,1,0,0,0,1,"Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Safuu Protocol,BSC,0XE5BA47FD94CB645BA4119222E34FB33F59C7CD90,Yes,https://de.fi/rekt-database/Safuu Protocol,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+TTTT,BSC,0X374DF15933567E9B3EF19361D64B708519D31695,Yes,https://de.fi/rekt-database/TTTT,0.0,0.0,1,0,0,0,0,0,Address Restrict
+A6 Token,BSC,0XE77D77309027C71F006DFF5D2F1B76060F4F5F13,Yes,https://de.fi/rekt-database/A6 Token,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Freeway,ETH,0X20E7125677311FCA903A8897042B9983F22EA295,Yes,https://de.fi/rekt-database/Freeway,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Easier,BSC,0X82B558C60FC4D1E12862B0D8FAD693AE81ABA48C,Yes,https://de.fi/rekt-database/Easier,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Lets Go Farming Token,ETH,0X4EADBFE053DCECDF13E51DC5E429305BE6A802D3,Yes,https://de.fi/rekt-database/Lets Go Farming Token,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Hunter Doge,BSC,0X1D7F3BCD965BFD03EEC6942F283516708BB448A9,Yes,https://de.fi/rekt-database/Hunter Doge,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+F*ck The Merge,ETH,0X3F2807F783C394641A9FD1BBB568B5FCBEC25575,Yes,https://de.fi/rekt-database/F*ck The Merge,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+World Cup,BSC,0X4A3C2BE1CAA3CB7E0A2C34B11B383FB82DA5162F,Yes,https://de.fi/rekt-database/World Cup,0.0,0.0,1,0,0,0,0,0,Address Restrict
+APE,ETH,0X40E0A6EF9DBADFC83C5E0D15262FEB4638588D77,Yes,https://de.fi/rekt-database/APE,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ArenaPlayAPC,BSC,0X2AA504586D6CAB3C59FA629F74C586D78B93A025,Yes,https://de.fi/rekt-database/ArenaPlayAPC,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+SHADE INU Token,BSC,0X24676EA2799AC6131E77BCD627CB27DEE5C43D7E,Yes,https://de.fi/rekt-database/SHADE INU Token,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Meta Apes,BSC,0X208CFEC94D2BA8B8537DA7A9BB361C6BAAD77272,Yes,https://de.fi/rekt-database/Meta Apes,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+ACC TOKEN,BSC,0X5DC53496E8DD50887785D75D432CBA6A86F82CAD,Yes,https://de.fi/rekt-database/ACC TOKEN,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+DOGETAMA,ETH,0X25E44E0250F0492C188918F2D726B4861263EF5B,Yes,https://de.fi/rekt-database/DOGETAMA,0.0,0.0,1,0,0,0,0,0,Address Restrict
+HyperVerse,BSC,0XAAFA10755B3B1DBF46E86D973C3F27F3671ED9DB,Yes,https://de.fi/rekt-database/HyperVerse,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+AutobotDefi,Fantom,0X27C828E9F972DC907BCEA3D87F194C6B533D808D,Yes,https://de.fi/rekt-database/AutobotDefi,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+ElectronDAO,Polygon,0X9943107D6FC813A257C7CEB63EE4BC238E49CFB8,Yes,https://de.fi/rekt-database/ElectronDAO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Meta Pets,ETH,0X17CD80AA8F4AED7C403E4C6B9C2CD3FABEF09D99,Yes,https://de.fi/rekt-database/Meta Pets,0.0,0.0,1,1,0,1,0,1,"Address Restrict,Amount Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+Squid Game,BSC,0X87230146E138D3F296A9A77E497A2A83012E9BC5,Yes,https://de.fi/rekt-database/Squid Game,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+AnubisDAO,ETH,0X507586012A126421C3669A64B8393FFFA9C44462,Yes,https://de.fi/rekt-database/AnubisDAO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Daughter Doge Revenge Token,BSC,0X20B9FFD06D32EAEE94EDCD9098DB01B2D13D4C61,Yes,https://de.fi/rekt-database/Daughter Doge Revenge Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Boon Tech,ETH,0XE83E098EEDB43B33D340D4757529E5A2C4EE3230,Yes,https://de.fi/rekt-database/Boon Tech,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+BlockChain of Things,ETH,0X0CD7CA934C174F43B2C69683ED302DB0F5CF199E,Yes,https://de.fi/rekt-database/BlockChain of Things,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+PolyHomerToken,Polygon,0XEB9126D215F8C87B7DD864B3011FBB46260BCBE6,Yes,https://de.fi/rekt-database/PolyHomerToken,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+TrollFace,BSC,0XEA27688726A94C21180A300484D55A791F993FC6,Yes,https://de.fi/rekt-database/TrollFace,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+EOS,ETH,0X86FA049857E0209AA7D9E616F7EB3B3B78ECFDB0,Yes,https://de.fi/rekt-database/EOS,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Valorant Finance,BSC,0X7D0A7C00F9BB62AAF2C811C56716AB96AD216546,Yes,https://de.fi/rekt-database/Valorant Finance,0.0,0.0,1,0,0,0,0,0,Address Restrict
+PolyGoose Token,Polygon,0XB81EA7581AA24C4CA0E8FC99918DA7AE60139A87,Yes,https://de.fi/rekt-database/PolyGoose Token,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+Cheetah Token,Polygon,0XC0AF9CC9826E541489D02C0D2FA6ECA0FE517E20,Yes,https://de.fi/rekt-database/Cheetah Token,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Stonks Token,BSC,0XB966150C7A0150ED4EA979E04F18D109301AAB95,Yes,https://de.fi/rekt-database/Stonks Token,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+Golden Bar Farm,BSC,0XDEC72BBC3365646FE0267FC08CD05F79C4BE0060,Yes,https://de.fi/rekt-database/Golden Bar Farm,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Fire Swap,BSC,0X359EF5F20C07B1F8E76C69399789FC7D4FFAC912,Yes,https://de.fi/rekt-database/Fire Swap,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+Polysafemoon,Polygon,0XFD99FC6C75BF49C8DE18CC706C478B7349FE2777,Yes,https://de.fi/rekt-database/Polysafemoon,0.0,1.0,1,1,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Mortal Kombat,BSC,0X26A1C3449A43C13F72452247996F904707D5E91D,Yes,https://de.fi/rekt-database/Mortal Kombat,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Dragonfly,BSC,0XAD2FC798C6FF076545BC023FBD0FA43633AD4DF9,Yes,https://de.fi/rekt-database/Dragonfly,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+WindSwap,BSC,0XAFAD6387E0B83D73EB758A05F4D2E70DD54E2228,Yes,https://de.fi/rekt-database/WindSwap,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+Elongate Deluxe,ETH,0X348B7F3106B5DA47405332534D06069FF9CE4D1B,Yes,https://de.fi/rekt-database/Elongate Deluxe,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+StableMagnet,BSC,0XCD734B1F9B0B976DDC46E507D0AA51A4216A1E98,Yes,https://de.fi/rekt-database/StableMagnet,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+Delicacy DeFi,BSC,0X66B32CEE882D82A897A1F6102A18DA5AF6F01F6F,Yes,https://de.fi/rekt-database/Delicacy DeFi,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+DEFI100,BSC,0X9D8AAC497A4B8FE697DD63101D793F0C6A6EEBB6,Yes,https://de.fi/rekt-database/DEFI100,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Fairmoon,BSC,0XCA578AFEE65FD2268D383F8FC4A9FC6AE1D2DEF0,Yes,https://de.fi/rekt-database/Fairmoon,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Static,ETH,0XF006E192878146ECC5F1FDEE02AF19713076F862,Yes,https://de.fi/rekt-database/Static,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+NeedForSpeed Finance,ETH,0X77B97372D1FEB50F79A9212FED50E3DAF0EB44DB,Yes,https://de.fi/rekt-database/NeedForSpeed Finance,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+YZY DAO,ETH,0X6CA2CC52BB2CB67DD952E73B8786EB3A368B484C,Yes,https://de.fi/rekt-database/YZY DAO,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Horizon Finance,BSC,0XA0A81B5A8CAEDDDB0E6C81D3E07AAA4EA5314452,Yes,https://de.fi/rekt-database/Horizon Finance,1.0,0.0,1,1,0,0,0,0,"Hidden Balance Modification,Address Restrict,Amount Restrict"
+Turtledex,BSC,0XFF8888D4F46ED54BBBABF554D81B65EF3596B12C,Yes,https://de.fi/rekt-database/Turtledex,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Dragonswap,BSC,0X105B81A13ECBB92773A7B9854D125CB7478B8340,Yes,https://de.fi/rekt-database/Dragonswap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+LaserSwap Cash,BSC,0XED741DB80BA7C18454E674B8230364511782F5FA,Yes,https://de.fi/rekt-database/LaserSwap Cash,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Contribute Protocol,ETH,0XF776E108E50560075F69B6754CAE708975E74A2C,Yes,https://de.fi/rekt-database/Contribute Protocol,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+DiceSwap,BSC,0X730E05BFBF01BB578887E1F87DF2B58FD908A6BF,Yes,https://de.fi/rekt-database/DiceSwap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+KoiSwap,BSC,0X5CA6B72FA6FF2D27B941C0956F0808D9BBA2EFF9,Yes,https://de.fi/rekt-database/KoiSwap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+MoltenSwap,BSC,0X35BC82C530E3B80DC038AFE2B721723F99047A8D,Yes,https://de.fi/rekt-database/MoltenSwap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Meerkat Finance,BSC,0XC65F62D372AA50E99B2A564DDB418A6BC84FAA15,Yes,https://de.fi/rekt-database/Meerkat Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Mars Farm,BSC,0XA9BA5A49AE258788B5DA7985926AD6C71BEAF879,Yes,https://de.fi/rekt-database/Mars Farm,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+Thunder Finance,BSC,0XD7526B3E1CB8C32900B51C4BD8CDA85872407B20,Yes,https://de.fi/rekt-database/Thunder Finance,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+Wallstreetswap Finance,BSC,0X2DC38868A9215A1347C6FD8480D4A127DA4812EB,Yes,https://de.fi/rekt-database/Wallstreetswap Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+NoNAME,ETH,0X09FF2267EDA5F1E99DB5B0DDD85555A7B46C76BB,Yes,https://de.fi/rekt-database/NoNAME,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Sakura DeFi,ETH,0XF05731DF070AD8E6058D07E620E2F50BFA78E4C2,Yes,https://de.fi/rekt-database/Sakura DeFi,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Tranquility Defi,ETH,0X0BB033ED58BD5D19BC732249BCD8FCEFF53AEDF6,Yes,https://de.fi/rekt-database/Tranquility Defi,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Orbit Swap,BSC,0XC993E816A84F7FF5F988EA660A043E877E297AF6,Yes,https://de.fi/rekt-database/Orbit Swap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Tin Finance,BSC,0XD248537D601F8E062DD36C8E7D26302D51CC653A,Yes,https://de.fi/rekt-database/Tin Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+PopcornSwap,BSC,0XA532C7FC2C912DB822DBDC14A020C7F1B62B5141,Yes,https://de.fi/rekt-database/PopcornSwap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Elastic Staking,ETH,0X88F639186AEE2FC903DA4FE5742DF35B760225E8,Yes,https://de.fi/rekt-database/Elastic Staking,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Game Swap Exchange,ETH,0X681B24478E9F7E31EE3B5B7F807C9151E46AA165,Yes,https://de.fi/rekt-database/Game Swap Exchange,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+WOLF Protocol,ETH,0X3CCF0306D214B6AD4E8315C5C31A2B7F32B649D8,Yes,https://de.fi/rekt-database/WOLF Protocol,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Nifity,ETH,0X44436DAD31D1AD018312A3EB7586103AC638E1E7,Yes,https://de.fi/rekt-database/Nifity,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Rbase Finance,ETH,0XE8B251822D003A2B2466EE0E38391C2DB2048739,Yes,https://de.fi/rekt-database/Rbase Finance,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Bio Farm,ETH,0XAE8F1356EC073ACCDD4BF5914D37A44DFD954A0D,Yes,https://de.fi/rekt-database/Bio Farm,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Dipex,ETH,0XBCE67604C08C4839980C32485657F63211C73E14,Yes,https://de.fi/rekt-database/Dipex,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Xdef finance,ETH,0X1B0E620FFE9D4880B934925BCAA0B13306658BED,Yes,https://de.fi/rekt-database/Xdef finance,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Slicer Finance,ETH,0X1DAFAC57C2F74CBC2736486309A009880CE4CBFC,Yes,https://de.fi/rekt-database/Slicer Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+GrowBase Finance,ETH,0XAE47FDAA99E9B9413805605AF4B979A82E24CC59,Yes,https://de.fi/rekt-database/GrowBase Finance,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Mother of All Ponzis,ETH,0XE5FB5FEBBEF64588DCBA54AEB643D05A8ED02B91,Yes,https://de.fi/rekt-database/Mother of All Ponzis,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Decentralized Privacy,ETH,0X8E8FE3ADD2AB97DEE73636D87D7CFF113FD09746,Yes,https://de.fi/rekt-database/Decentralized Privacy,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Prophet Project,ETH,0XD7D84E9DF527882149D9C5908A3937107724B325,Yes,https://de.fi/rekt-database/Prophet Project,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Overbase Finance,ETH,0XE202529BC704D6297A53D60933616803678E2644,Yes,https://de.fi/rekt-database/Overbase Finance,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Potatos Finance,BSC,0XEB0035F39525319C5CDD814DE3459E185243DD94,Yes,https://de.fi/rekt-database/Potatos Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+UnlimitedBase Finance,ETH,0X2FE06398BEDBAD27CBFCBB399EB616629540EB4D,Yes,https://de.fi/rekt-database/UnlimitedBase Finance,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+TRBAS3,ETH,0X43EB8277B06EC9A6B6EA32953C2AC34C18C44D02,Yes,https://de.fi/rekt-database/TRBAS3,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Reflation,ETH,0XDC65D31B94DBC5188EE5E01C22618537E5E86BAC,Yes,https://de.fi/rekt-database/Reflation,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+CREW,ETH,0XF212F5F479801606E4EEE5ECB150D09CD16320F3,Yes,https://de.fi/rekt-database/CREW,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+YFFS Finance,ETH,0X90D702F071D2AF33032943137AD0AB4280705817,Yes,https://de.fi/rekt-database/YFFS Finance,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+DEFIBase,ETH,0X154F0DCE06EB0E7EA5D6CF1BC70039CA22B5FB17,Yes,https://de.fi/rekt-database/DEFIBase,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+GoldenFarm,BSC,0X1D5FAB22D056428CAE676AA11C0D5F31647B69E6,Yes,https://de.fi/rekt-database/GoldenFarm,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+CoinSWOP,ETH,0X191BAFE4E3888EC289753C7D592634E3ABE1EE14,Yes,https://de.fi/rekt-database/CoinSWOP,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Twerk Finance,ETH,0XF0B47EE3D3BDBEF94999B2B8F4B81A52FBE2E3ED,Yes,https://de.fi/rekt-database/Twerk Finance,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Ba5ic finance,ETH,0XCD6C56A778681A969AED4EA09DCB2AD8D81D4D36,Yes,https://de.fi/rekt-database/Ba5ic finance,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Solv3 network,ETH,0XA2FFFDC6EFB2B76109519F23D84D3F6122E1D639,Yes,https://de.fi/rekt-database/Solv3 network,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Compounder Finance,ETH,0X7EF1081ECC8B5B5B130656A41D4CE4F89DBBCC8C,Yes,https://de.fi/rekt-database/Compounder Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Yearnspace,ETH,0X93A8B61C4707EFE76A88CAE8DC226D9BF77E9405,Yes,https://de.fi/rekt-database/Yearnspace,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Hype Bet,ETH,0XF6BCF98EBE20AB7B68B3D703652E0029115B4A7A,Yes,https://de.fi/rekt-database/Hype Bet,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Hypechill fund,ETH,0X0FE5FDF01B48008DC68FC32E8FB7E0D93CA99BC5,Yes,https://de.fi/rekt-database/Hypechill fund,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Cover protocol,ETH,0X5A7A0AD8D92FBEEE4A9A68D35CD29FE248CAD790,Yes,https://de.fi/rekt-database/Cover protocol,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+ELLA,ETH,0X0BC7127B00F232DE924F683F9340E01A9650D533,Yes,https://de.fi/rekt-database/ELLA,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Deriswap,ETH,0X846D152216146C77C81AF3A1657790ED8BA69281,Yes,https://de.fi/rekt-database/Deriswap,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Rotex,ETH,0X079DE196D5E8BABCA45F7D621FE0127F4DC753D9,Yes,https://de.fi/rekt-database/Rotex,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Compasswap Token,BSC,0X073BCC5E45263077F4269CD126905333564B852C,Yes,https://de.fi/rekt-database/Compasswap Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Rubick Finance,ETH,0X960A223F27B474DE35F05B27210CC62CF7BDB1EB,Yes,https://de.fi/rekt-database/Rubick Finance,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+MTI Finance,ETH,0X86D3F38EDAF7E7959E5D8E6AEA5AD3187B78C346,Yes,https://de.fi/rekt-database/MTI Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+SAV3R,ETH,0XDF8AB83A6E4B868D140808810B0875FD1CDC2417,Yes,https://de.fi/rekt-database/SAV3R,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Walletreum,ETH,0X15BCDFAD12498DE8A922E62442AE4CC4BD33BD25,Yes,https://de.fi/rekt-database/Walletreum,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+CYBER SOLIDITY,ETH,0X14F8D4FF4348FD42A976A67A017C86B434A63853,Yes,https://de.fi/rekt-database/CYBER SOLIDITY,0.0,0.0,1,0,0,0,0,0,Address Restrict
+POKeFARM,ETH,0X61129781BDB5468B1BC4476FC696AC5EF06FA5F0,Yes,https://de.fi/rekt-database/POKeFARM,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Pump Farm,ETH,0X6B4B3B0B0130C9B4DDA7C6FB4602BEEFBBF10672,Yes,https://de.fi/rekt-database/Pump Farm,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Relay3rV1,ETH,0XF771733A465441437ECF64FF410E261516C7C5F3,Yes,https://de.fi/rekt-database/Relay3rV1,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Star Swap,ETH,0X9867A6C0847829E93FB6FBB19667083CB5D1AF93,Yes,https://de.fi/rekt-database/Star Swap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+YFFC,ETH,0XEA004E8FA3701B8E58E41B78D50996E0F7176CBD,Yes,https://de.fi/rekt-database/YFFC,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ShabuVault,ETH,0XE2BD4670DA28E7C0D90F0C7EC41B79515893A4E3,Yes,https://de.fi/rekt-database/ShabuVault,0.0,1.0,0,0,0,0,1,1,"Hidden Mint/Burn,Modifiable Tax Address,Modifiable Tax Rate"
+Kper Network,ETH,0XC89B4A8A121DD3E726FE7515E703936CF83E3350,Yes,https://de.fi/rekt-database/Kper Network,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Hatch DAO,ETH,0X6F3009663470475F0749A6B76195375F95495FCB,Yes,https://de.fi/rekt-database/Hatch DAO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+CBDAO,ETH,0X4639CD8CD52EC1CF2E496A606CE28D8AFB1C792F,Yes,https://de.fi/rekt-database/CBDAO,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Vegetables Finance,ETH,0X3D92941F6EBB2E131C2AF6F7725494AED8763C5B,Yes,https://de.fi/rekt-database/Vegetables Finance,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Tomatos,ETH,0X2306934CA884CAA042DC595371003093092B2BBF,Yes,https://de.fi/rekt-database/Tomatos,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+LV Finance,ETH,0XA77F34BDE382522CD3FB3096C480D15E525AAB22,Yes,https://de.fi/rekt-database/LV Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+WinPlay,ETH,0X4690D8F53E0D367F5B68F7F571E6EB4B72D39ACE,Yes,https://de.fi/rekt-database/WinPlay,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Eth Contingency,ETH,0XC96EEC418B50C538C3F3E32E71575DA068A97401,Yes,https://de.fi/rekt-database/Eth Contingency,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+SPIDER,ETH,0X0FAFC0C448C7074107E353AE728640C7A2BCBC77,Yes,https://de.fi/rekt-database/SPIDER,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Durianswap,BSC,0X5A39244D557981C31B368788D99AD6E64B82D557,Yes,https://de.fi/rekt-database/Durianswap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+VSJEFF FIGHT,BSC,0XEFFB1662699E0CF0EA55F9AB4D5FE040C95DE221,Yes,https://de.fi/rekt-database/VSJEFF FIGHT,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Turtledex Token,BSC,0XC4957A864245AA4373BE1F33AE24E93876B7DFE1,Yes,https://de.fi/rekt-database/Turtledex Token,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+Naturel,BSC,0X7E057891A6CA27ECED719DC781D7A45308DD6C70,Yes,https://de.fi/rekt-database/Naturel,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+BOGDANoFF,BSC,0XCFE4D62D41873DE1A4E57B5935C930D3DA2D1018,Yes,https://de.fi/rekt-database/BOGDANoFF,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+TerraCycle,BSC,0X1DE28723445BE1463237D3F8546136139FB194A8,Yes,https://de.fi/rekt-database/TerraCycle,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+Bunny Token,BSC,0XC9849E6FDB743D08FAEE3E34DD2D1BC69EA11A51,Yes,https://de.fi/rekt-database/Bunny Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Pizza finance,ETH,0X1D8DCE63D49252DD8ECA38B1ABFE4D3F160E0647,Yes,https://de.fi/rekt-database/Pizza finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Mooswap,ETH,0XDA5F5E63084F2BA6EEF845CEA653913B46C7FE95,Yes,https://de.fi/rekt-database/Mooswap,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+bitqy,ETH,0XF0F8B0B8DBB1124261FC8D778E2287E3FD2CF4F5,Yes,https://de.fi/rekt-database/bitqy,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ShipChain,ETH,0XE25B0BBA01DC5630312B6A21927E578061A13F55,Yes,https://de.fi/rekt-database/ShipChain,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Titanium BAR,ETH,0XEE8BD1502C3E9F6C543781467C01592AC51CFBB8,Yes,https://de.fi/rekt-database/Titanium BAR,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Enigma,ETH,0XF0EE6B27B759C9893CE4F094B49AD28FD15A23E4,Yes,https://de.fi/rekt-database/Enigma,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Ethereum Metamask,ETH,0XC2FBAB8DE59F2671D55137DFD837F68E9A040867,Yes,https://de.fi/rekt-database/Ethereum Metamask,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+sXRP,ETH,0XA2B0FDE6D710E201D0D608E924A484D1A5FED57C,Yes,https://de.fi/rekt-database/sXRP,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+XSwap,ETH,0X9B06D48E0529ECF05905FF52DD426EBEC0EA3011,Yes,https://de.fi/rekt-database/XSwap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Kore,ETH,0XA866F0198208EB07C83081D5136BE7F775C2399E,Yes,https://de.fi/rekt-database/Kore,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+Gladius Token,ETH,0X71D01DB8D6A2FBEA7F8D434599C237980C234E4C,Yes,https://de.fi/rekt-database/Gladius Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Bonu Inu,ETH,0XD192E5D224FAA6209936B572E3C6D60F89EECB23,Yes,https://de.fi/rekt-database/Bonu Inu,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+MilitaryDoge,BSC,0X32BA7C5E4B881ECF282BC5C19F850F4E72C063F3,Yes,https://de.fi/rekt-database/MilitaryDoge,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Jejudoge V2,ETH,0XE4E873B8B73B290913CE7F26B55A2E809E1B9013,Yes,https://de.fi/rekt-database/Jejudoge V2,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Ethelon Finance,ETH,0X3DB5530EBF062FB0069D80730A0B43920D7B6B1A,Yes,https://de.fi/rekt-database/Ethelon Finance,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Pluto Rocket Finance,BSC,0X2081B7AEFBF9E26F5733FB809D5443F073DF062A,Yes,https://de.fi/rekt-database/Pluto Rocket Finance,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Green Swap,ETH,0X96C9FCD45BEA05B848E6E8551AD33D4D08194E4B,Yes,https://de.fi/rekt-database/Green Swap,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Paragon,ETH,0X7728DFEF5ABD468669EB7F9B48A7F70A501ED29D,Yes,https://de.fi/rekt-database/Paragon,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+Shopin,ETH,0X6175F6F85339F1E56AFFAC5A68CBF8297969004D,Yes,https://de.fi/rekt-database/Shopin,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Gains Farm,ETH,0X544288176BB6D7D198302A2D18FAD38442E69B25,Yes,https://de.fi/rekt-database/Gains Farm,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ASG Token,BSC,0X8E481946640B04109AFAD9E0C07925494984BDC9,Yes,https://de.fi/rekt-database/ASG Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+AirToken,ETH,0X27DCE1EC4D3F72C3E457CC50354F1F975DDEF488,Yes,https://de.fi/rekt-database/AirToken,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Tuckoo Finance,BSC,0X0371AFBE3F2F470949EA65E09E3332810DFC7902,Yes,https://de.fi/rekt-database/Tuckoo Finance,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+TravelCake,BSC,0X5C58AC3BE5AC6C4643BCF8C14C6E4DF789BA5672,Yes,https://de.fi/rekt-database/TravelCake,0.0,0.0,1,0,0,0,0,0,Address Restrict
+JamTruAdr,Polygon,0XC20B743316E7701A281167213FB266AA7651D99D,Yes,https://de.fi/rekt-database/JamTruAdr,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Nabox,BSC,0X4F75869A06535161515DF34B84960F58C5C41DA1,Yes,https://de.fi/rekt-database/Nabox,0.0,0.0,1,0,0,0,1,0,"Address Restrict,Modifiable Tax Address"
+Fuck Thanos,ETH,0X3E3C02AB542463B9C7A990AE2B5CEA40175B233D,Yes,https://de.fi/rekt-database/Fuck Thanos,0.0,0.0,1,0,0,0,1,0,"Address Restrict,Modifiable Tax Address"
+Data Transaction Token,ETH,0X24DCC881E7DD730546834452F21872D5CB4B5293,Yes,https://de.fi/rekt-database/Data Transaction Token,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Karura,BSC,0X74FE7ECC0A5131A4A980D6B12667184954B4C752,Yes,https://de.fi/rekt-database/Karura,0.0,0.0,1,0,0,0,1,0,"Address Restrict,Modifiable Tax Address"
+DTP,BSC,0X025D5F67D58C9ED14503EDFFA3EC3578AF615854,Yes,https://de.fi/rekt-database/DTP,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+CoinCoin,BSC,0X91D160E312801B9FF13B220516A8F510BAD7D10F,Yes,https://de.fi/rekt-database/CoinCoin,0.0,0.0,1,0,0,0,0,0,Address Restrict
+ICONFoundation,BSC,0X05D84A869E14D538F8A70A0C79848F10D2F76542,Yes,https://de.fi/rekt-database/ICONFoundation,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+Wealthfront,ETH,0XA837EFD4500966A45148073F57FA855205597612,Yes,https://de.fi/rekt-database/Wealthfront,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ANT1GOON,ETH,0X61DB2FB090D890EA9FC09DD837FD47CF2F92EE26,Yes,https://de.fi/rekt-database/ANT1GOON,0.0,0.0,1,0,1,0,0,0,"Address Restrict,Modifiable External Call"
+Exbase Finance,ETH,0X15C5339954A1016C77732EA626CC714B0D37DD6A,Yes,https://de.fi/rekt-database/Exbase Finance,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Xdef finance,ETH,0X5166D4CE79B9BF7DF477DA110C560CE3045AA889,Yes,https://de.fi/rekt-database/Xdef finance,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Kanva,ETH,0X2D176650B1D3E69E80C2DD8ACF4E7D590A16BDA7,Yes,https://de.fi/rekt-database/Kanva,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Sudorare,ETH,0X5404EFAFDD8CC30053069DF2A1B0C4BA881B3E1E,Yes,https://x.com/PeckShieldAlert/status/1561967493912363008,0.0,0.0,0,0,0,0,0,0,None
+DRAC Network,ETH,0X10F6F2B97F3AB29583D9D38BABF2994DF7220C21,Yes,https://twitter.com/PeckShieldAlert/status/1551409593397350401,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+DHE,BSC,0X11CBC781DADAAD13FC3A361772C80B1C027820AF,Yes,https://twitter.com/CertiKAlert/status/1539031511114063873,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+ElonMVP,BSC,0X3E597EA168A85AA2AE5E2C4333665BCD875ED10F,Yes,https://twitter.com/PeckShieldAlert/status/1536223027717111808,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Pokemoney,BSC,0X32FF5B4C3B1744F0344D96FA2F87799ED2805749,No,https://twitter.com/PeckShieldAlert/status/1530122357125181441,0.0,0.0,0,0,0,0,0,0,None
+MaxAPY Finance,BSC,0XCB6CD204D783DC8D66896A6DEF5867D332228D7B,Yes,https://twitter.com/PeckShieldAlert/status/1516676658350428160,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+BNB DEFI,BSC,0X455DEDACBE41C178953119847F2B95E2D9AD0A1D,Yes,https://twitter.com/PeckShieldAlert/status/1508626057913520128,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+BuccaneerFi,BSC,0X831467B7B6BF9C705DC87899D48B57EE55C8D5CC,Yes,https://twitter.com/PeckShieldAlert/status/1508337292020445187,0.0,0.0,0,0,0,0,0,0,None
+BabyMuskCoin,BSC,0XAF507F297B5EFF8339315C4226977972734438B0,Yes,https://twitter.com/CertiKCommunity/status/1491483014467047437?s=19,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+IEGT,BSC,0X8D07F605926837EA0F9E1E24DBA0FB348CB3E97D,Yes,https://slowmist.medium.com/beware-of-covert-rug-pulls-exit-scams-driven-by-contract-storage-manipulation-3631c8cbe1a,1.0,0.0,1,1,0,0,0,1,"Hidden Balance Modification,Address Restrict,Amount Restrict,Modifiable Tax Rate"
+VPANDA DAO,BSC,0X2A8DBA970BA9750FA1C81B1BE4C0E19C1AACCA9D,Yes,https://twitter.com/PeckShieldAlert/status/1670745691440943106,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Swaprum,Arbitrum,0X2AE25460C44D578E6F41AB900A7A5425B6492C16,Yes,https://twitter.com/hackenclub/status/1659499442041417729?s=46&t=DLwbX9Nw4QECiyZQ0av-fg,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+DMAN,ETH,0X9A3FB36BF72A387FCC821A38EE9F50F1A0EB8CBD,Yes,https://hacked.slowmist.io/search/,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+GNS,ETH,0XE7E63E244C52B2230666E263657BA8DB2B6B3705,Yes,https://hacked.slowmist.io/search/,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+PEPG,ETH,0X25D8F027FD25EECBCD812521FB2F75F175807A91,Yes,https://hacked.slowmist.io/search/,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+WSB Coin,ETH,0X0414D8C87B271266A5864329FB4932BBE19C0C49,Yes,https://de.fi/rekt-database/wsb,0.0,0.0,0,0,0,0,0,0,None
+Kokomo Finance,OP.ETH,0X7DA25BC4CFAED3F29414C6779676E53B19A356F5,Yes,https://de.fi/rekt-database/kokomo_finance,0.0,0.0,0,0,0,0,0,0,None
+ArbiSwap,Arbitrum,0X9DB8A10C7FE60D84397860B3AF2E686D4F90C2B7,Yes,https://arbiscan.io/tx/0x54ca307057b38110f60fce515ba35321fde82b876b4a2abf77368924903216e1,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Flare,BSC,0X85AA3F04E539E426CBB55C0D584EA99CFE1D96A1,Yes,https://de.fi/rekt-database/flare,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Julia,ETH,0XA7CD93ED3133D82781CC17460FE1500B69A1B514,Yes,https://de.fi/rekt-database/julia,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Memecoin,ETH,0X3417D4FA067806F8F70C2A692548048962B7AC45,Yes,https://de.fi/rekt-database/memecoin,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Jewels,ETH,0XA2E8B27500D3BAE6DAAD122BDD8F405B65752175,Yes,https://de.fi/rekt-database/jewels,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+Gemini Ai,ETH,0XDBC0E0C94707256AC2DE70F0B0E182C9287663F6,Yes,https://twitter.com/PeckShieldAlert/status/1732735122452201617,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+TITANX,ETH,0XAF3302F7A83CB4E66B8F9450B00E7644E605878D,Yes,https://de.fi/rekt-database/titanx,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+FileSystemVideo,BSC,0XE9C7A827A4BA133B338B844C19241C864E95D75F,Yes,https://de.fi/rekt-database/filesystemvideo,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+DollarDoge,BSC,0X454876D97098528D83E661ED3DDF19B10E397352,Yes,https://de.fi/rekt-database/dollardoge,0.0,0.0,0,1,0,0,0,1,"Amount Restrict,Modifiable Tax Rate"
+Web3Memes,BSC,0XBAD6EA539B1B9F150D6D0B95EF4F45AF70BF0BCD,Yes,https://de.fi/rekt-database/web3memes,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+TheCatWorld,BSC,0XF22807575D019A0192395D8A5244A8BFC51D9C58,Yes,https://de.fi/rekt-database/thecatworld,0.0,1.0,0,1,0,1,0,1,"Hidden Mint/Burn,Amount Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+Elonmoon,BSC,0X6F8A43AF478C3991572D655A994CCDD6405D8CDE,Yes,https://de.fi/rekt-database/elonmoon,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+Moonbird,BSC,0X3B23A0FFBC53198D86FA5927E8EE32F7EF699A14,Yes,https://rugdoc.io/project/moonbird-finance/,1.0,0.0,0,1,0,0,0,1,"Hidden Balance Modification,Amount Restrict,Modifiable Tax Rate"
+GOAT,ETH,0X74EDAF28FC4B9E6A1618D613839DAAF6A9D075DB,Yes,https://x.com/PeckShieldAlert/status/1523550360140664832,0.0,1.0,0,1,0,0,0,1,"Hidden Mint/Burn,Amount Restrict,Modifiable Tax Rate"
+SHIDAO,BSC,0XC59D46CE32D8652536B5AE96DED0242E04923FD6,Yes,https://x.com/CertiKAlert/status/1529620537248567296,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+Magic,BSC,0X37760475953A7B37FDCEE8D6C7506D9624565C84,Yes,https://de.fi/rekt-database/Magic,0.0,0.0,1,0,0,0,1,0,"Address Restrict,Modifiable Tax Address"
+SportMove,BSC,0X254433199984F5F43FFDA965D83A927635AFD300,Yes,https://de.fi/rekt-database/Sport%20Move,0.0,1.0,1,0,0,1,0,1,"Hidden Mint/Burn,Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+BreedTech,BSC,0X60B10129E83451B974260918A7A8E5AE3C44512B,Yes,https://de.fi/rekt-database/BreedTech,0.0,1.0,1,0,0,1,0,1,"Hidden Mint/Burn,Address Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+LlamaCoin,BSC,0X4D0710507B655B4038642CE0716C6E7E673C7597,Yes,https://de.fi/rekt-database/LlamaCoin,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+ElronToken,BSC,0XF17F7827403C166FDA782CEB17B29900D1A2AD15,Yes,https://de.fi/rekt-database/Elron%20Token,0.0,0.0,0,0,0,0,0,0,None
+NeotericFinance,BSC,0X733A90389DB7D9C246D064A257E5652F7BE36B8A,Yes,https://de.fi/rekt-database/Neoteric%20Finance,0.0,0.0,1,1,0,1,0,1,"Address Restrict,Amount Restrict,TimeStamp Restrict,Modifiable Tax Rate"
+RaccoonNetwork,BSC,0X371CF78DBA846E253EA3E714E4A749EA722A6258,Yes,https://de.fi/rekt-database/Freedom%20Protocol%20%7C%20Raccoon%20Network,0.0,1.0,0,1,0,0,0,1,"Hidden Mint/Burn,Amount Restrict,Modifiable Tax Rate"
+LarpFinance(LARP),ETH,0X422252B656BCB93F2C3823737BF0BEA0DA5B02AB,Yes,https://de.fi/rekt-database/LARP,0.0,0.0,1,0,0,0,0,0,Address Restrict
+MetaverseBNQ,BSC,0X3EC24487F8511E7E5E03D069563A7ABECDAD9452,Yes,https://de.fi/rekt-database/Brand%20New%20Quest%20Metaverse,0.0,0.0,0,0,0,0,1,1,"Modifiable Tax Address,Modifiable Tax Rate"
+FIOProtocol,Polygon,0X4303D63AA85574C0EADA2116791A8318D9A07F4D,Yes,https://de.fi/rekt-database/FIO%20Protocol,0.0,0.0,1,0,0,0,1,1,"Address Restrict,Modifiable Tax Address,Modifiable Tax Rate"
+Dogioh,ETH,0X790540FF6117205AC6EF132A5782BA4F4A611355,Yes,https://de.fi/rekt-database/Dogioh,0.0,0.0,0,0,0,0,1,1,"Modifiable Tax Address,Modifiable Tax Rate"
+MarvelMetauniverse,BSC,0X706BABD2A336FD61653CF8D13DDEEFF66CF624BF,Yes,https://de.fi/rekt-database/Marvel%20Metauniverse,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+GalaxyCoin,BSC,0X2629C46C0700222A18194B5EDE91752FAB626631,Yes,https://de.fi/rekt-database/Galaxy%20Coin,1.0,0.0,0,0,0,0,0,1,"Hidden Balance Modification,Modifiable Tax Rate"
+MetaMagicCoin,BSC,0XE62935529B59C1C9A3F5D01323F791E309B007C3,Yes,https://de.fi/rekt-database/Meta%20Magic%20Coin,0.0,0.0,0,0,0,0,1,1,"Modifiable Tax Address,Modifiable Tax Rate"
+TSUKA,BSC,0X4E8842F6CAF3F64037DF67C8427000DAE207F56C,Yes,https://de.fi/rekt-database/TSUKA,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+BNQToken,BSC,0X06C61725B98F1EF191D41E6B4F1E0AA50BD465D5,Yes,https://de.fi/rekt-database/BNQ%20Token,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+HPD,BSC,0X70FAF21D51E663A24CFFEE1F1C22ED94C975CC7C,Yes,https://de.fi/rekt-database/HPD,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+SherLOCK,BSC,0X817B5054392199FED877E1DFDF4BDA7234691E8E,Yes,https://de.fi/rekt-database/SherLOCK,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+TheMicroElements(TME),BSC,0XD631464F596E2FF3B9FE67A0AE10F6B73637F71E,Yes,https://de.fi/rekt-database/The%20Micro%20Elements,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+KHABYFanToken(KFT),BSC,0XE1E17B24F32CFE85A3C1AB63F14082D70592F6EE,Yes,https://de.fi/rekt-database/KHABY%20Fan%20Token,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+DDCX,BSC,0X2A895AFAEB582B5C914DAA3DEECC08C9705C9FBC,Yes,https://de.fi/rekt-database/DDCX,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+BTDog,BSC,0X3E7960A0CD30DFDE3C57E071936B98C7E98C8303,Yes,https://de.fi/rekt-database/BTDOG,0.0,0.0,0,0,0,0,1,0,Modifiable Tax Address
+SpaceCat(SCAT),BSC,0X22A681B2B57050AB42CB4A426D56A733C6CA859A,Yes,https://de.fi/rekt-database/SCAT,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Fake PIToken,Polygon,0X0022167E3B9F409E1FF6BB206EC6B276C372B277,Yes,https://de.fi/rekt-database/Fake PIToken,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+Lifeform (fake),ETH,0X829D2578AA1B013665E421AE894D055DA2120CC8,Yes,https://de.fi/rekt-database/Lifeform (fake),0.0,0.0,1,0,0,0,0,0,Address Restrict
+SAGA (Fake),BSC,0X77FBA84956AD63713652DDD1A574AD2C8F1BCDCF,Yes,https://de.fi/rekt-database/SAGA (Fake),0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Fake EigenLayer,ETH,0X1A4F05BD24C95147608657C26CD931C7B246CD21,Yes,https://de.fi/rekt-database/Fake EigenLayer,0.0,0.0,0,0,0,0,0,0,None
+Ore,ETH,0X7B6FF2312C22177458B24A441A0B2BF9528DAC57,Yes,https://de.fi/rekt-database/Ore,0.0,0.0,0,0,0,0,0,0,None
+LongNoseDog,BSC,0XFAE06DE70E34D7390F1826DBFC7253E4328F29A5,Yes,https://de.fi/rekt-database/LongNoseDog,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Xai,BSC,0X1D152E6352493FCE07F17A90823CD21C51815C81,Yes,https://de.fi/rekt-database/Xai,0.0,0.0,0,0,0,0,0,0,None
+Do Right,BSC,0X920A7CBD0B5AED31827385783E7AF245331CA9EE,Yes,https://de.fi/rekt-database/Do Right,0.0,0.0,0,0,0,0,0,1,Modifiable Tax Rate
+Abattoir of Zir,ETH,0X1A59BE240AA89685145967322DFAB3EBA7E574DB,Yes,https://de.fi/rekt-database/Abattoir of Zir,0.0,0.0,0,0,0,0,0,0,None
+CKD TOKEN,BSC,0X583E9B5EBB7B67157F7817CE3D57A2604FC83881,Yes,https://de.fi/rekt-database/CKD TOKEN,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+CoinPanda_ETH,ETH,0XBBDCE1ED0986106E9EFCA252A1B24AAF6C34876C,Yes,https://de.fi/rekt-database/CoinPanda_ETH,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+Changpeng Zhao,BSC,0X7AB51257164F6E9E6ED932AA676E3E6479F1B732,Yes,https://de.fi/rekt-database/Changpeng Zhao,0.0,0.0,0,0,0,0,0,0,None
+RepubliK,BSC,0XA024FCEAF429CA78B0B2A18FD274FBE229B1ED0E,Yes,https://de.fi/rekt-database/RepubliK,1.0,0.0,0,0,1,0,0,0,"Hidden Balance Modification,Modifiable External Call"
+IPMB,BSC,0XB11D8DD1D5A13BBDD80C8C3E9C28F7ABD6714FAB,Yes,https://de.fi/rekt-database/IPMB,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Web,BSC,0XC6E8B0A6249E51B5B55B85AF847EF884517604D6,Yes,https://de.fi/rekt-database/Web,1.0,0.0,0,0,1,0,0,0,"Hidden Balance Modification,Modifiable External Call"
+DarkProtocol,BSC,0X106AABCDE28B1C6FD93ED99A5AE12DFC31813629,Yes,https://de.fi/rekt-database/DarkProtocol,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Builders NFT,BSC,0XDE0CF62D54A53F2C72A345BEA4C0E9B6158F0662,Yes,https://de.fi/rekt-database/Builders NFT,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+L7 DEX,BSC,0X8B1D897AE48A0F6EE118EAE829F2C1C8D48E44B7,Yes,https://de.fi/rekt-database/L7 DEX,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+IVY,BSC,0XF99F2AEC50ADFDE23CC67AB6240168B0A59F1D30,Yes,https://de.fi/rekt-database/IVY,0.0,1.0,1,0,0,0,1,0,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address"
+MarbleX,BSC,0X30D79364DDC7C4A88A8DC753389FABD4FCDE6B04,Yes,https://de.fi/rekt-database/MarbleX,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+CommEX,BSC,0XD1C3EE0F845BCC38A8CB9DC5337DFD5A372BB8ED,Yes,https://de.fi/rekt-database/CommEX,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Boost Coin,ETH,0X302CAE5DCF8F051D0177043C3438020B89B33218,Yes,https://de.fi/rekt-database/Boost Coin,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+Symbiosis,ETH,0XBE862864614FB652E663EA82FC3ADEAD65E73D29,Yes,https://de.fi/rekt-database/Symbiosis,0.0,0.0,0,0,0,0,0,0,None
+LayerZero,BSC,0X2266362F414BF2476C5465DC2EA953FE2A99AE1C,Yes,https://de.fi/rekt-database/LayerZero,0.0,0.0,0,0,0,0,0,0,None
+Friend Tech,ETH,0X2CF82A3AD32AA580110278022A6493B631044BEF,Yes,https://de.fi/rekt-database/Friend Tech,0.0,0.0,0,0,0,0,0,0,None
+KUKUCoin,ETH,0X593A3E0037C18237E153F9D00797926866EE923D,Yes,https://de.fi/rekt-database/KUKUCoin,0.0,0.0,0,0,0,0,0,0,None
+GGBOND,ETH,0XF6AF193B542CE3FD00F120A49E1A5C343F74CF4A,Yes,https://de.fi/rekt-database/GGBOND,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+Tommy VICE CITY,ETH,0X19273D7F057A0ED9AE63D3FA025A852C5A430829,Yes,https://de.fi/rekt-database/Tommy VICE CITY,0.0,0.0,0,0,0,0,0,0,None
+LK-99 Protocol,ETH,0X883E2496DF47C07C7F2987691F99D491328D98C1,Yes,https://de.fi/rekt-database/LK-99 Protocol,0.0,0.0,0,0,0,0,0,0,None
+DeriTrade,BSC,0X738EA75B01D8DB931B4374C6EBD3DE82D7D3A272,Yes,https://de.fi/rekt-database/DeriTrade,0.0,0.0,0,0,0,0,0,0,None
+One For The Books,ETH,0X2A763105E8ABF596F9FB1A3FD07E776A26720B08,Yes,https://de.fi/rekt-database/One For The Books,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Majin Buu,ETH,0XF746D527336E299CE53E2ED337C2668D6CFB7C5E,Yes,https://de.fi/rekt-database/Majin Buu,0.0,0.0,0,0,0,0,0,0,None
+RAIDEN GOD Thunder,ETH,0X13E9E6160B3E48CFC07B6B8C0AEED2EF3CC66BC9,Yes,https://de.fi/rekt-database/RAIDEN GOD Thunder,0.0,0.0,0,0,0,0,0,0,None
+Hu Tao Spirit Soother,ETH,0XC29284EF3551767B37A2CCBD54CFCBD30384B58C,Yes,https://de.fi/rekt-database/Hu Tao Spirit Soother,0.0,0.0,0,0,0,0,0,0,None
+zkSync Copycat,BSC,0X8F2775E4BE08055C7DD4EBF654628B183106A8E1,Yes,https://de.fi/rekt-database/zkSync Copycat,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Terk The Gorilla,ETH,0XEA05110CE800719CC041E5FE79490AF0D94D803F,Yes,https://de.fi/rekt-database/Terk The Gorilla,0.0,0.0,0,0,0,0,0,0,None
+Bare Bear,ETH,0X9D41227C99C75CCCBF4FC65CB3585A5798E77009,Yes,https://de.fi/rekt-database/Bare Bear,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+ROACH RACE,ETH,0XAC17A40635C3C3F824562B77E79CE2F5C5295BED,Yes,https://de.fi/rekt-database/ROACH RACE,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+Popeye the Sailor,ETH,0X0F5DD8D652B3910FEEBF6DAE75DF794A35E2FD93,Yes,https://de.fi/rekt-database/Popeye the Sailor,0.0,0.0,0,0,0,0,0,0,None
+Kaonashi the Faceless,ETH,0X3EB4FC424FAB9100A64C87DC19602ED03CB1B4B3,Yes,https://de.fi/rekt-database/Kaonashi the Faceless,0.0,0.0,0,0,0,0,0,0,None
+AORcoin,BSC,0X8E404E8CACE57DDB2E18978FDCC44753338F363A,Yes,https://de.fi/rekt-database/AORcoin,0.0,1.0,1,0,0,1,0,0,"Hidden Mint/Burn,Address Restrict,TimeStamp Restrict"
+Wettok Market,BSC,0XCED59C3249F20CA36FBA764BFDD9D94F471B3154,Yes,https://de.fi/rekt-database/Wettok Market,0.0,0.0,0,0,0,0,0,0,None
+Gandalf The Grey,ETH,0XF419707B7C8CC13FA2803E8AA57F248B20510319,Yes,https://de.fi/rekt-database/Gandalf The Grey,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Scooby Pepe,ETH,0X8E2AADA8069C2FCE1139DE697870E83F4145A8AB,Yes,https://de.fi/rekt-database/Scooby Pepe,0.0,0.0,0,0,0,0,0,0,None
+Toothless - How to train meme,ETH,0X807A7F15E3AA1B2188C71AB744369D422B2DE3AF,Yes,https://de.fi/rekt-database/Toothless - How to train meme,0.0,0.0,0,0,0,0,0,0,None
+ROBIN HOOD,ETH,0X5DB5BBD56BD5B5BD456B537B6759A768EA2883DE,Yes,https://de.fi/rekt-database/ROBIN HOOD,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+MOJO,ETH,0XB330C402506B61BA6E351DA7D217C4BB52364333,Yes,https://de.fi/rekt-database/MOJO,0.0,0.0,1,0,0,0,0,0,Address Restrict
+PAULY,ETH,0XF1F8444B084D8D92F121EC4194AB8EDDBC74CDC8,Yes,https://de.fi/rekt-database/PAULY,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+Agent Smith,ETH,0XE9BE1172E2A12DEADA42FD397FF8D4D9ED227A30,Yes,https://de.fi/rekt-database/Agent Smith,0.0,0.0,0,0,0,0,0,0,None
+AI C-3PO,ETH,0XA2036F15F47D6C85D9A9338390496032B9823CE5,Yes,https://de.fi/rekt-database/AI C-3PO,0.0,0.0,0,0,0,0,0,0,None
+fren,ETH,0X37941B3FDB2BD332E667D452A58BE01BCACB923E,Yes,https://de.fi/rekt-database/fren,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+The Onigiri Neko,ETH,0XB4615AAD766F6DE3C55330099E907FF7F13F1582,Yes,https://de.fi/rekt-database/The Onigiri Neko,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+PEPEHUB,ETH,0XC3C51C071E5F1ECA09575AC35E90956AE3B27311,Yes,https://de.fi/rekt-database/PEPEHUB,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+MIKE and SID Tokens,ETH,0X8B99BB8DDD8103CBECCC3B20C4B0038CA65A51AE,Yes,https://de.fi/rekt-database/MIKE and SID Tokens,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+DubaiCEO,ETH,0X4876C5892D975780405F1B73802221B2850FEB8E,Yes,https://de.fi/rekt-database/DubaiCEO,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+ArchWay Fake,BSC,0XE6EFF43CA45B23470E36C9148F1BEB24CA38D572,Yes,https://de.fi/rekt-database/ArchWay Fake,1.0,0.0,1,1,0,1,0,0,"Hidden Balance Modification,Address Restrict,Amount Restrict,TimeStamp Restrict"
+mCoin,BSC,0X6D86F0A41C3966CEF8EA139648DB707E912563C9,Yes,https://de.fi/rekt-database/mCoin,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Beamsplittr,ETH,0X05C9B6764A153FAF4262D3885A845AF694775953,Yes,https://de.fi/rekt-database/Beamsplittr,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+EthBread Token,BSC,0XC84E1748376781C09703C1292D9DD659EBFC0C8B,Yes,https://de.fi/rekt-database/EthBread Token,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+Greatest Of All Time (GOAT),ETH,0XCC63F8F2DEF2202F928B594FF80D8BA30D447D7E,Yes,https://de.fi/rekt-database/Greatest Of All Time (GOAT),0.0,0.0,0,0,0,0,0,0,None
+GUIDO The Mechanics,ETH,0X7907C5172ED24EB569F0C45141CE4E27851B9146,Yes,https://de.fi/rekt-database/GUIDO The Mechanics,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+BAT Token,BSC,0XBD2F6B7A19F2449675F7432D29D1DC1150CCD08F,Yes,https://de.fi/rekt-database/BAT Token,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+ETE Token,BSC,0X367F87879BB49117CC0D0E92EC65BB2AABB2B823,Yes,https://de.fi/rekt-database/ETE Token,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+OkayLetsGo,ETH,0X5DBB9F64CD96E2DBBCA58D14863D615B67B42F2E,Yes,https://de.fi/rekt-database/OkayLetsGo,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+SCT Token,BSC,0X4EE98216499B81A9942E7AA77970B68C792FF679,Yes,https://de.fi/rekt-database/SCT Token,1.0,0.0,0,1,0,0,0,0,"Hidden Balance Modification,Amount Restrict"
+MoveCash,BSC,0XF3DBDF718667874E19EF368721A10409345FC218,Yes,https://de.fi/rekt-database/MoveCash,1.0,0.0,1,0,0,0,0,0,"Hidden Balance Modification,Address Restrict"
+POOPEPE token,ETH,0X36206DEBFAF4C686BE01E5E68FDEA66D09B4319A,Yes,https://de.fi/rekt-database/POOPEPE token,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+BitPaid,BSC,0X40F75ED09C7BC89BF596CE0FF6FB2FF8D02AC019,Yes,https://de.fi/rekt-database/BitPaid,1.0,0.0,0,0,0,0,0,0,Hidden Balance Modification
+GN,ETH,0XC5019E129B75D380D3D837B8E609DEC6C8F5D044,Yes,https://de.fi/rekt-database/GN,1.0,0.0,1,1,0,0,0,0,"Hidden Balance Modification,Address Restrict,Amount Restrict"
+fcdep,BSC,0X66FFF5BB007C4885A00FC14BDB1EEE389B804EF7,Yes,https://de.fi/rekt-database/fcdep,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+ANT Token,BSC,0XD029FDBF7B826C97982F3DABE4F930D9148363FE,Yes,https://de.fi/rekt-database/ANT Token,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Move token,BSC,0XED0624512D6D4C8E6B1335D5039B53E82400E037,Yes,https://de.fi/rekt-database/Move token,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+ChainGPT,BSC,0X6E70EE54564298E7F1DC0523F8190AEF8529EBBF,Yes,https://de.fi/rekt-database/ChainGPT,0.0,0.0,0,0,1,0,0,0,Modifiable External Call
+Theory Craft Fames,BSC,0X5459B93A1BDF9CB027E70CDF7BFC450E41FDF326,Yes,https://de.fi/rekt-database/Theory Craft Fames,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+PCORE,BSC,0X76D44D2D4056B48C30A2EEACBD1583D3C7087A6D,Yes,https://de.fi/rekt-database/PCORE,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+Script Token,BSC,0XD4AC227EB1A4C0384AAE06F7808F08BB8F516EBF,Yes,https://de.fi/rekt-database/Script Token,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Arbitrum token,BSC,0X62DFDB6E54B4E876E5E7003A71097DDD5AFFAA05,Yes,https://de.fi/rekt-database/Arbitrum token,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+EC token,BSC,0XE7A4D4669AD6B445F213E213768D0673C2637795,Yes,https://de.fi/rekt-database/EC token,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Project culs,BSC,0XC31ABB4BE8D38772B90B46BE7E88F84CFE08CEF9,Yes,https://de.fi/rekt-database/Project culs,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+APPLE,BSC,0X8F81BBC8CD2484B252E8288528CF2EC903619369,Yes,https://de.fi/rekt-database/APPLE,1.0,1.0,1,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn,Address Restrict"
+SpaceID,BSC,0X8993BB142C1BE4DD22C1F79B3A68B18852B55AAD,Yes,https://de.fi/rekt-database/SpaceID,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+Sloth Climb,BSC,0XBCC1AE526D8BEBAB02AF19945A866DDC0DF80F37,Yes,https://de.fi/rekt-database/Sloth Climb,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Block Chain Games,BSC,0X6185521D06F17AB5FBE187DC9A699C3C021090D5,Yes,https://de.fi/rekt-database/Block Chain Games,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Hex Trust Token,BSC,0X0003018BA02BACAFC28CD8926D4A46A4BB20D76A,Yes,https://de.fi/rekt-database/Hex Trust Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+SUI Token,BSC,0X29BB058CC9F11EC778A6691A4EA4C54186837112,Yes,https://de.fi/rekt-database/SUI Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Zodiac Credit,BSC,0X436F510A72F7972996B07DC2EDEAFA26308539E7,Yes,https://de.fi/rekt-database/Zodiac Credit,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+ROT Token,BSC,0XC631A358C9EF5DA18144A185B7122735D4C04BE9,Yes,https://de.fi/rekt-database/ROT Token,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+DOXED,BSC,0XEDA3EB7A5494443BEB800CD4CC70388228CEE84E,Yes,https://de.fi/rekt-database/DOXED,0.0,1.0,1,1,0,1,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict,TimeStamp Restrict"
+BTC-por,BSC,0X7E20FEC0E64E81E4B9812BD4886CD1FD3AD4DF45,Yes,https://de.fi/rekt-database/BTC-por,0.0,1.0,1,1,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Amount Restrict,Modifiable Tax Rate"
+Safuu Protocol,BSC,0XE5BA47FD94CB645BA4119222E34FB33F59C7CD90,Yes,https://de.fi/rekt-database/Safuu Protocol,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+Freeway,ETH,0X20E7125677311FCA903A8897042B9983F22EA295,Yes,https://de.fi/rekt-database/Freeway,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Easier,BSC,0X82B558C60FC4D1E12862B0D8FAD693AE81ABA48C,Yes,https://de.fi/rekt-database/Easier,0.0,0.0,0,0,0,0,0,0,None
+F*ck The Merge,ETH,0X3F2807F783C394641A9FD1BBB568B5FCBEC25575,Yes,https://de.fi/rekt-database/F*ck The Merge,0.0,0.0,0,0,0,0,0,0,None
+Meta Apes,BSC,0X208CFEC94D2BA8B8537DA7A9BB361C6BAAD77272,Yes,https://de.fi/rekt-database/Meta Apes,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+HyperVerse,BSC,0XAAFA10755B3B1DBF46E86D973C3F27F3671ED9DB,Yes,https://de.fi/rekt-database/HyperVerse,0.0,0.0,0,0,0,0,0,0,None
+AutobotDefi,Fantom,0X27C828E9F972DC907BCEA3D87F194C6B533D808D,Yes,https://de.fi/rekt-database/AutobotDefi,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+ElectronDAO,Polygon,0X9943107D6FC813A257C7CEB63EE4BC238E49CFB8,Yes,https://de.fi/rekt-database/ElectronDAO,0.0,0.0,0,0,0,0,0,0,None
+AnubisDAO,ETH,0X507586012A126421C3669A64B8393FFFA9C44462,Yes,https://de.fi/rekt-database/AnubisDAO,0.0,0.0,0,0,0,0,0,0,None
+Daughter Doge Revenge Token,BSC,0X20B9FFD06D32EAEE94EDCD9098DB01B2D13D4C61,Yes,https://de.fi/rekt-database/Daughter Doge Revenge Token,1.0,1.0,0,0,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn"
+BlockChain of Things,ETH,0X0CD7CA934C174F43B2C69683ED302DB0F5CF199E,Yes,https://de.fi/rekt-database/BlockChain of Things,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+PolyHomerToken,Polygon,0XEB9126D215F8C87B7DD864B3011FBB46260BCBE6,Yes,https://de.fi/rekt-database/PolyHomerToken,0.0,0.0,0,0,0,0,0,0,None
+TrollFace,BSC,0XEA27688726A94C21180A300484D55A791F993FC6,Yes,https://de.fi/rekt-database/TrollFace,0.0,0.0,0,0,0,0,0,0,None
+EOS,ETH,0X86FA049857E0209AA7D9E616F7EB3B3B78ECFDB0,Yes,https://de.fi/rekt-database/EOS,0.0,0.0,0,0,0,0,0,0,None
+PolyGoose Token,Polygon,0XB81EA7581AA24C4CA0E8FC99918DA7AE60139A87,Yes,https://de.fi/rekt-database/PolyGoose Token,0.0,0.0,1,0,0,0,0,1,"Address Restrict,Modifiable Tax Rate"
+Cheetah Token,Polygon,0XC0AF9CC9826E541489D02C0D2FA6ECA0FE517E20,Yes,https://de.fi/rekt-database/Cheetah Token,1.0,1.0,0,1,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn,Amount Restrict"
+Golden Bar Farm,BSC,0XDEC72BBC3365646FE0267FC08CD05F79C4BE0060,Yes,https://de.fi/rekt-database/Golden Bar Farm,0.0,0.0,0,0,0,0,0,0,None
+Mortal Kombat,BSC,0X26A1C3449A43C13F72452247996F904707D5E91D,Yes,https://de.fi/rekt-database/Mortal Kombat,0.0,0.0,0,0,0,0,0,0,None
+Dragonfly,BSC,0XAD2FC798C6FF076545BC023FBD0FA43633AD4DF9,Yes,https://de.fi/rekt-database/Dragonfly,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+WindSwap,BSC,0XAFAD6387E0B83D73EB758A05F4D2E70DD54E2228,Yes,https://de.fi/rekt-database/WindSwap,0.0,0.0,0,0,0,0,0,0,None
+StableMagnet,BSC,0XCD734B1F9B0B976DDC46E507D0AA51A4216A1E98,Yes,https://de.fi/rekt-database/StableMagnet,0.0,0.0,0,0,0,0,0,0,None
+Delicacy DeFi,BSC,0X66B32CEE882D82A897A1F6102A18DA5AF6F01F6F,Yes,https://de.fi/rekt-database/Delicacy DeFi,0.0,0.0,0,0,0,0,0,0,None
+Fairmoon,BSC,0XCA578AFEE65FD2268D383F8FC4A9FC6AE1D2DEF0,Yes,https://de.fi/rekt-database/Fairmoon,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+YZY DAO,ETH,0X6CA2CC52BB2CB67DD952E73B8786EB3A368B484C,Yes,https://de.fi/rekt-database/YZY DAO,1.0,1.0,0,1,0,0,0,0,"Hidden Balance Modification,Hidden Mint/Burn,Amount Restrict"
+Horizon Finance,BSC,0XA0A81B5A8CAEDDDB0E6C81D3E07AAA4EA5314452,Yes,https://de.fi/rekt-database/Horizon Finance,0.0,0.0,1,1,0,0,0,0,"Address Restrict,Amount Restrict"
+Turtledex,BSC,0XFF8888D4F46ED54BBBABF554D81B65EF3596B12C,Yes,https://de.fi/rekt-database/Turtledex,0.0,0.0,0,1,0,0,0,0,Amount Restrict
+Dragonswap,BSC,0X105B81A13ECBB92773A7B9854D125CB7478B8340,Yes,https://de.fi/rekt-database/Dragonswap,0.0,0.0,0,0,0,0,0,0,None
+LaserSwap Cash,BSC,0XED741DB80BA7C18454E674B8230364511782F5FA,Yes,https://de.fi/rekt-database/LaserSwap Cash,0.0,0.0,0,0,0,0,0,0,None
+Contribute Protocol,ETH,0XF776E108E50560075F69B6754CAE708975E74A2C,Yes,https://de.fi/rekt-database/Contribute Protocol,0.0,1.0,0,1,0,0,0,1,"Hidden Mint/Burn,Amount Restrict,Modifiable Tax Rate"
+DiceSwap,BSC,0X730E05BFBF01BB578887E1F87DF2B58FD908A6BF,Yes,https://de.fi/rekt-database/DiceSwap,0.0,0.0,0,0,0,0,0,0,None
+Meerkat Finance,BSC,0XC65F62D372AA50E99B2A564DDB418A6BC84FAA15,Yes,https://de.fi/rekt-database/Meerkat Finance,0.0,0.0,0,0,0,0,0,0,None
+Mars Farm,BSC,0XA9BA5A49AE258788B5DA7985926AD6C71BEAF879,Yes,https://de.fi/rekt-database/Mars Farm,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Thunder Finance,BSC,0XD7526B3E1CB8C32900B51C4BD8CDA85872407B20,Yes,https://de.fi/rekt-database/Thunder Finance,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Sakura DeFi,ETH,0XF05731DF070AD8E6058D07E620E2F50BFA78E4C2,Yes,https://de.fi/rekt-database/Sakura DeFi,0.0,0.0,0,0,0,0,0,0,None
+Orbit Swap,BSC,0XC993E816A84F7FF5F988EA660A043E877E297AF6,Yes,https://de.fi/rekt-database/Orbit Swap,0.0,0.0,0,0,0,0,0,0,None
+Elastic Staking,ETH,0X88F639186AEE2FC903DA4FE5742DF35B760225E8,Yes,https://de.fi/rekt-database/Elastic Staking,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Game Swap Exchange,ETH,0X681B24478E9F7E31EE3B5B7F807C9151E46AA165,Yes,https://de.fi/rekt-database/Game Swap Exchange,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+WOLF Protocol,ETH,0X3CCF0306D214B6AD4E8315C5C31A2B7F32B649D8,Yes,https://de.fi/rekt-database/WOLF Protocol,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Rbase Finance,ETH,0XE8B251822D003A2B2466EE0E38391C2DB2048739,Yes,https://de.fi/rekt-database/Rbase Finance,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Dipex,ETH,0XBCE67604C08C4839980C32485657F63211C73E14,Yes,https://de.fi/rekt-database/Dipex,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Xdef finance,ETH,0X1B0E620FFE9D4880B934925BCAA0B13306658BED,Yes,https://de.fi/rekt-database/Xdef finance,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Prophet Project,ETH,0XD7D84E9DF527882149D9C5908A3937107724B325,Yes,https://de.fi/rekt-database/Prophet Project,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Overbase Finance,ETH,0XE202529BC704D6297A53D60933616803678E2644,Yes,https://de.fi/rekt-database/Overbase Finance,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+UnlimitedBase Finance,ETH,0X2FE06398BEDBAD27CBFCBB399EB616629540EB4D,Yes,https://de.fi/rekt-database/UnlimitedBase Finance,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+TRBAS3,ETH,0X43EB8277B06EC9A6B6EA32953C2AC34C18C44D02,Yes,https://de.fi/rekt-database/TRBAS3,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Reflation,ETH,0XDC65D31B94DBC5188EE5E01C22618537E5E86BAC,Yes,https://de.fi/rekt-database/Reflation,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+YFFS Finance,ETH,0X90D702F071D2AF33032943137AD0AB4280705817,Yes,https://de.fi/rekt-database/YFFS Finance,0.0,1.0,1,1,0,0,0,0,"Hidden Mint/Burn,Address Restrict,Amount Restrict"
+DEFIBase,ETH,0X154F0DCE06EB0E7EA5D6CF1BC70039CA22B5FB17,Yes,https://de.fi/rekt-database/DEFIBase,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+GoldenFarm,BSC,0X1D5FAB22D056428CAE676AA11C0D5F31647B69E6,Yes,https://de.fi/rekt-database/GoldenFarm,0.0,,0,0,0,0,0,0,None
+Ba5ic finance,ETH,0XCD6C56A778681A969AED4EA09DCB2AD8D81D4D36,Yes,https://de.fi/rekt-database/Ba5ic finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Solv3 network,ETH,0XA2FFFDC6EFB2B76109519F23D84D3F6122E1D639,Yes,https://de.fi/rekt-database/Solv3 network,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Hypechill fund,ETH,0X0FE5FDF01B48008DC68FC32E8FB7E0D93CA99BC5,Yes,https://de.fi/rekt-database/Hypechill fund,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Cover protocol,ETH,0X5A7A0AD8D92FBEEE4A9A68D35CD29FE248CAD790,Yes,https://de.fi/rekt-database/Cover protocol,0.0,0.0,1,0,0,0,0,0,Address Restrict
+Deriswap,ETH,0X846D152216146C77C81AF3A1657790ED8BA69281,Yes,https://de.fi/rekt-database/Deriswap,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Walletreum,ETH,0X15BCDFAD12498DE8A922E62442AE4CC4BD33BD25,Yes,https://de.fi/rekt-database/Walletreum,0.0,0.0,0,0,0,0,0,0,None
+CYBER SOLIDITY,ETH,0X14F8D4FF4348FD42A976A67A017C86B434A63853,Yes,https://de.fi/rekt-database/CYBER SOLIDITY,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Hatch DAO,ETH,0X6F3009663470475F0749A6B76195375F95495FCB,Yes,https://de.fi/rekt-database/Hatch DAO,0.0,0.0,0,0,0,0,0,0,None
+Tomatos,ETH,0X2306934CA884CAA042DC595371003093092B2BBF,Yes,https://de.fi/rekt-database/Tomatos,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+Eth Contingency,ETH,0XC96EEC418B50C538C3F3E32E71575DA068A97401,Yes,https://de.fi/rekt-database/Eth Contingency,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+SPIDER,ETH,0X0FAFC0C448C7074107E353AE728640C7A2BCBC77,Yes,https://de.fi/rekt-database/SPIDER,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+VSJEFF FIGHT,BSC,0XEFFB1662699E0CF0EA55F9AB4D5FE040C95DE221,Yes,https://de.fi/rekt-database/VSJEFF FIGHT,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+Turtledex Token,BSC,0XC4957A864245AA4373BE1F33AE24E93876B7DFE1,Yes,https://de.fi/rekt-database/Turtledex Token,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Naturel,BSC,0X7E057891A6CA27ECED719DC781D7A45308DD6C70,Yes,https://de.fi/rekt-database/Naturel,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+TerraCycle,BSC,0X1DE28723445BE1463237D3F8546136139FB194A8,Yes,https://de.fi/rekt-database/TerraCycle,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+bitqy,ETH,0XF0F8B0B8DBB1124261FC8D778E2287E3FD2CF4F5,Yes,https://de.fi/rekt-database/bitqy,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Enigma,ETH,0XF0EE6B27B759C9893CE4F094B49AD28FD15A23E4,Yes,https://de.fi/rekt-database/Enigma,0.0,1.0,0,1,0,0,0,0,"Hidden Mint/Burn,Amount Restrict"
+sXRP,ETH,0XA2B0FDE6D710E201D0D608E924A484D1A5FED57C,Yes,https://de.fi/rekt-database/sXRP,0.0,1.0,0,0,1,0,0,0,"Hidden Mint/Burn,Modifiable External Call"
+MilitaryDoge,BSC,0X32BA7C5E4B881ECF282BC5C19F850F4E72C063F3,Yes,https://de.fi/rekt-database/MilitaryDoge,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Pluto Rocket Finance,BSC,0X2081B7AEFBF9E26F5733FB809D5443F073DF062A,Yes,https://de.fi/rekt-database/Pluto Rocket Finance,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Green Swap,ETH,0X96C9FCD45BEA05B848E6E8551AD33D4D08194E4B,Yes,https://de.fi/rekt-database/Green Swap,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+Paragon,ETH,0X7728DFEF5ABD468669EB7F9B48A7F70A501ED29D,Yes,https://de.fi/rekt-database/Paragon,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+Tuckoo Finance,BSC,0X0371AFBE3F2F470949EA65E09E3332810DFC7902,Yes,https://de.fi/rekt-database/Tuckoo Finance,0.0,1.0,0,0,0,0,0,0,Hidden Mint/Burn
+TravelCake,BSC,0X5C58AC3BE5AC6C4643BCF8C14C6E4DF789BA5672,Yes,https://de.fi/rekt-database/TravelCake,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+JamTruAdr,Polygon,0XC20B743316E7701A281167213FB266AA7651D99D,Yes,https://de.fi/rekt-database/JamTruAdr,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+Nabox,BSC,0X4F75869A06535161515DF34B84960F58C5C41DA1,Yes,https://de.fi/rekt-database/Nabox,0.0,1.0,1,0,0,0,1,0,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address"
+Fuck Thanos,ETH,0X3E3C02AB542463B9C7A990AE2B5CEA40175B233D,Yes,https://de.fi/rekt-database/Fuck Thanos,0.0,1.0,1,0,0,0,1,0,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address"
+Karura,BSC,0X74FE7ECC0A5131A4A980D6B12667184954B4C752,Yes,https://de.fi/rekt-database/Karura,0.0,1.0,1,0,0,0,1,0,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Address"
+DTP,BSC,0X025D5F67D58C9ED14503EDFFA3EC3578AF615854,Yes,https://de.fi/rekt-database/DTP,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+CoinCoin,BSC,0X91D160E312801B9FF13B220516A8F510BAD7D10F,Yes,https://de.fi/rekt-database/CoinCoin,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"
+ICONFoundation,BSC,0X05D84A869E14D538F8A70A0C79848F10D2F76542,Yes,https://de.fi/rekt-database/ICONFoundation,0.0,1.0,0,0,0,0,1,0,"Hidden Mint/Burn,Modifiable Tax Address"
+ANT1GOON,ETH,0X61DB2FB090D890EA9FC09DD837FD47CF2F92EE26,Yes,https://de.fi/rekt-database/ANT1GOON,0.0,1.0,1,0,1,0,0,0,"Hidden Mint/Burn,Address Restrict,Modifiable External Call"
+Exbase Finance,ETH,0X15C5339954A1016C77732EA626CC714B0D37DD6A,Yes,https://de.fi/rekt-database/Exbase Finance,0.0,1.0,0,0,0,0,0,1,"Hidden Mint/Burn,Modifiable Tax Rate"
+Xdef finance,ETH,0X5166D4CE79B9BF7DF477DA110C560CE3045AA889,Yes,https://de.fi/rekt-database/Xdef finance,0.0,1.0,1,0,0,0,0,1,"Hidden Mint/Burn,Address Restrict,Modifiable Tax Rate"
+Kanva,ETH,0X2D176650B1D3E69E80C2DD8ACF4E7D590A16BDA7,Yes,https://de.fi/rekt-database/Kanva,0.0,1.0,1,0,0,0,0,0,"Hidden Mint/Burn,Address Restrict"

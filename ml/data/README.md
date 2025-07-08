@@ -49,3 +49,5 @@ data/
 | Dataset    | Link                                                         | destination directory |
 |------------|--------------------------------------------------------------|-----------------------|
 | CRPWarner  | <https://github.com/CRPWarner/RugPull/tree/main/dataset>     | /data/external/crpwarner |
+| RPHurter   | <https://figshare.com/s/e6e7cce0b6574770e7ce>                | /data/external/rphurter  |
+| Trapdoor Data | <https://github.com/bsdp2023/trapdoor-scam/>              | /data/external/trapdoordata |

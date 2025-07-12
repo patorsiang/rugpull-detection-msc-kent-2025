@@ -9,6 +9,8 @@ external/*
 !interim/**
 interim/.DS_Store
 
+!processed/**
+
 # Allow .gitkeep files anywhere
 !**/.gitkeep
 

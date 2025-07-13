@@ -1,0 +1,3 @@
+[submodule "ml/notebooks/feature_extraction/evm_cfg_builder"]
+	path = ml/notebooks/feature_extraction/evm_cfg_builder
+	url = https://github.com/crytic/evm_cfg_builder.git

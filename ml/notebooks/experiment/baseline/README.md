@@ -242,7 +242,6 @@ for feature extraction from gigahorse, using 7 mins per contracts to get IR.
 
 | Model | Precision | Recall | F1-score |
 | - | - | - | - |
-| MPL 512 \* 256 \* 128 | 0.94 | 0.92 | 0.93 |
 | KNeighborsClassifier() | 0.863636 | 0.750000 | 0.754386 |
 | DecisionTreeClassifier() | 0.833333 | 0.666667 | 0.650000 |
 | LGBMClassifier() | 0.833333 | 0.666667 | 0.650000 |
@@ -268,3 +267,141 @@ for feature extraction from gigahorse, using 7 mins per contracts to get IR.
 | MLPClassifier() | 0.600000 | 0.588889 | 0.590643 |
 | RandomForestClassifier() | 0.571429 | 0.577778 | 0.5625004 |
 | LGBMClassifier() | 0.571429 | 0.577778 | 0.562500 |
+
+## Opcode Frequency -- gigahorse
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| OneVsRestClassifier(KNeighborsClassifier()) | 0.515873 | 0.654762 | 0.515873 |
+| MultiOutputClassifier(KNeighborsClassifier()) | 0.515873 | 0.654762 | 0.515873 |
+| OneVsRestClassifier(SGDClassifier()) | 0.332418 | 0.952381 | 0.481481 |
+| MultiOutputClassifier(GaussianNB()) | 0.422619 | 0.571429 | 0.462963 |
+| OneVsRestClassifier(GaussianNB()) | 0.422619 | 0.571429 | 0.462963 |
+
+## Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| MultiOutputClassifier(XGBClassifier()) | 0.916667 | 0.574074 | 0.704762 |
+| OneVsRestClassifier(XGBClassifier()) | 0.916667 | 0.574074 | 0.704762 |
+| MPL 512 \* 256 \* 128 | 0.71 | 0.72 | 0.64 |
+| MultiOutputClassifier(ExtraTreesClassifier()) | 0.822222 | 0.481481 | 0.579365 |
+| MultiOutputClassifier(GaussianNB()) | 0.821429 | 0.462963 | 0.575000 |
+| OneVsRestClassifier(GaussianNB()) | 0.821429 | 0.462963 | 0.575000 |
+
+### for binary -- Opcode N Grams
+
+#### Mint -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| DecisionTreeClassifier() | 0.708333 | 0.708333 | 0.708333 |
+| XGBClassifier() | 0.725000 | 0.687500 | 0.688889 |
+| GaussianNB() | 0.725000 | 0.687500 | 0.688889 |
+| KNeighborsClassifier() | 0.633333 | 0.625000 | 0.625668 |
+| SVC() | 0.550000 | 0.541667 | 0.533333 |
+
+#### Leak -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| XGBClassifier() | 0.958333 | 0.833333 | 0.878261 |
+| LGBMClassifier() | 0.787879 | 0.787879 | 0.787879 |
+| GaussianNB() | 0.923077 | 0.666667 | 0.708333 |
+| ExtraTreesClassifier() | 0.666667 | 0.621212 | 0.634783 |
+| SVC() | 0.392857 | 0.500000 | 0.440000 |
+
+#### Limit -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| XGBClassifier() | 0.777778 | 0.777778 | 0.714286 |
+| LogisticRegression() | 0.714286 | 0.733333 | 0.708333 |
+| AdaBoostClassifier() | 0.750000 | 0.722222 | 0.641026 |
+| SGDClassifier() | 0.600000 | 0.588889 | 0.590643 |
+| MLPClassifier() | 0.622222 | 0.622222 | 0.571429 |
+
+## Opcode N Grams -- gigahorse
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| MPL 512 \* 256 \* 128 | 0.53 | 1.00 | 0.68 |
+| MultiOutputClassifier(LogisticRegression()) | 0.611111 | 0.702381 | 0.585470 |
+| OneVsRestClassifier(LogisticRegression()) | 0.611111 | 0.702381 | 0.585470 |
+| OneVsRestClassifier(AdaBoostClassifier()) | 0.528571 | 0.690476 | 0.537037 |
+| MultiOutputClassifier(AdaBoostClassifier()) | 0.528571 | 0.690476 | 0.537037 |
+| MultiOutputClassifier(RandomForestClassifier()) | 0.349206 | 0.571429 | 0.404762 |
+
+### for binary -- gigahorse -- Opcode N Grams
+
+#### Mint -- gigahorse -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| MLPClassifier() | 0.700000 | 0.875000 | 0.714286 |
+| SVC() | 0.700000 | 0.875000 | 0.714286 |
+| LogisticRegression() | 0.666667 | 0.833333 | 0.650000 |
+| KNeighborsClassifier() | 0.666667 | 0.833333 | 0.650000 |
+| GaussianNB() | 0.642857 | 0.791667 | 0.590643 |
+
+#### Leak -- gigahorse -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| AdaBoostClassifier() | 0.650000 | 0.650 | 0.650000 |
+| LogisticRegression() | 0.625000 | 0.575 | 0.575758 |
+| DecisionTreeClassifier() | 0.530303 | 0.525 | 0.523810 |
+| SGDClassifier() | 0.475000 | 0.475 | 0.475000 |
+| MLPClassifier() | 0.357143 | 0.500 | 0.416667 |
+
+#### Limit -- gigahorse -- Opcode N Grams
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| LogisticRegression() | 0.937500 | 0.928571 | 0.928205 |
+| ExtraTreesClassifier() | 0.791667 | 0.785714 | 0.784615 |
+| XGBClassifier() | 0.714286 | 0.714286 | 0.714286 |
+| RandomForestClassifier() | 0.714286 | 0.714286 | 0.714286 |
+| AdaBoostClassifier() | 0.733333 | 0.714286 | 0.708333 |
+
+## TF-IDF (Term Frequency-Inverse Document Frequency)
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| MultiOutputClassifier(DecisionTreeClassifier()) | 0.587302 | 0.750000 | 0.648485 |
+| MultiOutputClassifier(SGDClassifier()) | 0.524242 | 0.833333 | 0.605820 |
+| OneVsRestClassifier(AdaBoostClassifier()) | 0.611111 | 0.638889 | 0.600000 |
+| MultiOutputClassifier(AdaBoostClassifier()) | 0.611111 | 0.638889 | 0.600000 |
+| OneVsRestClassifier(MLPClassifier()) | 0.611111 | 0.527778 | 0.533333 |
+
+### For binary -- TF-IDF
+
+#### Mint -- TF-IDF
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| DecisionTreeClassifier() | 1.000000 | 1.000000 | 1.000000 |
+| XGBClassifier() | 0.875000 | 0.954545 | 0.904762 |
+| LGBMClassifier() | 0.958333 | 0.833333 | 0.878261 |
+| AdaBoostClassifier() | 0.958333 | 0.833333 | 0.878261 |
+| GaussianNB() | 0.923077 | 0.666667 | 0.708333 |
+
+#### Leak -- TF-IDF
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| MLPClassifier() | 0.961538 | 0.750000 | 0.813333 |
+| DecisionTreeClassifier() | 0.621212 | 0.666667 | 0.634783 |
+| AdaBoostClassifier() | 0.621212 | 0.666667 | 0.634783 |
+| GaussianNB() | 0.544444 | 0.583333 | 0.523810 |
+| SGDClassifier() | 0.544444 | 0.583333 | 0.523810 |
+
+#### Limit -- TF-IDF
+
+| Model | Precision | Recall | F1-score |
+| - | - | - | - |
+| RandomForestClassifier() | 0.900000 | 0.950 | 0.918129 |
+| SVC() | 0.900000 | 0.950 | 0.918129 |
+| LGBMClassifier() | 0.825000 | 0.825 | 0.825000 |
+| LogisticRegression() | 0.825000 | 0.825 | 0.825000 |
+| KNeighborsClassifier() | 0.785714 | 0.850 | 0.775401 |

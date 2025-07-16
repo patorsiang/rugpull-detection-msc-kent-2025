@@ -23,22 +23,22 @@ ENV/
 env/
 
 # === ML Artifacts ===
-*.h5
-*.hdf5
-*.pkl
-*.joblib
-*.pt
-*.onnx
-*.ckpt
-*.tflite
-*.sav
+# *.h5
+# *.hdf5
+# *.pkl
+# *.joblib
+# *.pt
+# *.onnx
+# *.ckpt
+# *.tflite
+# *.sav
 
 # === Data Files ===
 *.csv
 *.tsv
 *.xls
 *.xlsx
-*.json
+# *.json
 *.db
 *.sqlite3
 data/raw/

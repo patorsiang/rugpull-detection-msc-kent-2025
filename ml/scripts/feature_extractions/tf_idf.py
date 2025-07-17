@@ -1,9 +1,9 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+from tqdm import tqdm
 def get_tf_idf_vector(files):
     documents = []
 
-    for file in files:
+    for file in tqdm(files):
          with open(file, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
             documents.append(content)

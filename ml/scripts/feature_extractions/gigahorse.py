@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
-
+from tqdm import tqdm
 import sys
 sys.path.append(str(Path.cwd().parents[1]))
 from scripts.utils import get_grouping_opcode_sequence
@@ -48,13 +48,9 @@ def assess_hex_file(host_path, address, filename, output_dir):
 
         print(f"[+] results.json saved to: {output_path}")
 
-        with lock:
-            print(f"[✓] {address} completed")
         print(f"[✓] {address} completed")
     except subprocess.CalledProcessError:
         print("[✗] Error during analysis or copy.")
-        with lock:
-            print(f"[✗] {address} failed")
         print(f"[✗] {address} failed")
     finally:
         subprocess.run(["docker", "rm", container_id], stdout=subprocess.DEVNULL)
@@ -65,7 +61,7 @@ def get_n_gram_from_gigahorse_assessment(host_path, addresses, files):
     output_dir = os.path.join(host_path, "out")
     output_list = os.listdir(output_dir)
 
-    for address, path in zip(addresses, files):
+    for address, path in tqdm(zip(addresses, files), desc="assessing"):
         if address not in output_list:
             assess_hex_file(host_path, address, path, output_dir)
 

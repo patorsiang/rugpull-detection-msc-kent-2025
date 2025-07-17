@@ -1,15 +1,16 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from pathlib import Path
+from tqdm import tqdm
 
 import sys
 sys.path.append(str(Path.cwd().parents[1]))
 from scripts.utils import load_bytecode, get_opcode_sequence
 
-def get_n_grams(files, start=2, end=3):
+def get_n_grams_from_files(files, start=2, end=3):
     records = []
 
-    for file in files:
+    for file in tqdm(files):
         freq = dict()
         bytecode = load_bytecode(file)
         freq['opcode_sequence'] = get_opcode_sequence(bytecode)

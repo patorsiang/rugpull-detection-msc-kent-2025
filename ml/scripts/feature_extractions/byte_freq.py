@@ -1,6 +1,7 @@
 from collections import Counter
 from pathlib import Path
 import pandas as pd
+from tqdm import tqdm
 
 import sys
 sys.path.append(str(Path.cwd().parents[1]))
@@ -16,7 +17,7 @@ def byte_freq_from_file(hex_file):
 
 def get_byte_freq_from_files(files):
     records = []
-    for file in files:
+    for file in tqdm(files):
         freq = byte_freq_from_file(file)
         freq['address'] = file.stem.lower()
         records.append(freq)

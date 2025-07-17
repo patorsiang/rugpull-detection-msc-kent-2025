@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from tqdm import tqdm
+
 import sys
 sys.path.append(str(Path.cwd().parents[1]))
 from scripts.utils import get_grouping_opcode_sequence
@@ -68,7 +69,7 @@ def get_n_gram_from_gigahorse_assessment(host_path, addresses, files):
     # extract n_gram from out folder
     opcode_seq = []
 
-    for directory in output_list:
+    for i, directory in enumerate(output_list):
         if '.' not in directory:
             address = directory.lower()
             opcode_path = os.path.join(output_dir, f"{directory}/Statement_Opcode.facts")

@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from tqdm import tqdm
+
 def get_tf_idf_vector(files):
     documents = []
 

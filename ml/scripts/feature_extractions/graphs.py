@@ -3,6 +3,8 @@ from evm_cfg_builder.cfg.cfg import CFG
 import pandas as pd
 from pathlib import Path
 from tqdm import tqdm
+import pickle
+import os
 
 import sys
 sys.path.append(str(Path.cwd().parents[1]))
@@ -41,3 +43,16 @@ def get_graphs_stat_from_files(files):
         records.append(feats)
 
     return pd.DataFrame(records).fillna(0).set_index('address')
+
+def save_graphs_and_labels_from_files(files, labels, dest_path, file_name):
+    graphs = []
+
+    for file in tqdm(files):
+        cfg = get_cfg_from_file(file)
+        nx_graph = cfg_to_nx(cfg)
+        graphs.append(nx_graph)
+
+    with open(os.path.join(dest_path, file_name), "wb") as f:
+        pickle.dump((graphs, labels), f)
+
+    print(f'saved {file_name}')

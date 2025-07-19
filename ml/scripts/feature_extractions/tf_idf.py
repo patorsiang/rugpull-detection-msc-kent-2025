@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from tqdm import tqdm
 
-def get_tf_idf_vector(files):
+def get_tf_idf_vector(files, max_feature=2000):
     documents = []
 
     for file in tqdm(files):
@@ -13,7 +13,7 @@ def get_tf_idf_vector(files):
         lowercase=True,
         analyzer='word',
         token_pattern=r'\b\w+\b',
-        max_features=10000
+        max_features=max_feature
     )
 
     X = vectorizer.fit_transform(documents)

@@ -1,4 +1,5 @@
-def clean_column (df):
+def clean_column(df):
+  """Clean DataFrame column names for consistent formatting."""
   df.columns = (
     df.columns
     .str.strip()                   # remove leading/trailing spaces

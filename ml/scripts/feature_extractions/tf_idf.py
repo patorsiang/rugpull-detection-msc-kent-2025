@@ -20,10 +20,16 @@ def get_tf_idf_vector(files, max_feature=2000):
 
     return X, vectorizer.vocabulary_
 
-def extract_tf_idf_for_unlabeled(file, feature_cols):
-    with open(file, 'r', encoding='utf-8', errors='ignore') as f:
-        content = f.read()
+def extract_tf_idf_for_unlabeled(files, feature_cols):
+    documents = []
+
+    for file in tqdm(files):
+        with open(file, 'r', encoding='utf-8', errors='ignore') as f:
+            content = f.read()
+            documents.append(content)
 
     vectorizer = TfidfVectorizer(vocabulary=feature_cols)
-    X = vectorizer.fit_transform([content])
+
+    X = vectorizer.fit_transform(documents)
+
     return X

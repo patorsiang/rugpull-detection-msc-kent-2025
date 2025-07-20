@@ -7,7 +7,7 @@ import sys
 sys.path.append(str(Path.cwd().parents[1]))
 from scripts.utils import load_bytecode, get_opcode_sequence
 
-def get_n_grams_from_files(files, start=2, end=3):
+def get_n_grams_from_files(files, ngram_range=(2, 3)):
     records = []
 
     for file in tqdm(files):
@@ -19,7 +19,7 @@ def get_n_grams_from_files(files, start=2, end=3):
 
     seq_df = pd.DataFrame(records).fillna(0).set_index('address')
 
-    vectorizer = CountVectorizer(ngram_range=(start, end), analyzer='word', max_features=1000)
+    vectorizer = CountVectorizer(ngram_range=ngram_range, analyzer='word', max_features=1000)
     X_ngrams = vectorizer.fit_transform(seq_df['opcode_sequence'])
 
     X = pd.DataFrame(X_ngrams.toarray(), columns=vectorizer.get_feature_names_out())
@@ -28,12 +28,17 @@ def get_n_grams_from_files(files, start=2, end=3):
 
     return X
 
-def extract_n_grams_for_unlabeled(file, feature_cols, ngram_range=(2, 3)):
-    bytecode = load_bytecode(file)
-    content = get_opcode_sequence(bytecode)
+def extract_n_grams_for_unlabeled(files, feature_cols, ngram_range=(2, 3)):
+
+    document = []
+
+    for file in tqdm(files):
+        bytecode = load_bytecode(file)
+        content = get_opcode_sequence(bytecode)
+        document.append(content)
 
     vectorizer = CountVectorizer(ngram_range=ngram_range, analyzer='word', vocabulary=feature_cols)
 
-    X = vectorizer.fit_transform([content])
+    X = vectorizer.fit_transform(document)
 
     return X

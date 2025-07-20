@@ -27,3 +27,13 @@ def get_n_grams_from_files(files, start=2, end=3):
     X = X.set_index('address')
 
     return X
+
+def extract_n_grams_for_unlabeled(file, feature_cols, ngram_range=(2, 3)):
+    bytecode = load_bytecode(file)
+    content = get_opcode_sequence(bytecode)
+
+    vectorizer = CountVectorizer(ngram_range=ngram_range, analyzer='word', vocabulary=feature_cols)
+
+    X = vectorizer.fit_transform([content])
+
+    return X

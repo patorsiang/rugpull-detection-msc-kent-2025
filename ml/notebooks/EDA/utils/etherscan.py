@@ -42,7 +42,8 @@ def get_bytecode(address, chain_id=1):
     return None
 
 def save_code(mode, address, code, saving_dir, chain_id=1):
-    filename = os.path.join(saving_dir, f"{address}.{"sol" if mode == 'source' else "hex"}")
+    extension = 'sol' if mode == 'source' else 'hex'
+    filename = os.path.join(saving_dir, f"{address}.{extension}")
     with open(filename, "w", encoding="utf-8") as f:
         f.write(code)
     print(f"Saved {mode} for {address} (chain {chain_id})")

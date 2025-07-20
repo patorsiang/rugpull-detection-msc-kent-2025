@@ -8,7 +8,7 @@ This folder contains all datasets used in the machine learning pipeline, split i
 
 ```txt
 data/
-├── external/                               # Third-party data (e.g., CRPWarner, RPToken, RPHunter, GoPlus)
+├── external/                               # Third-party data (e.g., CRPWarner, RPHunter, GoPlus)
 ├── interim/                                # Intermediate data (e.g., partially cleaned, merged)
 ├── processed/                              # Final feature-rich datasets used for training/testing
 ├── raw/                                    # Original, unmodified datasets

@@ -1,3 +1,6 @@
-[submodule "ml/notebooks/feature_extraction/evm_cfg_builder"]
-	path = ml/notebooks/feature_extraction/evm_cfg_builder
-	url = https://github.com/crytic/evm_cfg_builder.git
+[submodule "data/external/crpwarner"]
+	path = data/external/crpwarner
+	url = https://github.com/CRPWarner/RugPull
+[submodule "data/external/trapdoordata"]
+	path = data/external/trapdoordata
+	url = https://github.com/bsdp2023/trapdoor-scam.git

@@ -39,6 +39,8 @@ env/
 *.xls
 *.xlsx
 *.json
+*.txt
+*.sol
 *.db
 *.sqlite3
 data/raw/

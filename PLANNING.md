@@ -1,6 +1,7 @@
 # Project planning
 
 **Idea:** This project proposes a semi-supervised, iterative self-learning approach to develop an intelligent detector for rug pull scams in smart contracts. By integrating multiple heterogeneous datasets—CRPWarner, RPHunter, Trapdoor-scam, and unlabeled contracts from Etherscan—the model is gradually trained with increasingly diverse data. The goal is to improve detection performance while addressing challenges of inconsistent labels, unlabeled data, and evolving scam tactics in decentralised finance.
+
 ## Project aim
 
 - **To develop a rug pull scam detection system** for smart contracts using semi-supervised iterative self-learning that can learn from both labelled and unlabeled data.

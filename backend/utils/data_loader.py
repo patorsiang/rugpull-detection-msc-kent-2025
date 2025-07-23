@@ -2,54 +2,33 @@ import os
 import json
 import requests
 
-# def get_transactions_for_contract(api_key, addr, max_txn=1000):
-def get_transactions_for_contract(api_key, addr, max_pages=10):
-    url = f"https://eth-mainnet.g.alchemy.com/v2/{api_key}"
-    headers = {"Content-Type": "application/json"}
+def get_transactions_by_contract_addr(api_key, addr):
+    url = "https://api.etherscan.io/api"
+    params = {
+        "module": "account",
+        "action": "txlist",
+        "address": addr,
+        "startblock": 0,
+        "endblock": 99999999,
+        "sort": "asc",
+        "apikey": api_key
+    }
 
-    method = "alchemy_getAssetTransfers"
-    all_transfers = []
-    page_key = None
-    pages_fetched = 0
-    seen_ids = set()
-
-    while not page_key or pages_fetched < max_pages:
-        body = {
-            "id": 1,
-            "jsonrpc": "2.0",
-            "method": method,
-            "params": [{
-                "fromBlock": "0x0",
-                "toBlock": "latest",
-                "contractAddresses": [addr],
-                "withMetadata": True,
-                "category": ["external", "internal", "erc20", "erc721", "erc1155", "specialnft"],
-                "order": "asc"
-            }]
-        }
-
-        if page_key:
-            body["params"][0]["pageKey"] = page_key
-
-        response = requests.post(url, headers=headers, json=body).json()
-        result = response.get("result", {})
-        page_key = result.get("pageKey", None)
-
-        new_transfers = result.get("transfers", [])
-        deduped = deduplicate_txns(new_transfers, seen_ids)
-
-        if not deduped:
-            print(f"🚫 Page {pages_fetched + 1} returned only duplicates. Stopping early.")
-            break  # ✅ DO THIS INSTEAD OF RETURNING NOTHING
-
-        all_transfers.extend(deduped)
-        pages_fetched += 1
-
-    print(f"✅ Fetched {len(all_transfers)} unique transfers for {addr}")
-    return all_transfers
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        if data["status"] == "1":
+            return data["result"]
+        else:
+            print(f"❌ No transactions found or error: {data.get('message', '')}")
+            return []
+    except Exception as e:
+        print(f"🚨 Error fetching transactions: {e}")
+        return []
 
 
-def save_transactions_for_contract(save_folder, addr, txns):
+
+def save_transactions_by_contract_addr(save_folder, addr, txns):
     os.makedirs(save_folder, exist_ok=True)
     filename = f"{addr.lower()}.json"
     file_path = os.path.join(save_folder, filename)
@@ -59,11 +38,58 @@ def save_transactions_for_contract(save_folder, addr, txns):
 
     return file_path
 
-def deduplicate_txns(transfers, seen_ids):
-    deduped = []
-    for tx in transfers:
-        uid = tx.get("uniqueId") or tx.get("hash")
-        if uid and uid not in seen_ids:
-            seen_ids.add(uid)
-            deduped.append(tx)
-    return deduped
+# def get_bytecode_by_contract_addr(api_key, addr):
+#     url = f"https://eth-mainnet.g.alchemy.com/v2/{api_key}"
+#     payload = {
+#         "jsonrpc": "2.0",
+#         "id": 1,
+#         "method": "eth_getCode",
+#         "params": [addr, "latest"]
+#     }
+#     headers = {"Content-Type": "application/json"}
+
+#     try:
+#         response = requests.post(url, json=payload, headers=headers)
+#         data = response.json()
+#         if "result" in data:
+#             return data["result"]
+#         else:
+#             print(f"❌ Error from Alchemy: {data.get('error', {}).get('message', 'Unknown error')}")
+#             return ""
+#     except Exception as e:
+#         print(f"🚨 Exception fetching bytecode: {e}")
+#         return ""
+
+def get_bytecode_by_contract_addr(api_key, addr):
+    url = "https://api.etherscan.io/v2/api"
+    params = {
+        "chainid": 1,  # Ethereum mainnet
+        "module": "proxy",
+        "action": "eth_getCode",
+        "address": addr,
+        "tag": "latest",
+        "apikey": api_key
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        if "result" in data:
+            return data["result"]
+        else:
+            print(f"❌ Etherscan Error: {data.get('message', 'Unknown error')}")
+            return ""
+    except Exception as e:
+        print(f"🚨 Exception fetching bytecode from Etherscan: {e}")
+        return ""
+
+
+def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
+    os.makedirs(save_folder, exist_ok=True)
+    filename = f"{addr.lower()}.hex"
+    file_path = os.path.join(save_folder, filename)
+
+    with open(file_path, 'w') as f:
+        f.write(bytecode)
+
+    return file_path

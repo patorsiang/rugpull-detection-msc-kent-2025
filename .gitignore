@@ -42,6 +42,8 @@ env/
 *.json
 *.txt
 *.sol
+*.hex
+!data/labeled/**
 *.db
 *.sqlite3
 data/raw/

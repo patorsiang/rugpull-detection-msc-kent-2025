@@ -81,18 +81,16 @@ def generate_ngram_features(opcode_sequences, ngram_range=(1, 3), max_features=1
 def build_bytecode_feature_dataframe(hex_dir):
     # Step 1: Static extraction
     feature_rows = []
-    addresses = []
     for hex_file in list(Path(hex_dir).glob("*.hex")):
         row = extract_bytecode_static_features(hex_file)
         feature_rows.append(row)
 
     df_static = pd.DataFrame(feature_rows)
-    address_df = pd.DataFrame(addresses)
 
     # Step 2: N-gram vectorization
     ngram_df, vectorizer = generate_ngram_features(df_static["opcode_sequence"].tolist())
 
     # Step 3: Merge
-    df_final = pd.concat([address_df, df_static.drop(columns=["opcode_sequence"]), ngram_df], axis=1)
+    df_final = pd.concat([df_static.drop(columns=["opcode_sequence"]), ngram_df], axis=1).set_index('Address').fillna(0)
 
     return df_final, vectorizer

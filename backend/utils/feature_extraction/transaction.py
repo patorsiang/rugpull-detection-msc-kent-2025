@@ -29,7 +29,7 @@ def lookup_4byte(topic_hash):
     r.set(topic_hash, "unknown")
     return "unknown"
 
-def extract_transaction_features(txn_file):
+def load_transaction(txn_file):
     with open(txn_file) as f:
         data = json.load(f)
 
@@ -37,6 +37,17 @@ def extract_transaction_features(txn_file):
     transactions = data.get("transaction", [])
     events = data.get("event", [])
     creator = data.get("creator", {})
+    return address, creator, transactions, events
+
+# Safe statistical functions
+def safe_mean(x): return float(np.mean(x)) if x else 0
+def safe_max(x): return max(x) if x else 0
+def safe_min(x): return min(x) if x else 0
+def safe_std(x): return float(np.std(x)) if x else 0
+
+def extract_transaction_features(txn_file):
+    address, creator, transactions, events  = load_transaction(txn_file)
+
     creator_address = creator.get("contractAddress", "").lower()
 
     # Count stats
@@ -138,18 +149,18 @@ def extract_transaction_features(txn_file):
         "sell_amt": sell_amt,
         "avg_value": (buy_amt + sell_amt) / (txn_nums + 1),
         "txn_per_block": txn_nums / (life_time + 1) if life_time > 0 else 0,
-        "avg_gas_limit": np.mean(gas_limits),
-        "max_gas_limit": max(gas_limits),
-        "min_gas_limit": min(gas_limits),
-        "std_gas_limit": np.std(gas_limits),
-        "avg_gas_used": np.mean(gas_used_list),
-        "max_gas_used": max(gas_used_list),
-        "min_gas_used": min(gas_used_list),
-        "std_gas_used": np.std(gas_used_list),
-        "avg_gas_price": np.mean(gas_price_list),
-        "max_gas_price": max(gas_price_list),
-        "min_gas_price": min(gas_price_list),
-        "std_gas_price": np.std(gas_price_list),
+        "avg_gas_limit": safe_mean(gas_limits),
+        "max_gas_limit": safe_max(gas_limits),
+        "min_gas_limit": safe_min(gas_limits),
+        "std_gas_limit": safe_std(gas_limits),
+        "avg_gas_used": safe_mean(gas_used_list),
+        "max_gas_used": safe_max(gas_used_list),
+        "min_gas_used": safe_min(gas_used_list),
+        "std_gas_used": safe_std(gas_used_list),
+        "avg_gas_price": safe_mean(gas_price_list),
+        "max_gas_price": safe_max(gas_price_list),
+        "min_gas_price": safe_min(gas_price_list),
+        "std_gas_price": safe_std(gas_price_list),
     }
 
     # Merge with dynamic event/function features

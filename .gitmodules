@@ -4,3 +4,6 @@
 [submodule "data/external/trapdoordata"]
 	path = data/external/trapdoordata
 	url = https://github.com/bsdp2023/trapdoor-scam.git
+[submodule "backend/utils/feature_extraction/evm_cfg_builder"]
+	path = backend/utils/feature_extraction/evm_cfg_builder
+	url = https://github.com/crytic/evm_cfg_builder.git

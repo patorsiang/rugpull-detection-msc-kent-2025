@@ -12,6 +12,11 @@ MODEL_PATH = os.path.join(PATH, 'model')
 
 # === Helper Functions ===
 
+def load_bytecode(hex_file):
+    with open(hex_file, 'r') as f:
+        bytecode = f.read().strip()
+    return bytecode
+
 def get_opcode_entropy(opcodes):
     freqs = Counter(opcodes)
     total = sum(freqs.values())
@@ -35,8 +40,7 @@ def get_byte_frequency(bytecode_hex):
 
 def extract_bytecode_static_features(hex_path):
     # Read hex file
-    with open(hex_path, 'r') as f:
-        bytecode_hex = f.read().strip()
+    bytecode_hex = load_bytecode(hex_path)
 
     # Disassemble to opcodes
     bytecode = EvmBytecode(bytecode=bytecode_hex)

@@ -76,6 +76,7 @@ def txn_to_nx(txn):
         from_addr = tx.get("from", "").lower()
         to_addr = tx.get("to", "").lower()
         tx_hash = tx.get("hash", "")
+        gas = int(tx.get("gasUsed", 0))
 
         if not from_addr:
             continue
@@ -84,10 +85,10 @@ def txn_to_nx(txn):
             # Contract creation
             contract_addr = tx.get("contractAddress", f"created_{tx_hash}")
             G.add_node(contract_addr)
-            G.add_edge(from_addr, contract_addr)
+            G.add_edge(from_addr, contract_addr, tx_hash=tx_hash, label="contract_creation", gas=gas)
         elif to_addr:
             # Normal transaction
-            G.add_edge(from_addr, to_addr)
+            G.add_edge(from_addr, to_addr, tx_hash=tx_hash, label="transaction", gas=gas)
     return G
 
 

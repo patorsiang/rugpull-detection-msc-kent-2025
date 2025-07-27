@@ -211,15 +211,6 @@ def get_info_by_contract_addr(addr, chainid=1):
     time.sleep(1)
     return info
 
-def save_transactions_by_contract_addr(save_folder, addr, info):
-    os.makedirs(save_folder, exist_ok=True)
-    filename = f"{addr.lower()}.json"
-    file_path = os.path.join(save_folder, filename)
-    with open(file_path, "w") as f:
-        json.dump(info, f, indent=4)
-
-    return file_path
-
 def get_bytecode_by_contract_addr(addr, chainid=1):
     params = {
         "chainid": chainid,  # Ethereum mainnet = 1
@@ -242,15 +233,26 @@ def get_bytecode_by_contract_addr(addr, chainid=1):
         print(f"error: {e}")
         return ""
 
-def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
-    os.makedirs(save_folder, exist_ok=True)
-    filename = f"{addr.lower()}.hex"
-    file_path = os.path.join(save_folder, filename)
+def get_source_code_by_contract_addr(addr, chainid=1):
+    params = {
+        "chainid": chainid,  # Ethereum mainnet = 1
+        "module": "contract",
+        "action": "getsourcecode",
+        "contractaddresses": addr,
+        "apikey": ETHERSCAN_API_KEY
+    }
 
-    with open(file_path, 'w') as f:
-        f.write(bytecode)
-
-    return file_path
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        if data["status"] == "1":
+            return data["result"][0]
+        else:
+            print(f"error: {data.get('message', '')}")
+            return dict()
+    except Exception as e:
+        print(f"error: {e}")
+        return dict()
 
 def reached_limit():
     params = {
@@ -272,3 +274,32 @@ def reached_limit():
     except Exception as e:
         print(f"error: {e}")
         return dict()
+
+def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
+    os.makedirs(save_folder, exist_ok=True)
+    filename = f"{addr.lower()}.hex"
+    file_path = os.path.join(save_folder, filename)
+
+    with open(file_path, 'w') as f:
+        f.write(bytecode)
+
+    return file_path
+
+def save_transactions_by_contract_addr(save_folder, addr, info):
+    os.makedirs(save_folder, exist_ok=True)
+    filename = f"{addr.lower()}.json"
+    file_path = os.path.join(save_folder, filename)
+    with open(file_path, "w") as f:
+        json.dump(info, f, indent=4)
+
+    return file_path
+
+def save_sol_by_contract_addr(save_folder, addr, source):
+    os.makedirs(save_folder, exist_ok=True)
+    filename = f"{addr.lower()}.sol"
+    file_path = os.path.join(save_folder, filename)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(source)
+
+    return file_path

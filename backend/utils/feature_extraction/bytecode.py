@@ -7,9 +7,6 @@ from scipy.stats import entropy
 from collections import Counter
 import joblib
 
-PATH = Path.cwd().parents[1]
-MODEL_PATH = os.path.join(PATH, 'model')
-
 # === Helper Functions ===
 
 def load_bytecode(hex_file):
@@ -60,9 +57,9 @@ def extract_bytecode_static_features(hex_path):
         **byte_freq  # merge byte frequency into the result
     }
 
-def generate_ngram_features(opcode_sequences, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False):
+def generate_ngram_features(opcode_sequences, MODEL_PATH, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False):
     vectorizer_path = os.path.join(MODEL_PATH, 'opcode_vectorizer.pkl')
-
+    print(vectorizer_path)
     if use_saved_model and os.path.exists(vectorizer_path):
         vectorizer = joblib.load(vectorizer_path)
         X = vectorizer.transform(opcode_sequences)
@@ -78,11 +75,11 @@ def generate_ngram_features(opcode_sequences, ngram_range=(1, 3), max_features=1
         os.makedirs(MODEL_PATH, exist_ok=True)
         joblib.dump(vectorizer, vectorizer_path)
 
-    feature_names = vectorizer.get_feature_names_out()
+    feature_names = vectorizer.vocabulary_.keys()
     return pd.DataFrame(X.toarray(), columns=feature_names), vectorizer
 
 
-def build_bytecode_feature_dataframe(hex_dir):
+def build_bytecode_feature_dataframe(hex_dir, MODEL_PATH):
     # Step 1: Static extraction
     feature_rows = []
     for hex_file in list(Path(hex_dir).glob("*.hex")):
@@ -92,7 +89,7 @@ def build_bytecode_feature_dataframe(hex_dir):
     df_static = pd.DataFrame(feature_rows)
 
     # Step 2: N-gram vectorization
-    ngram_df, vectorizer = generate_ngram_features(df_static["opcode_sequence"].tolist())
+    ngram_df, vectorizer = generate_ngram_features(df_static["opcode_sequence"].tolist(), MODEL_PATH)
 
     # Step 3: Merge
     df_final = pd.concat([df_static.drop(columns=["opcode_sequence"]), ngram_df], axis=1).set_index('Address').fillna(0)

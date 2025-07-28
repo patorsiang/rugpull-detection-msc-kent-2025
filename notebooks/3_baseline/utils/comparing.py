@@ -16,12 +16,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, precision_score, f1_score, recall_score, accuracy_score
 import pandas as pd
 
-def report_for_multiple_model(X, y):
-    models = {
+def get_model_set():
+    return {
         "MultiOutput(LogisticRegression)": MultiOutputClassifier(LogisticRegression(class_weight='balanced', random_state=42)),
         "MultiOutput(DecisionTree)": MultiOutputClassifier(DecisionTreeClassifier(random_state=42)),
         "MultiOutput(RandomForest)": MultiOutputClassifier(RandomForestClassifier(class_weight='balanced', random_state=42)),
-        "MultiOutput(AdaBoost)": MultiOutputClassifier(AdaBoostClassifier(algorithm="SAMME",random_state=42)),
+        "MultiOutput(AdaBoost)": MultiOutputClassifier(AdaBoostClassifier(random_state=42)),
         "MultiOutput(ExtraTrees)": MultiOutputClassifier(ExtraTreesClassifier(random_state=42)),
         "MultiOutput(XGBoost)": MultiOutputClassifier(XGBClassifier(random_state=42)),
         "MultiOutput(LightGBM)": MultiOutputClassifier(LGBMClassifier(random_state=42)),
@@ -29,12 +29,12 @@ def report_for_multiple_model(X, y):
         "MultiOutput(GaussianNB)": MultiOutputClassifier(GaussianNB()),
         "MultiOutput(KNN)": MultiOutputClassifier(KNeighborsClassifier()),
         "MultiOutput(SGD)": MultiOutputClassifier(SGDClassifier(random_state=42)),
-        "MultiOutput(MLP)": MultiOutputClassifier(MLPClassifier(random_state=42)),
+        "MultiOutput(MLP)": MultiOutputClassifier(MLPClassifier(random_state=42, max_iter=500)),
 
         "OneVsRest(LogisticRegression)": OneVsRestClassifier(LogisticRegression(class_weight='balanced', random_state=42)),
         "OneVsRest(DecisionTree)": OneVsRestClassifier(DecisionTreeClassifier(random_state=42)),
         "OneVsRest(RandomForest)": OneVsRestClassifier(RandomForestClassifier(class_weight='balanced', random_state=42)),
-        "OneVsRest(AdaBoost)": OneVsRestClassifier(AdaBoostClassifier(algorithm="SAMME",random_state=42)),
+        "OneVsRest(AdaBoost)": OneVsRestClassifier(AdaBoostClassifier(random_state=42)),
         "OneVsRest(ExtraTrees)": OneVsRestClassifier(ExtraTreesClassifier(random_state=42)),
         "OneVsRest(XGBoost)": OneVsRestClassifier(XGBClassifier(random_state=42)),
         "OneVsRest(LightGBM)": OneVsRestClassifier(LGBMClassifier(random_state=42)),
@@ -42,28 +42,33 @@ def report_for_multiple_model(X, y):
         "OneVsRest(GaussianNB)": OneVsRestClassifier(GaussianNB()),
         "OneVsRest(KNN)": OneVsRestClassifier(KNeighborsClassifier()),
         "OneVsRest(SGD)": OneVsRestClassifier(SGDClassifier(random_state=42)),
-        "OneVsRest(MLP)": OneVsRestClassifier(MLPClassifier(random_state=42)),
+        "OneVsRest(MLP)": OneVsRestClassifier(MLPClassifier(random_state=42, max_iter=500)),
     }
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+def evaluate_models(X_train, X_test, y_train, y_test):
+    models = get_model_set()
     results = {}
     for name, model in models.items():
         try:
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
+            label_map={i: col for i, col in enumerate(y_test.columns)}
             report = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
-            label_map = {i: label for i, label in enumerate(y.columns)}
             results[name] = {
                 "micro avg f1": report.get("micro avg", {}).get("f1-score", None),
                 "macro avg f1": report.get("macro avg", {}).get("f1-score", None),
                 **{f"{label} f1": report.get(str(i), {}).get("f1-score", None) for i, label in label_map.items()}
             }
-
         except Exception as e:
             results[name] = {"error": str(e)}
+    return pd.DataFrame(results).T
 
-    return pd.DataFrame(results).T, X_train, X_test, y_train, y_test
+def report_for_multiple_model(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    return evaluate_models(X_train, X_test, y_train, y_test), (X_train, X_test, y_train, y_test)
+
+def report_for_multiple_model_as_same_set(X_train, X_test, y_train, y_test):
+    return evaluate_models(X_train, X_test, y_train, y_test), (X_train, X_test, y_train, y_test)
 
 def evaluate_multilabel_classification(y_true, y_pred, label_names=None, threshold=0.5, average_types=["micro", "macro", "weighted"]):
     """

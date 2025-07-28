@@ -86,15 +86,15 @@ def extract_transaction_features(txn_file):
 
     # Transaction-level analysis
     for txn in transactions:
-        block_number = int(txn.get('blockNumber', 0))
-        timestamp = int(txn.get('timeStamp', 0))
+        block_number = np.float64(txn.get('blockNumber', 0))
+        timestamp = np.float64(txn.get('timeStamp', 0))
         to_addr = txn.get('to', '').lower()
         from_addr = txn.get('from', '').lower()
-        value = int(txn.get("value", 0))
+        value = np.float64(txn.get("value", 0))
         function_name = txn.get('functionName', "").split('(')[0]
-        gas_limits.append(int(txn.get('gas', 0)))
-        gas_used_list.append(int(txn.get('gasUsed', 0)))
-        gas_price_list.append(int(txn.get('gasPrice', 0)))
+        gas_limits.append(np.float64(txn.get('gas', 0)))
+        gas_used_list.append(np.float64(txn.get('gasUsed', 0)))
+        gas_price_list.append(np.float64(txn.get('gasPrice', 0)))
 
         if block_number:
             block_numbers.append(block_number)
@@ -118,7 +118,6 @@ def extract_transaction_features(txn_file):
 
     # Function signature stats
     function_counter = Counter(function_list)
-
     # Time features
     start_block = min(block_numbers) if block_numbers else 0
     end_block = max(block_numbers) if block_numbers else 0

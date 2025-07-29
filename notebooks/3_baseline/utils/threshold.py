@@ -27,6 +27,6 @@ def tune_thresholds(y_true, y_pred_prob, metric='f1'):
         best_thresholds.append(best_t)
         best_scores.append(best_score)
 
-        print(f"Label {i}: Best threshold = {best_t:.2f}, Best {metric} = {best_score:.4f}")
+        print(f"Label {i}: Best threshold = {best_t}, Best {metric} = {best_score}")
 
     return best_thresholds, best_scores

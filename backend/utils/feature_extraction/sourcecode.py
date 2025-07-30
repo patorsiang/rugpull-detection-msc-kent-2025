@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 MODEL_PATH = '../models'
 
-def generate_tf_idf_features(documents, MODEL_PATH, max_features=2000, min_df=2, use_saved_model=False, ):
+def generate_tf_idf_features(documents, MODEL_PATH, max_features=2000, min_df=2, use_saved_model=False):
     vectorizer_path = os.path.join(MODEL_PATH, 'tf_idf_vectorizer.pkl')
 
     if use_saved_model and os.path.exists(vectorizer_path):
@@ -29,7 +29,7 @@ def generate_tf_idf_features(documents, MODEL_PATH, max_features=2000, min_df=2,
     feature_names = vectorizer.vocabulary_.keys()
     return pd.DataFrame(X.toarray(), columns=feature_names), vectorizer
 
-def build_sol_feature_dataframe(sol_dir, MODEL_PATH):
+def build_sol_feature_dataframe(sol_dir, MODEL_PATH, max_features=2000, min_df=2, use_saved_model=False):
     documents_sol = []
     addresses_sol = []
 
@@ -43,7 +43,7 @@ def build_sol_feature_dataframe(sol_dir, MODEL_PATH):
     df_static = pd.DataFrame(addresses_sol)
 
     # Step 2: N-gram vectorization
-    tf_idf_df, vectorizer = generate_tf_idf_features(documents_sol, MODEL_PATH)
+    tf_idf_df, vectorizer = generate_tf_idf_features(documents_sol, MODEL_PATH, max_features, min_df, use_saved_model)
 
     # Step 3: Merge
     df_final = pd.concat([df_static, tf_idf_df], axis=1).set_index('Address').fillna(0)

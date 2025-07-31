@@ -142,17 +142,18 @@ def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, te
     y_pred = (y_pred > thresholds).astype(int)
     weights = f1_score(y_test, y_pred, average=None)
 
+    save_data = {
+        'thresholds': thresholds.tolist(),
+        'weights': weights,
+    }
+
     # Save thresholds to JSON
     filename = 'gru_txn_extension.json'
-    threshold_save_path = os.path.join(model_path, filename)
-    with open(threshold_save_path, 'w') as f:
-        save_data = {
-            'thresholds': thresholds,
-            'weights': weights
-        }
+    extension_save_path = os.path.join(model_path, filename)
+    with open(extension_save_path, 'w') as f:
         json.dump(save_data, f, indent=4)
 
-    print(f"Saved thresholds to {threshold_save_path}")
+    print(f"Saved thresholds to {filename}")
 
     # Save the model
     filename = 'gru_txn_model.keras'

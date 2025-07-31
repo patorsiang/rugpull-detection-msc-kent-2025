@@ -187,7 +187,7 @@ def split_train_n_test(X, y, test_size=0.2, random_state=42):
 
     return X_train, X_test, y_train, y_test
 
-def save_model(name, model, weights, save_dir, label_cols, vectorizer):
+def save_model(name, model, weights, save_dir, feature_cols, vectorizer):
     os.makedirs(save_dir, exist_ok=True)
     save_path = os.path.join(save_dir, f"{name}.pkl")
 
@@ -195,7 +195,7 @@ def save_model(name, model, weights, save_dir, label_cols, vectorizer):
         pickle.dump({
             "model": model,
             "weights": weights,
-            "label_cols": label_cols,
+            "feature_cols": feature_cols,
             "vectorizer": vectorizer
         }, f)
 

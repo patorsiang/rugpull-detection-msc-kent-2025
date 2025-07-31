@@ -139,6 +139,7 @@ def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, te
 
     y_pred = tuned_gru_model.predict(X_test)
     thresholds, _ = tune_thresholds(y_test, y_pred)
+    y_pred = (y_pred > thresholds).astype(int)
     weights = f1_score(y_test, y_pred, average=None)
 
     # Save thresholds to JSON

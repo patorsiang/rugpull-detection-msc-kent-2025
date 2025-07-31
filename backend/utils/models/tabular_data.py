@@ -109,6 +109,6 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
     model = MultiOutputClassifier(base_model)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
-    save_model(mode, model, weights=f1_score(y_test, y_pred, average=None), save_dir=model_path, label_cols=list(df.columns), vectorizer=vectorizer)
+    save_model(mode, model, weights=f1_score(y_test, y_pred, average=None), save_dir=model_path, feature_cols=list(df.columns), vectorizer=vectorizer)
 
     return model, ground_df, df, X_train, X_test, y_train, y_test

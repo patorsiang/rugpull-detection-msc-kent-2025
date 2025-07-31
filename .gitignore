@@ -33,6 +33,7 @@ env/
 *.ckpt
 *.tflite
 *.sav
+*.keras
 
 # === Data Files ===
 *.csv

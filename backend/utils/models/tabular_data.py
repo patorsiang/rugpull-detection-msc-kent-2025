@@ -11,7 +11,7 @@ from sklearn.model_selection import KFold
 from backend.utils.feature_extraction.bytecode import build_bytecode_feature_dataframe
 from backend.utils.feature_extraction.sourcecode import build_sol_feature_dataframe
 from backend.utils.feature_extraction.transaction import build_txn_feature_dataframe
-from backend.utils.comparing import build_model_by_name, split_train_n_test, save_model
+from backend.utils.comparing import build_model_by_name, merge_n_split, save_model
 
 def get_feature_df(path, model_path, max_features, min_df, use_saved_model, mode='byte'):
     match(mode):
@@ -52,7 +52,7 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
                 mode=mode
             )
 
-        X_full, _, y_full, _ = split_train_n_test(ground_df, df, test_size=0)
+        X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=0)
 
         kf = KFold(n_splits=3, shuffle=True, random_state=random_state)
 
@@ -103,7 +103,7 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
             mode=mode
         )
 
-    X_train, X_test, y_train, y_test = split_train_n_test(ground_df, df, test_size=test_size, random_state=random_state)
+    X_train, X_test, y_train, y_test = merge_n_split(ground_df, df, test_size=test_size, random_state=random_state)
 
     base_model = build_model_by_name(model_name, best_params, is_trial=False, random_state=random_state)
     model = MultiOutputClassifier(base_model)

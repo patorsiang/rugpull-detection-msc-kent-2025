@@ -170,12 +170,15 @@ def build_model_by_name(name, param_source, is_trial=False, random_state=42):
         case _:
             raise ValueError(f"Unsupported model name: {name}")
 
-def split_train_n_test(ground_df, df, test_size=0.2, random_state=43):
+def merge_n_split(ground_df, df, test_size=0.2, random_state=42):
     label_cols = list(ground_df.columns)
     merged_df = pd.concat([ground_df, df], axis=1).fillna(0)
     y = merged_df[label_cols]
     X = merged_df.drop(columns=label_cols)
 
+    return split_train_n_test(X, y, test_size, random_state)
+
+def split_train_n_test(X, y, test_size=0.2, random_state=42):
     if test_size == 0:
         X_train, y_train = X, y
         X_test, y_test = shuffle(X, y, random_state=random_state)

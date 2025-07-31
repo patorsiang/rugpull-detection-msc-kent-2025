@@ -143,7 +143,7 @@ def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, te
     weights = f1_score(y_test, y_pred, average=None)
 
     save_data = {
-        'thresholds': thresholds.tolist(),
+        'thresholds': thresholds,
         'weights': weights,
     }
 

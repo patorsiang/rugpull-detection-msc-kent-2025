@@ -82,7 +82,7 @@ lr_scheduler = LearningRateScheduler(scheduler)
 def objective(trial, epochs, X, y, test_size):
     units = trial.suggest_int("units", 32, 516)
     lr = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
-    batch_size = trial.suggest_categorical("batch_size", [4, 8, 16, 32])
+    batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
 
     model = build_gru_model(
         input_shape=(X.shape[1], X.shape[2]),
@@ -144,7 +144,7 @@ def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, te
 
     save_data = {
         'thresholds': thresholds,
-        'weights': weights,
+        'weights': weights.tolist(),
     }
 
     # Save thresholds to JSON

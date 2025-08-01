@@ -128,6 +128,8 @@ def get_trained_gcn_model(mode='txn', n_trials=100, save_path=None):
         with open(os.path.join(save_path, filename), 'w') as f:
             data = {
                 **best_params,
+                'in_channels':in_channel,
+                'out_channels':len(label_cols),
                 'thresholds': thresholds,
                 'weights': weights.tolist()
             }

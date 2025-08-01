@@ -20,41 +20,64 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, Learnin
 from backend.utils.threshold import tune_thresholds
 from backend.utils.comparing import split_train_n_test
 
-def load_data(src_path, ground_df):
-    seq_len = 500
-    feature_dim = 12
+SEQ_LEN = 500
+FEATURE_DIM = 12
 
-    X, y  = [], []
+def extract_tx_sequence(txns):
+    return [[
+        int(tx.get("blockNumber", 0)),
+        int(tx.get("timeStamp", 0)),
+        int(tx.get("nonce", 0)),
+        int(tx.get("transactionIndex", 0)),
+        int(tx.get("value", 0)),
+        int(tx.get("gas", 0)),
+        int(tx.get("gasPrice", 0)),
+        int(tx.get("isError", 0)),
+        int(tx.get("txreceipt_status", 0)),
+        int(tx.get("cumulativeGasUsed", 0)),
+        int(tx.get("gasUsed", 0)),
+        int(tx.get("confirmations", 0)),
+    ] for tx in txns]
 
-    for path in tqdm(list(Path(os.path.join(src_path, 'txn')).glob('*.json'))):
+def pad_and_scale(seq):
+    if len(seq) < SEQ_LEN:
+        seq += [[0]*FEATURE_DIM] * (SEQ_LEN - len(seq))
+    else:
+        seq = seq[:SEQ_LEN]
+    return StandardScaler().fit_transform(seq)
+
+def extract_timeline_feature(src_path):
+    ts = {}
+    txn_files = list(Path(os.path.join(src_path, 'txn')).glob('*.json'))
+
+    for path in tqdm(txn_files, desc="Extracting timeline features"):
         addr = path.stem
-        data = json.load(open(path, 'r'))
-        txns = sorted(data.get("transaction", []), key=lambda x: int(x.get("timeStamp", 0)))
-        seq = [[
-            int(tx.get("blockNumber", 0)),
-            int(tx.get("timeStamp", 0)),
-            int(tx.get("nonce", 0)),
-            int(tx.get("transactionIndex", 0)),
-            int(tx.get("value", 0)),
-            int(tx.get("gas", 0)),
-            int(tx.get("gasPrice", 0)),
-            int(tx.get("isError", 0)),
-            int(tx.get("txreceipt_status", 0)),
-            int(tx.get("cumulativeGasUsed", 0)),
-            int(tx.get("gasUsed", 0)),
-            int(tx.get("confirmations", 0)),
-        ] for tx in txns]
+        try:
+            data = json.load(open(path, 'r'))
+            txns = sorted(data.get("transaction", []), key=lambda x: int(x.get("timeStamp", 0)))
+            seq = extract_tx_sequence(txns)
+            ts[addr] = pad_and_scale(seq)
+        except Exception as e:
+            print(f"Skipping {addr}: {e}")
 
-        if len(seq) < seq_len:
-            seq += [[0]*feature_dim] * (seq_len - len(seq))
-        else:
-            seq = seq[:seq_len]
+    return ts  # Dict[str, np.ndarray shape=(500,12)]
 
-        seq = StandardScaler().fit_transform(seq)
+def load_data(src_path, ground_df):
+    X, y = [], []
+    txn_files = list(Path(os.path.join(src_path, 'txn')).glob('*.json'))
 
-        if addr in ground_df.index:
-            X.append(seq)
+    for path in tqdm(txn_files, desc="Loading labeled timeline data"):
+        addr = path.stem
+        try:
+            if addr not in ground_df.index:
+                continue
+            data = json.load(open(path, 'r'))
+            txns = sorted(data.get("transaction", []), key=lambda x: int(x.get("timeStamp", 0)))
+            seq = extract_tx_sequence(txns)
+            X.append(pad_and_scale(seq))
             y.append(ground_df.loc[addr].tolist())
+        except Exception as e:
+            print(f"Skipping {addr}: {e}")
 
     return np.array(X), np.array(y)
 

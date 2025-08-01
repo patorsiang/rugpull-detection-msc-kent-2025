@@ -51,23 +51,39 @@ def create_trained_model(in_channels, hidden_dim, out_channels, dropout, lr, epo
 
 def val_model(model, test_loader, thresholds=None):
     model.eval()
-    y_true, y_pred = [], []
+    y_true, y_prob = [], []
+    has_labels = True
+
     with torch.no_grad():
         for batch in test_loader:
             out = model(batch)
-            preds = (torch.sigmoid(out) > 0.5).cpu().int()
-            y_true.append(batch.y.cpu())
-            y_pred.append(preds)
+            probs = torch.sigmoid(out).cpu()
 
-    y_true = torch.cat(y_true).numpy()
-    y_pred = torch.cat(y_pred).numpy()
+            if hasattr(batch, 'y') and batch.y is not None:
+                y_true.append(batch.y.cpu())
+            else:
+                has_labels = False
 
-    if thresholds is None:
-        thresholds, _ = tune_thresholds(y_true, y_pred)
+            y_prob.append(probs)
 
-    y_pred = (y_pred > thresholds).astype(int)
+    y_prob = torch.cat(y_prob).numpy()
 
-    return y_true, y_pred, thresholds
+    if has_labels:
+        y_true = torch.cat(y_true).numpy()
+
+        # Auto-tune thresholds only if not provided
+        if thresholds is None:
+            from backend.utils.threshold import tune_thresholds
+            thresholds, _ = tune_thresholds(y_true, y_prob)
+
+        y_pred = (y_prob > thresholds).astype(int)
+        return y_true, y_pred, thresholds
+
+    else:
+        # If no labels, return just the probabilities
+        return None, y_prob, thresholds
+
+
 
 
 def objective(trial, dataset, in_channels, out_channels):
@@ -85,6 +101,28 @@ def objective(trial, dataset, in_channels, out_channels):
 
     return f1_score(y_true, y_pred, average='macro')
 
+def form_data(graph_data, feature, y=None):
+    data = from_networkx(graph_data)
+
+    data.x = torch.tensor(feature, dtype=torch.float32).repeat(data.num_nodes, 1) # Repeat features for each node
+
+    if y is not None:
+        data.y = torch.tensor(y, dtype=torch.float32).unsqueeze(0) # Add a batch dimension
+
+    return data
+
+def form_graph_dataset(graphs, graph_feature, y=None):
+    dataset = []
+    for i, (address, graph_data) in enumerate(graphs.items()):
+        feature = graph_feature.loc[address]
+        y_data = None
+        if y is not None:
+            y_data = y.loc[address][label_cols].values
+        data = form_data(graph_data, feature, y_data)
+
+        dataset.append(data)
+    return dataset
+
 def load_data(mode='txn'):
     graph_feature = pd.read_csv(f'{mode}_graph_features.csv', index_col=0)
     graph_feature.index = graph_feature.index.str.lower()
@@ -93,14 +131,7 @@ def load_data(mode='txn'):
 
     label_cols = y.columns.tolist()
 
-    dataset = []
-    for i, (address, graph_data) in enumerate(graphs.items()):
-        feature = graph_feature.loc[address]
-        data = from_networkx(graph_data)
-
-        data.x = torch.tensor(feature, dtype=torch.float32).repeat(data.num_nodes, 1) # Repeat features for each node
-        data.y = torch.tensor(y.loc[address][label_cols].values, dtype=torch.float32).unsqueeze(0) # Add a batch dimension
-        dataset.append(data)
+    dataset = form_graph_dataset(graphs, graph_feature, y)
 
     return dataset, graph_feature.shape[1], label_cols
 

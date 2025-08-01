@@ -29,6 +29,7 @@ env/
 *.pkl
 *.joblib
 *.pt
+*.pth
 *.onnx
 *.ckpt
 *.tflite

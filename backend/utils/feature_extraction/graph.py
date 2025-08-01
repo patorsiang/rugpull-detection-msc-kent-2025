@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 import networkx as nx
 from pathlib import Path
-from evm_cfg_builder.cfg.cfg import CFG
+from backend.utils.feature_extraction.evm_cfg_builder.evm_cfg_builder.cfg.cfg import CFG
 
 from backend.utils.feature_extraction.bytecode import load_bytecode
 from backend.utils.feature_extraction.transaction import load_transaction

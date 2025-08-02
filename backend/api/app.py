@@ -44,7 +44,6 @@ def log_memory(msg=""):
 
 class TrainRequest(BaseModel):
     n_trials: int
-    epochs: int
 
 @app.get("/")
 async def async_route():
@@ -54,7 +53,7 @@ async def async_route():
 def train_model(request: TrainRequest):
     try:
         log_memory("Start of training")
-        if request.n_trials <= 0 or request.epochs <= 0:
+        if request.n_trials <= 0:
             raise HTTPException(status_code=400, detail="n_trials and epochs must be positive integers")
 
         print(f"[INFO] Starting extracting feature session")
@@ -74,10 +73,8 @@ def train_model(request: TrainRequest):
 
         log_dir = setup_training_log_folder(LOGS_PATH)
         n_trials = request.n_trials
-        epochs = request.epochs
 
         print(f"[INFO] Starting training session")
-        all_summaries = []
 
         # === Tabular Models (byte, code, txn) ===
         for path, mode in [('hex', 'byte'), ('sol', 'code'), ('txn', 'txn')]:
@@ -94,7 +91,7 @@ def train_model(request: TrainRequest):
         # === GRU Model ===
         print("[INFO] Training GRU model")
         model, ground_df, _, X_test, _, y_test, thresholds = get_trained_gru_model(
-            LABELED_PATH, MODEL_PATH, n_trials=n_trials, epochs=epochs
+            LABELED_PATH, MODEL_PATH, n_trials=n_trials
         )
         y_pred = model.predict(X_test)
         y_pred = (y_pred > thresholds).astype(int)

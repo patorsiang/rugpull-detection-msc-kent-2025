@@ -104,11 +104,12 @@ early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3)
 lr_scheduler = LearningRateScheduler(scheduler)
 
-def objective(trial, epochs, X, y, test_size):
+def objective(trial, X, y, test_size):
     try:
         units = trial.suggest_int("units", 32, 516)
         lr = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
         batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
+        epochs = trial.suggest_int("epochs", 8, 100)
 
         model = build_gru_model(
             input_shape=(X.shape[1], X.shape[2]),
@@ -136,14 +137,14 @@ def objective(trial, epochs, X, y, test_size):
         tf.keras.backend.clear_session()
         gc.collect()
 
-def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, test_size=0):
+def get_trained_gru_model(labeled_path, model_path,  n_trials=100, test_size=0):
     ground_df = pd.read_csv(os.path.join(labeled_path, 'groundtruth.csv'), index_col=0)
 
     X, y = load_data(labeled_path, ground_df)
 
     optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
     study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)
-    study.optimize(partial(objective, epochs=epochs, X=X, y=y, test_size=test_size), n_trials=n_trials, n_jobs=1)
+    study.optimize(partial(objective, X=X, y=y, test_size=test_size), n_trials=n_trials, n_jobs=1)
 
     print("✅ Best Params:", study.best_params)
     print("🥇 Best Score:", study.best_value)
@@ -161,7 +162,7 @@ def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, te
     tuned_gru_model.fit(
         X_train, y_train,
         validation_data=(X_test, y_test),
-        epochs=epochs,
+        epochs=study.best_params['epochs'],
         batch_size=study.best_params['batch_size'],
         callbacks=[early_stop, reduce_lr, lr_scheduler],
         verbose=2

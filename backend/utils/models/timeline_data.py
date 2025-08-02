@@ -1,6 +1,7 @@
 from tqdm import tqdm
 from pathlib import Path
 import os
+import gc
 import json
 from functools import partial
 import optuna
@@ -10,6 +11,7 @@ import pandas as pd
 from sklearn.metrics import f1_score
 from sklearn.preprocessing import StandardScaler
 
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras import Input
 from tensorflow.keras.layers import GRU, Dense, Masking
@@ -103,40 +105,45 @@ reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3)
 lr_scheduler = LearningRateScheduler(scheduler)
 
 def objective(trial, epochs, X, y, test_size):
-    units = trial.suggest_int("units", 32, 516)
-    lr = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
-    batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
+    try:
+        units = trial.suggest_int("units", 32, 516)
+        lr = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
+        batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
 
-    model = build_gru_model(
-        input_shape=(X.shape[1], X.shape[2]),
-        units=units, lr=lr,
-        output=y.shape[1]
-    )
+        model = build_gru_model(
+            input_shape=(X.shape[1], X.shape[2]),
+            units=units, lr=lr,
+            output=y.shape[1]
+        )
 
-    X_train, X_test, y_train, y_test = split_train_n_test(X, y, test_size)
+        X_train, X_test, y_train, y_test = split_train_n_test(X, y, test_size)
 
-    model.fit(
-        X_train, y_train,
-        validation_data=(X_test, y_test),
-        epochs=epochs,
-        batch_size=batch_size,
-        callbacks=[early_stop, reduce_lr, lr_scheduler],
-        verbose=1
-    )
+        model.fit(
+            X_train, y_train,
+            validation_data=(X_test, y_test),
+            epochs=epochs,
+            batch_size=batch_size,
+            callbacks=[early_stop, reduce_lr, lr_scheduler],
+            verbose=1
+        )
 
-    y_pred = model.predict(X_test)
-    thresholds, _ = tune_thresholds(y_test, y_pred)
-    y_pred_bin = (y_pred > thresholds).astype(int)
+        y_pred = model.predict(X_test)
+        thresholds, _ = tune_thresholds(y_test, y_pred)
+        y_pred_bin = (y_pred > thresholds).astype(int)
 
-    return f1_score(y, y_pred_bin, average='macro')
+        return f1_score(y, y_pred_bin, average='macro')
+    finally:
+        tf.keras.backend.clear_session()
+        gc.collect()
 
 def get_trained_gru_model(labeled_path, model_path, epochs=100, n_trials=100, test_size=0):
     ground_df = pd.read_csv(os.path.join(labeled_path, 'groundtruth.csv'), index_col=0)
 
     X, y = load_data(labeled_path, ground_df)
 
-    study = optuna.create_study(direction="maximize")
-    study.optimize(partial(objective, epochs=epochs, X=X, y=y, test_size=test_size), n_trials=n_trials)
+    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
+    study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)
+    study.optimize(partial(objective, epochs=epochs, X=X, y=y, test_size=test_size), n_trials=n_trials, n_jobs=1)
 
     print("✅ Best Params:", study.best_params)
     print("🥇 Best Score:", study.best_value)

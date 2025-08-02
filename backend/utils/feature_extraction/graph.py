@@ -64,9 +64,9 @@ def save_graph_features(out_dir, name, graphs):
         features = extract_graph_features(addr, G)
         rows.append(features)
 
-    df = pd.DataFrame(rows).set_index('Address')
+    df = pd.DataFrame(rows)
     df.fillna(0)
-    df.to_csv(os.path.join(out_dir, f"{name}_graph_features.csv"))
+    df.to_csv(os.path.join(out_dir, f"{name}_graph_features.csv"), index=False)
     save_graphs(out_dir, name, graphs)
     return df
 

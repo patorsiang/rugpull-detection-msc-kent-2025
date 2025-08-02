@@ -100,7 +100,6 @@ def build_model_by_name(name, param_source, is_trial=False, random_state=42):
             )
         case "AdaBoost":
             return AdaBoostClassifier(
-                algorithm="SAMME",
                 n_estimators=get_int("n_estimators", 50, 200),
                 learning_rate=get_float("learning_rate", 0.01, 1.0),
                 random_state=random_state
@@ -202,16 +201,27 @@ def save_model(name, model, weights, save_dir, feature_cols, vectorizer):
     print(f"✅ Model saved {name}.pkl")
     return save_path
 
-def plot_confusion_matrix(y_test, y_pred, label_cols):
-    print(classification_report(y_test, y_pred, target_names=label_cols))
+def _draw_confusion_matrix(y_test, y_pred, label_cols):
+    """
+    Return a matplotlib Figure object of multilabel confusion matrix.
+    """
     mcm = multilabel_confusion_matrix(y_test, y_pred)
-
     n_labels = len(label_cols)
-    _, axes = plt.subplots(1, n_labels, figsize=(5 * n_labels, 4))  # 5 units wide per plot
+    fig, axes = plt.subplots(1, n_labels, figsize=(5 * n_labels, 4))
 
     for i, matrix in enumerate(mcm):
         disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=['No ' + label_cols[i], label_cols[i]])
         disp.plot(cmap=plt.cm.Blues, ax=axes[i], colorbar=False)
-        axes[i].set_title(f'{label_cols[i]}')
+        axes[i].set_title(label_cols[i])
 
+    fig.tight_layout()
+    return fig
+
+
+def plot_confusion_matrix(y_test, y_pred, label_cols):
+    """
+    Show confusion matrix plot and print classification report to console.
+    """
+    print(classification_report(y_test, y_pred, target_names=label_cols))
+    _draw_confusion_matrix(y_test, y_pred, label_cols)
     plt.show()

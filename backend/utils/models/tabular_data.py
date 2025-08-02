@@ -74,7 +74,8 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
     if mode == 'txn':
         df = build_txn_feature_dataframe(path)
 
-    study = optuna.create_study(direction="maximize")
+    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
+    study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)
     study.optimize(partial(objective,
                            random_state=random_state,
                            ground_df=ground_df,

@@ -1,7 +1,10 @@
+import os
 import torch
 import json
 import optuna
+import gc
 from functools import partial
+from tqdm import tqdm
 
 from torch_geometric.utils import from_networkx
 import pandas as pd
@@ -87,59 +90,57 @@ def val_model(model, test_loader, thresholds=None):
 
 
 def objective(trial, dataset, in_channels, out_channels):
-    hidden_dim = trial.suggest_int("hidden_dim", 32, 256)
-    lr = trial.suggest_float("lr", 1e-6, 1e-2, log=True)
-    dropout = trial.suggest_float("dropout", 0.0, 0.8)
-    batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
-    epochs = trial.suggest_int("epochs", 5, 50)
+    try:
+        hidden_dim = trial.suggest_int("hidden_dim", 32, 256)
+        lr = trial.suggest_float("lr", 1e-6, 1e-2, log=True)
+        dropout = trial.suggest_float("dropout", 0.0, 0.8)
+        batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
+        epochs = trial.suggest_int("epochs", 5, 50)
 
-    train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+        train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+        test_loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
 
-    model = create_trained_model(in_channels, hidden_dim, out_channels, dropout, lr, epochs, train_loader)
-    y_true, y_pred, _ = val_model(model, test_loader)
+        model = create_trained_model(in_channels, hidden_dim, out_channels, dropout, lr, epochs, train_loader)
+        y_true, y_pred, _ = val_model(model, test_loader)
 
-    return f1_score(y_true, y_pred, average='macro')
+        return f1_score(y_true, y_pred, average='macro')
+    finally:
+        del model, train_loader, test_loader
+        torch.cuda.empty_cache()  # if using GPU
+        gc.collect()
 
-def form_data(graph_data, feature, y=None):
-    data = from_networkx(graph_data)
-
-    data.x = torch.tensor(feature, dtype=torch.float32).repeat(data.num_nodes, 1) # Repeat features for each node
-
-    if y is not None:
-        data.y = torch.tensor(y, dtype=torch.float32).unsqueeze(0) # Add a batch dimension
-
-    return data
-
-def form_graph_dataset(graphs, graph_feature, y=None):
-    dataset = []
-    for i, (address, graph_data) in enumerate(graphs.items()):
-        feature = graph_feature.loc[address]
-        y_data = None
-        if y is not None:
-            y_data = y.loc[address][label_cols].values
-        data = form_data(graph_data, feature, y_data)
-
-        dataset.append(data)
-    return dataset
-
-def load_data(mode='txn'):
-    graph_feature = pd.read_csv(f'{mode}_graph_features.csv', index_col=0)
+def load_data(scr_path, mode='txn'):
+    graph_feature = pd.read_csv(os.path.join(scr_path, f'{mode}_graph_features.csv'), index_col=0)
     graph_feature.index = graph_feature.index.str.lower()
-    graphs = pickle.load(open('txn.pkl', 'rb'))
-    y = pd.read_csv('groundtruth.csv', index_col=0)
+
+    graphs = pickle.load(open(os.path.join(scr_path, f'{mode}.pkl'), 'rb'))
+    graphs = {addr.lower(): g for addr, g in graphs.items()}
+
+    y = pd.read_csv(os.path.join(scr_path, 'groundtruth.csv'), index_col=0)
+    y.index = y.index.str.lower()
 
     label_cols = y.columns.tolist()
 
-    dataset = form_graph_dataset(graphs, graph_feature, y)
+    dataset = []
+    for address, graph_data in tqdm(graphs.items(), desc="merging graph, x and y"):
+        feature = graph_feature.loc[address]
+        data = from_networkx(graph_data)
 
+        feature_tensor = torch.tensor(feature, dtype=torch.float32).unsqueeze(0)
+        data.x = feature_tensor.expand(data.num_nodes, -1)
+        data.y = torch.tensor(y.loc[address][label_cols].values, dtype=torch.float32).unsqueeze(0)
+        dataset.append(data)
     return dataset, graph_feature.shape[1], label_cols
 
-def get_trained_gcn_model(mode='txn', n_trials=100, save_path=None):
-    dataset, in_channel, label_cols = load_data(mode)
-    study = optuna.create_study(direction="maximize")
+
+
+def get_trained_gcn_model(scr_path="labeled", mode='txn', n_trials=100, save_path=None):
+    dataset, in_channel, label_cols = load_data(scr_path, mode)
+
+    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
+    study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)
     objective_partial = partial(objective, dataset=dataset, in_channels=in_channel, out_channels=len(label_cols))
-    study.optimize(objective_partial, n_trials=n_trials)
+    study.optimize(objective_partial, n_trials=n_trials, n_jobs=1)
     best_params = study.best_params
 
     print("Best Params:", study.best_params)
@@ -168,4 +169,4 @@ def get_trained_gcn_model(mode='txn', n_trials=100, save_path=None):
         print(f"Best parameters saved to {filename}")
 
 
-    return best_model, thresholds
+    return best_model, y_test, y_pred, thresholds

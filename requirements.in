@@ -22,3 +22,7 @@ torch==2.2.2
 torch_geometric==2.6.1
 tqdm==4.67.1
 xgboost==3.0.3
+ipython==8.12.3
+fastapi
+uvicorn
+asyncio

@@ -5,7 +5,7 @@ from pathlib import Path
 import requests
 import redis
 import numpy as np
-
+import os
 # === Global Cache (Redis) ===
 r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
@@ -168,10 +168,10 @@ def extract_transaction_features(txn_file):
 
     return features
 
-def build_txn_feature_dataframe(txn_json_dir):
+def save_txn_feature_dataframe(out_dir):
     """Process all JSON files in a folder and build a feature DataFrame."""
     feature_rows = []
-    for txn_file in Path(txn_json_dir).glob("*.json"):
+    for txn_file in Path(os.path.join(out_dir, 'txn')).glob("*.json"):
         try:
             row = extract_transaction_features(txn_file)
             feature_rows.append(row)
@@ -181,4 +181,5 @@ def build_txn_feature_dataframe(txn_json_dir):
     df = pd.DataFrame(feature_rows)
     df = df.set_index("Address")
     df = df.fillna(0)
+    df.to_csv(os.path.join(out_dir, f"txn_features.csv"))
     return df

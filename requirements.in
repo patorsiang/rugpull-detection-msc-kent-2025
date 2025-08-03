@@ -26,3 +26,9 @@ ipython==8.12.3
 fastapi
 uvicorn
 asyncio
+torchvision
+torchaudio
+torch_scatter
+torch_sparse
+torch_cluster
+torch_spline_conv

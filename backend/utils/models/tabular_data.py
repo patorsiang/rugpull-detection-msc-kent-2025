@@ -10,7 +10,6 @@ from sklearn.model_selection import KFold
 
 from backend.utils.feature_extraction.bytecode import build_bytecode_feature_dataframe
 from backend.utils.feature_extraction.sourcecode import build_sol_feature_dataframe
-from backend.utils.feature_extraction.transaction import build_txn_feature_dataframe
 from backend.utils.comparing import build_model_by_name, merge_n_split, save_model
 
 def get_feature_df(path, model_path, max_features, min_df, use_saved_model, mode='byte'):
@@ -42,6 +41,7 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
 
         base_model = build_model_by_name(model_name, trial, is_trial=True, random_state=random_state)
 
+        print(df.head())
         if df is None:
             df, _ = get_feature_df(
                 path,
@@ -53,6 +53,7 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
             )
 
         X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=0)
+        print(X_full.head())
 
         kf = KFold(n_splits=3, shuffle=True, random_state=random_state)
 
@@ -71,8 +72,8 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
     df = None
     vectorizer = {}
 
-    if mode == 'txn':
-        df = build_txn_feature_dataframe(path)
+    if mode in ['txn', 'cfg_graph', 'txn_graph']:
+        df = pd.read_csv(os.path.join(labeled_path, path), index_col=0)
 
     optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
     study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)

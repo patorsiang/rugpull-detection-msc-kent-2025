@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.metrics import f1_score
 
-def tune_thresholds(y_true, y_pred_prob, metric='f1'):
+def tune_thresholds(y_true, y_pred_prob):
     y_true = np.asarray(y_true)          # Fix: convert to NumPy
     y_pred_prob = np.asarray(y_pred_prob)
 
@@ -16,8 +16,7 @@ def tune_thresholds(y_true, y_pred_prob, metric='f1'):
 
         for t in thresholds:
             label_pred = (label_probs >= t).astype(int)
-            if metric == 'f1':
-                score = f1_score(label_true, label_pred, zero_division=0)
+            score = f1_score(label_true, label_pred, zero_division=0)
             scores.append(score)
         best_t = thresholds[np.argmax(scores)]
         best_score = np.max(scores)

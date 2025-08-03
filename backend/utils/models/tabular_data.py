@@ -32,7 +32,7 @@ def get_feature_df(path, model_path, max_features, min_df, use_saved_model, mode
             )
 
 # === OBJECTIVE FUNCTION ===
-def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
+def objective(trial, ground_df, path, model_path, random_state, mode, df=None, test_size=0):
     try:
         model_name = trial.suggest_categorical("model", [
             "LogisticRegression", "DecisionTree", "RandomForest", "AdaBoost", "ExtraTrees",
@@ -41,7 +41,8 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
 
         base_model = build_model_by_name(model_name, trial, is_trial=True, random_state=random_state)
 
-        print(df.head())
+        print(f"[Trial {trial.number}] base_model={base_model}")
+
         if df is None:
             df, _ = get_feature_df(
                 path,
@@ -52,14 +53,16 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None):
                 mode=mode
             )
 
-        X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=0)
-        print(X_full.head())
+        X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=test_size)
 
         kf = KFold(n_splits=3, shuffle=True, random_state=random_state)
 
         model = MultiOutputClassifier(base_model)
         score = cross_val_score(model, X_full, y_full, scoring="f1_macro", cv=kf).mean()
         return score
+    except Exception as e:
+        print(f"[Trial failed] {e}")
+        return float('-inf')  # or np.nan
     finally:
         del base_model, model, X_full, y_full
         gc.collect()
@@ -74,16 +77,18 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
 
     if mode in ['txn', 'cfg_graph', 'txn_graph']:
         df = pd.read_csv(os.path.join(labeled_path, path), index_col=0)
+        print(df.head())
 
-    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spam
-    study = optuna.create_study(direction="maximize", study_name="my_study", storage=None, load_if_exists=False)
+    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spamo
+    study = optuna.create_study(direction="maximize", storage=optuna.storages.InMemoryStorage(), load_if_exists=False)
     study.optimize(partial(objective,
                            random_state=random_state,
                            ground_df=ground_df,
                            path=path,
                            model_path=model_path,
                            mode=mode,
-                           df=df),
+                           df=df,
+                           test_size=test_size),
                            n_trials=n_trials,
                            n_jobs=n_jobs)
 

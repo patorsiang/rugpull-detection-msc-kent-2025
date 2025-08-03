@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2023-05-05
-*/
-
 /*
 
             F R E D D I E   T H E   F R O G

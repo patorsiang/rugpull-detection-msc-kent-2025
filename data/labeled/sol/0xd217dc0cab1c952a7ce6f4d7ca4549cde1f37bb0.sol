@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2020-04-28
-*/
-
 // BUILT FOR FREE ON https://vittominacori.github.io/erc20-generator
 
 // File: @openzeppelin/contracts/GSN/Context.sol

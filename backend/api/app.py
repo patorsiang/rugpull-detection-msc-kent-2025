@@ -3,6 +3,7 @@ warnings.filterwarnings('ignore')
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import multiprocessing
 import os
 import sys
 from pathlib import Path
@@ -31,6 +32,9 @@ from backend.utils.logging.training_result import save_confusion_logs
 
 import psutil
 
+if multiprocessing.get_start_method(allow_none=True) != 'spawn':
+    multiprocessing.set_start_method('spawn', force=True)
+
 def log_memory(msg=""):
     vm = psutil.virtual_memory()
     print(f"[MEMORY] {msg}")
@@ -41,6 +45,7 @@ def log_memory(msg=""):
 
 class TrainRequest(BaseModel):
     n_trials: int
+    test_size: float
 
 @app.get("/")
 async def async_route():
@@ -54,6 +59,7 @@ def train_model(request: TrainRequest):
         log_memory("Start of training")
 
         n_trials = request.n_trials
+        test_size = request.test_size
 
         if n_trials <= 0:
             raise HTTPException(status_code=400, detail="n_trials and epochs must be positive integers")
@@ -78,12 +84,11 @@ def train_model(request: TrainRequest):
 
         # # === Tabular Models (byte, code, txn) ===
         for path, mode in [
-            # ('hex', 'byte'), ('sol', 'code'),
-            ('txn_features.csv', 'txn'), ('cfg_graph_features.csv', 'cfg_graph'), ('txn_graph_features.csv', 'txn_graph')]:
+            ('hex', 'byte'), ('sol', 'code'), ('txn_features.csv', 'txn'), ('cfg_graph_features.csv', 'cfg_graph'), ('txn_graph_features.csv', 'txn_graph')]:
             print(f"[INFO] Training tabular model: {mode}")
             model_path = os.path.join(LABELED_PATH, path)
             model, ground_df, _, _, X_test, _, y_test = get_trained_best_model(
-                LABELED_PATH, model_path, MODEL_PATH, test_size=0, mode=mode, n_trials=n_trials
+                LABELED_PATH, model_path, MODEL_PATH, test_size=test_size, mode=mode, n_trials=n_trials
             )
             y_pred = model.predict(X_test)
             save_confusion_logs(y_test, y_pred, list(ground_df.columns), log_dir, model_name=f"{mode}_tabular")
@@ -93,7 +98,7 @@ def train_model(request: TrainRequest):
         # === GRU Model ===
         print("[INFO] Training GRU model")
         model, ground_df, _, X_test, _, y_test, thresholds = get_trained_gru_model(
-            LABELED_PATH, MODEL_PATH, n_trials=n_trials
+            LABELED_PATH, MODEL_PATH, n_trials=n_trials, test_size=test_size
         )
         y_pred = model.predict(X_test)
         y_pred = (y_pred > thresholds).astype(int)

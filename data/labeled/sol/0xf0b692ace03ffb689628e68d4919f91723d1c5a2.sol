@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2022-08-01
-*/
-
 // SPDX-License-Identifier: MIT
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol

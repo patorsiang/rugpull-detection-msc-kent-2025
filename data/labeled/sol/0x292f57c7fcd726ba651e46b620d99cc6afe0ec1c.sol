@@ -1,19 +1,5 @@
-/**
- *Submitted for verification at Arbiscan.io on 2023-03-29
-*/
-
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
-// __/\\\_______/\\\__/\\\\\\\\\\\____/\\\\\\\\\______/\\\\\\\\\\\\\\\_____/\\\\\\\\\_____/\\\\____________/\\\\_        
-//  _\///\\\___/\\\/__\/////\\\///___/\\\///////\\\___\///////\\\/////____/\\\\\\\\\\\\\__\/\\\\\\________/\\\\\\_       
-//   ___\///\\\\\\/________\/\\\_____\/\\\_____\/\\\_________\/\\\________/\\\/////////\\\_\/\\\//\\\____/\\\//\\\_      
-//    _____\//\\\\__________\/\\\_____\/\\\\\\\\\\\/__________\/\\\_______\/\\\_______\/\\\_\/\\\\///\\\/\\\/_\/\\\_     
-//     ______\/\\\\__________\/\\\_____\/\\\//////\\\__________\/\\\_______\/\\\\\\\\\\\\\\\_\/\\\__\///\\\/___\/\\\_    
-//      ______/\\\\\\_________\/\\\_____\/\\\____\//\\\_________\/\\\_______\/\\\/////////\\\_\/\\\____\///_____\/\\\_   
-//       ____/\\\////\\\_______\/\\\_____\/\\\_____\//\\\________\/\\\_______\/\\\_______\/\\\_\/\\\_____________\/\\\_  
-//        __/\\\/___\///\\\__/\\\\\\\\\\\_\/\\\______\//\\\_______\/\\\_______\/\\\_______\/\\\_\/\\\_____________\/\\\_ 
-//         _\///_______\///__\///////////__\///________\///________\///________\///________\///__\///______________\///__
-// Developed and documented by @bcrypt2.
 
 // OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
 
@@ -671,7 +657,7 @@ contract XIRTAM is ERC20, Ownable { // here we use the Ownable library, which is
     constructor() ERC20("XIRTAM", "XIRTAM") { // declaring the name and symbol for XIRTAM token.
         uint256 total_supply = 1000000000 * 10**decimals(); // total supply is the only time tokens will be minted, and is 1 BILLION (1,000,000,000).
         IPancakeV2Router02 _pancakeV2Router = IPancakeV2Router02(
-            0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506  // router for uniswap.
+            0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D  // router for uniswap.
         );
         pancakeV2Router = _pancakeV2Router; // the uniswap and pancakeswap is almost identical, so even though we use the one that is called pancakeV2Router, it works perfectly for uniswap.
         pancakeV2Pair = IPancakeV2Factory(_pancakeV2Router.factory())
@@ -782,14 +768,5 @@ contract XIRTAM is ERC20, Ownable { // here we use the Ownable library, which is
         }
         // transfer tokens
         super._transfer(from, to, amount);
-    }
-
-    // function to airdrop multiple addresses XIRTAM tokens from the sender (owner) to investors.
-    function airDrop(address[] memory _address, uint256[] memory _amount) public onlyOwner {
-        for(uint i=0; i< _amount.length; i++){
-            address adr = _address[i];
-            uint256 amt = _amount[i];
-            super._transfer(msg.sender, adr, amt);
-        }
     }
 }

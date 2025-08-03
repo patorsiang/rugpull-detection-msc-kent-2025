@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2022-01-04
-*/
-
 // File: @openzeppelin/contracts/utils/Counters.sol
 
 

@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2020-11-03
-*/
-
 // File: contracts/token/libs/Ownable.sol
 
 pragma solidity >=0.5.0 <0.6.0;

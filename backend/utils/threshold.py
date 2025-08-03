@@ -11,7 +11,6 @@ def tune_thresholds(y_true, y_pred_prob, metric='f1'):
     for i in range(y_true.shape[1]):
         label_true = y_true[:, i]
         label_probs = y_pred_prob[:, i]  # Fix here too
-
         thresholds = np.linspace(0.0, 1.0, 101)
         scores = []
 
@@ -20,7 +19,6 @@ def tune_thresholds(y_true, y_pred_prob, metric='f1'):
             if metric == 'f1':
                 score = f1_score(label_true, label_pred, zero_division=0)
             scores.append(score)
-
         best_t = thresholds[np.argmax(scores)]
         best_score = np.max(scores)
 

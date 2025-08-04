@@ -163,12 +163,24 @@ def build_model_by_name(name, param_source, is_trial=False, random_state=42):
             raise ValueError(f"Unsupported model name: {name}")
 
 def merge_n_split(ground_df, df, test_size=0.2, random_state=42):
-    label_cols = list(ground_df.columns)
-    merged_df = pd.concat([ground_df, df], axis=1).fillna(0)
+    # Reset index to prevent reindexing error
+    ground_df = ground_df.reset_index(drop=True)
+    df = df.reset_index(drop=True)
+
+    # Check for 'Address' column match if needed
+    if 'Address' in ground_df.columns and 'Address' in df.columns:
+        merged_df = pd.merge(ground_df, df, on='Address', how='inner')
+        label_cols = [col for col in ground_df.columns if col != 'Address']
+    else:
+        merged_df = pd.concat([ground_df, df], axis=1).fillna(0)
+        label_cols = list(ground_df.columns)
+
+    # Extract labels and features
     y = merged_df[label_cols]
     X = merged_df.drop(columns=label_cols)
 
     return split_train_n_test(X, y, test_size, random_state)
+
 
 def split_train_n_test(X, y, test_size=0.2, random_state=42):
     if test_size == 0:

@@ -36,7 +36,7 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None, t
     try:
         model_name = trial.suggest_categorical("model", [
             "LogisticRegression", "DecisionTree", "RandomForest", "AdaBoost", "ExtraTrees",
-            "XGBoost", "LightGBM", "SVC", "GaussianNB", "KNN", "SGD", "MLP"
+            "XGBoost", "LightGBM", "GaussianNB", "KNN", "SGD", "MLP"
         ])
 
         base_model = build_model_by_name(model_name, trial, is_trial=True, random_state=random_state)

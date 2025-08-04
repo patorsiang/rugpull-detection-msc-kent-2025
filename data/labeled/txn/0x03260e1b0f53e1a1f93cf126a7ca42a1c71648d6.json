@@ -28,7 +28,7 @@
             "contractAddress": "0x03260e1b0f53e1a1f93cf126a7ca42a1c71648d6",
             "cumulativeGasUsed": "1859502",
             "gasUsed": "992761",
-            "confirmations": "16647412",
+            "confirmations": "16664613",
             "methodId": "0x60806040",
             "functionName": "atInversebrah(int248 a, uint48[] b, uint32 c, bytes20[] d, bytes30[] e)"
         },
@@ -50,7 +50,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "18428",
             "gasUsed": "18428",
-            "confirmations": "16584525",
+            "confirmations": "16601726",
             "methodId": "0x42966c68",
             "functionName": "burn(uint256 amount)"
         }

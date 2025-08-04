@@ -28,7 +28,7 @@
             "contractAddress": "0x8c01ada8e708993a891d57d1b3169479a20acb3a",
             "cumulativeGasUsed": "1560962",
             "gasUsed": "802816",
-            "confirmations": "18651437",
+            "confirmations": "18668635",
             "methodId": "0x60606040",
             "functionName": ""
         },
@@ -50,7 +50,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "260966",
             "gasUsed": "66680",
-            "confirmations": "18651403",
+            "confirmations": "18668601",
             "methodId": "0x40c10f19",
             "functionName": "mint(address _owner, uint256 _amount)"
         },
@@ -72,7 +72,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1509355",
             "gasUsed": "51853",
-            "confirmations": "18650300",
+            "confirmations": "18667498",
             "methodId": "0xa9059cbb",
             "functionName": "transfer(address _to, uint256 _value)"
         }

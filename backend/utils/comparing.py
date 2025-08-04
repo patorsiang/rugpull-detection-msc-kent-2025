@@ -131,13 +131,6 @@ def build_model_by_name(name, param_source, is_trial=False, random_state=42):
                 verbose=-1
                 # verbose=0
             )
-        case "SVC":
-            return SVC(
-                C=get_float("C", 0.1, 10.0),
-                kernel=get_cat("kernel", ["linear", "rbf", "poly"]),
-                probability=True, random_state=random_state,
-                verbose=0
-            )
         case "GaussianNB":
             return GaussianNB()
         case "KNN":

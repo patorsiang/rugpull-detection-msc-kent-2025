@@ -52,6 +52,7 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None, t
                 use_saved_model=False,
                 mode=mode
             )
+            print(df.head())
 
         X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=test_size)
 
@@ -64,7 +65,11 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None, t
         print(f"[Trial failed] {e}")
         return float('-inf')  # or np.nan
     finally:
-        del base_model, model, X_full, y_full
+        del_vars = ['base_model', 'model', 'X_full', 'y_full']
+        for var in del_vars:
+            obj = locals().get(var, None)
+            if obj is not None:
+                del obj
         gc.collect()
 
 

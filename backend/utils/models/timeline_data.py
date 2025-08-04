@@ -78,11 +78,18 @@ def load_data(src_path, ground_df):
             data = json.load(open(path, 'r'))
             txns = sorted(data.get("transaction", []), key=lambda x: int(x.get("timeStamp", 0)))
             seq = extract_tx_sequence(txns)
-            X.append(pad_and_scale(seq))
-            y.append(ground_df.loc[addr].tolist())
+            padded = pad_and_scale(seq)
+            label = ground_df.loc[addr].tolist()
+
+            # Only append if both X and y are valid
+            if padded.shape == (SEQ_LEN, FEATURE_DIM) and len(label) > 0:
+                X.append(padded)
+                y.append(label)
         except Exception as e:
             print(f"Skipping {addr}: {e}")
 
+    if len(X) != len(y):
+        raise f"[ERROR] X and y length mismatch: X={len(X)}, y={len(y)}"
     return np.array(X), np.array(y)
 
 def build_gru_model(input_shape, units, lr, output):
@@ -145,7 +152,9 @@ def objective(trial, X, y, test_size):
         tfkb.clear_session()
         tf.compat.v1.reset_default_graph()
         keras.backend.clear_session()
-        del model
+        obj = locals().get('model', None)
+        if obj is not None:
+            del obj
         gc.collect()
 
 def get_trained_gru_model(labeled_path, model_path,  n_trials=100, test_size=0, n_jobs=1):

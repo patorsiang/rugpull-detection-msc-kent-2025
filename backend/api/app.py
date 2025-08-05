@@ -15,6 +15,7 @@ PATH = Path(__file__).resolve().parents[2]
 DATA_PATH = os.path.join(PATH, 'data')
 LABELED_PATH = os.path.join(DATA_PATH, 'labeled')
 UNLABELED_PATH = os.path.join(DATA_PATH, 'unlabeled')
+TMP_PATH = os.path.join(DATA_PATH, 'interim')
 LOGS_PATH = os.path.join(DATA_PATH, 'logs/training')
 MODEL_PATH = os.path.join(PATH, 'backend/models')
 
@@ -29,6 +30,7 @@ from backend.utils.models.tabular_data import get_trained_best_model
 from backend.utils.models.timeline_data import get_trained_gru_model
 from backend.utils.logging.training_logging import setup_training_log_folder
 from backend.utils.logging.training_result import save_confusion_logs
+from backend.utils.models.predict import predict_by_addr
 
 import psutil
 
@@ -110,3 +112,24 @@ def train_model(request: TrainRequest):
         raise HTTPException(status_code=400, detail=f"Missing file: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Training failed: {str(e)}")
+
+class PredictRequest(BaseModel):
+    address: str
+    threshold: float | None = None
+
+@app.post("/predict")
+def predict(request: PredictRequest):
+    try:
+        address = request.address
+        threshold = request.threshold
+        if not address:
+            raise HTTPException(status_code=400, detail="Address must be provided")
+
+        preds_df = predict_by_addr(address, tmp_path=TMP_PATH, model_path=MODEL_PATH, threshold=threshold)
+
+        if preds_df.empty:
+            raise HTTPException(status_code=404, detail="No predictions found for the given address")
+
+        return preds_df.to_dict(orient='index')
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")

@@ -78,12 +78,16 @@ def generate_ngram_features(opcode_sequences, MODEL_PATH, ngram_range=(1, 3), ma
     return pd.DataFrame(X.toarray(), columns=feature_names), vectorizer
 
 
-def build_bytecode_feature_dataframe(hex_dir, MODEL_PATH, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False):
+def build_bytecode_feature_dataframe(hex_dir, MODEL_PATH, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False, address=None):
     # Step 1: Static extraction
     feature_rows = []
-    for hex_file in list(Path(hex_dir).glob("*.hex")):
+    for hex_file in list(Path(hex_dir).glob(f"{address if address is not None else '*'}.hex")):
         row = extract_bytecode_static_features(hex_file)
         feature_rows.append(row)
+
+    if not feature_rows:
+        print(f"[WARN] No .hex files found for address={address} in {hex_dir}")
+        return pd.DataFrame(), None
 
     df_static = pd.DataFrame(feature_rows)
 

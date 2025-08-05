@@ -29,16 +29,20 @@ def generate_tf_idf_features(documents, MODEL_PATH, max_features=2000, min_df=2,
     feature_names = vectorizer.vocabulary_.keys()
     return pd.DataFrame(X.toarray(), columns=feature_names), vectorizer
 
-def build_sol_feature_dataframe(sol_dir, MODEL_PATH, max_features=2000, min_df=2, use_saved_model=False):
+def build_sol_feature_dataframe(sol_dir, MODEL_PATH, max_features=2000, min_df=2, use_saved_model=False, address=None):
     documents_sol = []
     addresses_sol = []
 
-    for file in list(Path(sol_dir).glob("*.sol")):
+    for file in list(Path(sol_dir).glob(f"{address if address is not None else '*'}.sol")):
         address = file.stem.lower()
         with open(file, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
             documents_sol.append(content)
             addresses_sol.append({'Address': address})
+
+    if not documents_sol:
+        print(f"[WARN] No .sol files found for address={address} in {sol_dir}")
+        return pd.DataFrame(), None
 
     df_static = pd.DataFrame(addresses_sol)
 

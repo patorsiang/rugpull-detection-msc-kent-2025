@@ -12,27 +12,27 @@ from backend.utils.feature_extraction.sourcecode import build_sol_feature_datafr
 from backend.utils.models.timeline_data import extract_timeline_feature
 
 
-def grouping_data(scr_path, model_path, ground_file):
+def grouping_data(scr_path, model_path, ground_file, address=None):
     TXN_PATH = os.path.join(scr_path, 'txn')
     HEX_PATH = os.path.join(scr_path, 'hex')
     SOL_PATH = os.path.join(scr_path, 'sol')
 
     # Extract features
-    bytecode_df, _ = build_bytecode_feature_dataframe(HEX_PATH, model_path, use_saved_model=True)
-    txn_df = save_txn_feature_dataframe(scr_path)
-    tf_idf_df, _ = build_sol_feature_dataframe(SOL_PATH, model_path, use_saved_model=True)
+    bytecode_df, _ = build_bytecode_feature_dataframe(HEX_PATH, model_path, use_saved_model=True, address=address)
+    txn_df = save_txn_feature_dataframe(scr_path, address=address)
+    tf_idf_df, _ = build_sol_feature_dataframe(SOL_PATH, model_path, use_saved_model=True, address=address)
+
     # Graph-based features
-    txn_graphs = generate_transaction_graphs(TXN_PATH)
+    txn_graphs = generate_transaction_graphs(TXN_PATH, address=address)
     txn_feat_df = save_graph_features(scr_path, 'txn', txn_graphs)
-    cfg_graphs = generate_control_flow_graphs(HEX_PATH)
+    cfg_graphs = generate_control_flow_graphs(HEX_PATH, address=address)
     cfg_feat_df = save_graph_features(scr_path, 'cfg', cfg_graphs)
 
     # Timeline features (for GRU)
-    ts_timeline = extract_timeline_feature(scr_path)
+    ts_timeline = extract_timeline_feature(scr_path, address=address)
 
     # Load labels
     ground_df = pd.read_csv(os.path.join(scr_path, ground_file), index_col=0)
-
     # Grouped data per address
     feature_by_address = {}
 
@@ -116,14 +116,23 @@ def predict_by_model_fusion(model_path, feature, label_cols, threshold=0.6):
                 total_weight += model_weights
 
         fused_probs = (weighted_sum / np.maximum(total_weight, 1e-8))
+        if threshold is None:
+            threshold = 0.9
         fused = fused_probs > threshold
         final_probs[addr] = fused_probs
         final_preds[addr] = fused.astype(int)
 
     common_addrs = list(final_preds.keys())
     y_pred = np.array([final_preds[addr] for addr in common_addrs])
+    y_probs = np.array([final_probs[addr] for addr in common_addrs])
+
+    # Create DataFrame with predictions
     df = pd.DataFrame(y_pred, columns=label_cols)
     df.insert(0, 'Address', common_addrs)
     df = df.set_index('Address')
+
+    # Add probabilities with 'prob_' prefix
+    for i, label in enumerate(label_cols):
+        df[f'prob_{label}'] = y_probs[:, i]
 
     return df

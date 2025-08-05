@@ -33,13 +33,14 @@ def get_cfg_from_file(hex_file):
         return
     return CFG(bytecode)
 
-def generate_control_flow_graphs(hex_dir):
-    all_files = list(Path(hex_dir).glob('*.hex'))
+def generate_control_flow_graphs(hex_dir, address=None):
+    all_files = list(Path(hex_dir).glob(f'{address if address is not None else '*'}.hex'))
 
     graphs = dict()
 
     for file in all_files:
         address = file.stem.lower()  # remove '.hex' and lowercase
+        print(f"Processing control flow of {address}")
         try:
             cfg = get_cfg_from_file(file)
             if cfg is None:
@@ -48,6 +49,7 @@ def generate_control_flow_graphs(hex_dir):
             graphs[address] = nx_graph
         except Exception as e:
             print(f"⚠️ Error in {file.name}: {e}")
+            continue
     return graphs
 
 def save_graphs(out_dir, name, graphs):
@@ -64,6 +66,9 @@ def save_graph_features(out_dir, name, graphs):
         features = extract_graph_features(addr, G)
         rows.append(features)
 
+    if not rows:
+        print(f"[WARN] No features extracted for {name}, skipping save.")
+        return pd.DataFrame()  # or return None
     df = pd.DataFrame(rows).set_index('Address')
     df.fillna(0)
     df.to_csv(os.path.join(out_dir, f"{name}_graph_features.csv"))
@@ -92,8 +97,8 @@ def txn_to_nx(txn):
     return G
 
 
-def generate_transaction_graphs(json_dir):
-    all_files = list(Path(json_dir).glob('*.json'))
+def generate_transaction_graphs(json_dir, address=None):
+    all_files = list(Path(json_dir).glob(f'{address if address is not None else '*'}.json'))
 
     graphs = dict()
 

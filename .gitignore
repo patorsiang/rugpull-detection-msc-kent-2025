@@ -37,7 +37,7 @@ env/
 *.keras
 
 # === Data Files ===
-*.csv
+!*.csv
 *.tsv
 *.xls
 *.xlsx
@@ -48,8 +48,6 @@ env/
 !data/labeled/**
 *.db
 *.sqlite3
-data/raw/
-data/processed/
 
 # === Model Results & Outputs ===
 # models/

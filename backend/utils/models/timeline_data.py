@@ -50,9 +50,9 @@ def pad_and_scale(seq):
         seq = seq[:SEQ_LEN]
     return StandardScaler().fit_transform(seq)
 
-def extract_timeline_feature(src_path):
-    ts = {}
-    txn_files = list(Path(os.path.join(src_path, 'txn')).glob('*.json'))
+def extract_timeline_feature(src_path, address=None):
+    ts = dict()
+    txn_files = list(Path(os.path.join(src_path, 'txn')).glob(f'{address if address is not None else '*'}.json'))
 
     for path in tqdm(txn_files, desc="Extracting timeline features"):
         addr = path.stem

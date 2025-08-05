@@ -27,6 +27,7 @@ def lookup_4byte(topic_hash):
         print(f"⚠️ Error decoding {topic_hash}: {e}")
 
     r.set(topic_hash, "unknown")
+
     return "unknown"
 
 def load_transaction(txn_file):
@@ -168,15 +169,19 @@ def extract_transaction_features(txn_file):
 
     return features
 
-def save_txn_feature_dataframe(out_dir):
+def save_txn_feature_dataframe(out_dir, address=None):
     """Process all JSON files in a folder and build a feature DataFrame."""
     feature_rows = []
-    for txn_file in Path(os.path.join(out_dir, 'txn')).glob("*.json"):
+    for txn_file in Path(os.path.join(out_dir, 'txn')).glob(f"{address if address is not None else '*'}.json"):
         try:
             row = extract_transaction_features(txn_file)
             feature_rows.append(row)
         except Exception as e:
             print(f"Failed to process {txn_file}: {e}")
+
+    if not feature_rows:
+        print(f"[WARN] No .hex files found for address={address} in {out_dir}")
+        return pd.DataFrame()
 
     df = pd.DataFrame(feature_rows)
     df = df.set_index("Address")

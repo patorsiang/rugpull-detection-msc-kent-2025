@@ -54,7 +54,7 @@ data/processed/
 # === Model Results & Outputs ===
 # models/
 outputs/
-logs/
+# logs/
 checkpoints/
 
 # === Frontend (React/Next.js) ===

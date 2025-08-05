@@ -5,8 +5,8 @@ import networkx as nx
 from pathlib import Path
 from evm_cfg_builder.cfg.cfg import CFG
 
-from bytecode import load_bytecode
-from transaction import load_transaction
+from .bytecode import load_bytecode
+from .transaction import load_transaction
 
 def extract_graph_features(addr, G):
     return {

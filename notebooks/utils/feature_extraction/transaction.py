@@ -172,7 +172,7 @@ def extract_transaction_features(txn_file):
 def save_txn_feature_dataframe(out_dir, address=None):
     """Process all JSON files in a folder and build a feature DataFrame."""
     feature_rows = []
-    for txn_file in Path(os.path.join(out_dir, 'txn')).glob(f"{address if address is not None else '*'}.json"):
+    for txn_file in Path(out_dir).glob(f"{address if address is not None else '*'}.json"):
         try:
             row = extract_transaction_features(txn_file)
             feature_rows.append(row)
@@ -180,7 +180,7 @@ def save_txn_feature_dataframe(out_dir, address=None):
             print(f"Failed to process {txn_file}: {e}")
 
     if not feature_rows:
-        print(f"[WARN] No .hex files found for address={address} in {out_dir}")
+        print(f"[WARN] No .json files found for address={address} in {out_dir}")
         return pd.DataFrame()
 
     df = pd.DataFrame(feature_rows)

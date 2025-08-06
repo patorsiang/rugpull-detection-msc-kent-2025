@@ -5,7 +5,7 @@ from typing import List
 from evmdasm import EvmBytecode
 from collections import Counter
 from scipy.stats import entropy
-from evm_cfg_builder.cfg.cfg import CFG
+from backend.utils.feature_extraction.evm_cfg_builder.evm_cfg_builder.cfg.cfg import CFG
 from backend.utils.feature_extraction.graph import extract_control_flow_graph_features
 
 def load_bytecode(hex_file):
@@ -24,7 +24,7 @@ def get_opcode_frequency_n_entropy(opcodes: List[str]):
     freq = Counter(opcodes)
     total = sum(freq.values())
     probs = [v / total for v in freq.values()]
-    return freq, entropy(probs, base=2)
+    return entropy(probs, base=2)
 
 def extract_graph_features(bytecode_hex: str):
     if bytecode_hex == '0x':
@@ -41,7 +41,7 @@ def extract_bytecode_features(hex_str: str):
     opcode_sequence = ' '.join(opcodes)
 
     byte_freq, byte_entropy = get_byte_frequency_n_entropy(bytecode_hex)
-    opcode_freq, opcode_entropy = get_opcode_frequency_n_entropy(opcodes)
+    opcode_entropy = get_opcode_frequency_n_entropy(opcodes)
     graph_feature = extract_graph_features(bytecode_hex)
 
     return {
@@ -51,6 +51,5 @@ def extract_bytecode_features(hex_str: str):
         "unique_opcodes": len(set(opcodes)),
         "byte_entropy": byte_entropy,
         **byte_freq,
-        **opcode_freq,
         **graph_feature
     }

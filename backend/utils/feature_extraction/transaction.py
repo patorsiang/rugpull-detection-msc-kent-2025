@@ -137,6 +137,7 @@ def extract_transaction_features(txn_file):
 
     # Function signature stats
     function_counter = Counter(function_list)
+
     # Time static_feature
     start_block = min(block_numbers) if block_numbers else 0
     end_block = max(block_numbers) if block_numbers else 0
@@ -151,11 +152,7 @@ def extract_transaction_features(txn_file):
         "event_nums": event_nums,
         "creation_block": creation_block,
         "creation_timestamp": creation_timestamp,
-        "start_block": start_block,
-        "end_block": end_block,
         "life_time": life_time,
-        "start_time": start_ts,
-        "end_time": end_ts,
         "duration_seconds": duration_seconds,
         "from_creation_to_transfer": start_ts - creation_timestamp if creation_timestamp > 0 else 0,
         "num_addresses": len(all_addresses),
@@ -167,16 +164,10 @@ def extract_transaction_features(txn_file):
         "avg_value": (buy_amt + sell_amt) / (txn_nums + 1),
         "txn_per_block": txn_nums / (life_time + 1) if life_time > 0 else 0,
         "avg_gas_limit": safe_mean(gas_limits),
-        "max_gas_limit": safe_max(gas_limits),
-        "min_gas_limit": safe_min(gas_limits),
         "std_gas_limit": safe_std(gas_limits),
         "avg_gas_used": safe_mean(gas_used_list),
-        "max_gas_used": safe_max(gas_used_list),
-        "min_gas_used": safe_min(gas_used_list),
         "std_gas_used": safe_std(gas_used_list),
         "avg_gas_price": safe_mean(gas_price_list),
-        "max_gas_price": safe_max(gas_price_list),
-        "min_gas_price": safe_min(gas_price_list),
         "std_gas_price": safe_std(gas_price_list),
     }
 

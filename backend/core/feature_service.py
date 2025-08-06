@@ -41,8 +41,8 @@ def extract_base_feature_from_address(address: str, save: bool = True, refresh: 
 
     # Combine all features
     combined_features = {
-        'bytecode': bytecode_features,
-        'transaction': transaction_features,
+        **bytecode_features,
+        **transaction_features,
         "timeline_sequence": timeline_seq,
         "sourcecode": sourcecode_content,
     }

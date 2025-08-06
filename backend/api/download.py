@@ -1,5 +1,3 @@
-# backend/api/download.py
-
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse, JSONResponse
 from backend.core.download_service import prepare_contract_download

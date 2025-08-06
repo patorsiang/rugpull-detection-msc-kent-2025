@@ -3,12 +3,14 @@ import json
 import time
 import requests
 from dotenv import load_dotenv
+from backend.utils.logger import get_logger
 
 load_dotenv()
 
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 
 url = "https://api.etherscan.io/v2/api"
+logger = get_logger('etherscan_api')
 
 def get_most_recent_blocknumber(chainid=1):
     params = {
@@ -23,7 +25,7 @@ def get_most_recent_blocknumber(chainid=1):
         data = response.json()
         return int(data["result"], 16)
     except Exception as e:
-        print(f"error from get_most_recent_blocknumber: {e}")
+        logger.error(f"error from get_most_recent_blocknumber: {e}")
         return 0
 
 def get_events_by_contract_addr(addr, chainid=1):
@@ -41,10 +43,10 @@ def get_events_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return data["result"]
         else:
-            print(f"error from get_events_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_events_by_contract_addr: {data.get('message', '')}")
             return []
     except Exception as e:
-        print(f"error from get_events_by_contract_addr: {e}")
+        logger.error(f"error from get_events_by_contract_addr: {e}")
         return []
 
 def get_normal_transactions_by_contract_addr(addr, chainid=1):
@@ -65,10 +67,10 @@ def get_normal_transactions_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return data["result"]
         else:
-            print(f"error from get_normal_transactions_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_normal_transactions_by_contract_addr: {data.get('message', '')}")
             return []
     except Exception as e:
-        print(f"error from get_normal_transactions_by_contract_addr: {e}")
+        logger.error(f"error from get_normal_transactions_by_contract_addr: {e}")
         return []
 
 def get_internal_transactions_by_contract_addr(addr, chainid=1):
@@ -89,10 +91,10 @@ def get_internal_transactions_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return data["result"]
         else:
-            print(f"error from get_internal_transactions_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_internal_transactions_by_contract_addr: {data.get('message', '')}")
             return []
     except Exception as e:
-        print(f"error from get_internal_transactions_by_contract_addr: {e}")
+        logger.error(f"error from get_internal_transactions_by_contract_addr: {e}")
         return []
 
 def get_contract_creator_by_contract_addr(addr, chainid=1):
@@ -110,10 +112,10 @@ def get_contract_creator_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return data["result"][0]
         else:
-            print(f"error from get_contract_creator_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_contract_creator_by_contract_addr: {data.get('message', '')}")
             return dict()
     except Exception as e:
-        print(f"error from get_contract_creator_by_contract_addr: {e}")
+        logger.error(f"error from get_contract_creator_by_contract_addr: {e}")
         return dict()
 
 def get_balance_by_contract_addr(addr, chainid=1):
@@ -132,10 +134,10 @@ def get_balance_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return int(data["result"])
         else:
-            print(f"error from get_balance_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_balance_by_contract_addr: {data.get('message', '')}")
             return 0
     except Exception as e:
-        print(f"error from get_balance_by_contract_addr: {e}")
+        logger.error(f"error from get_balance_by_contract_addr: {e}")
         return 0
 
 def get_token_supply_by_contract_addr(addr, chainid=1):
@@ -153,10 +155,10 @@ def get_token_supply_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return int(data["result"])
         else:
-            print(f"error from get_token_supply_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_token_supply_by_contract_addr: {data.get('message', '')}")
             return 0
     except Exception as e:
-        print(f"error from get_token_supply_by_contract_addr: {e}")
+        logger.error(f"error from get_token_supply_by_contract_addr: {e}")
         return 0
 
 def get_transaction_count_by_contract_addr(addr, chainid=1):
@@ -177,7 +179,7 @@ def get_transaction_count_by_contract_addr(addr, chainid=1):
 
         return 0
     except Exception as e:
-        print(f"error from get_transaction_count_by_contract_addr: {e}")
+        logger.error(f"error from get_transaction_count_by_contract_addr: {e}")
         return 0
 
 def get_transaction_count_by_contract_addr(addr, chainid=1):
@@ -196,10 +198,10 @@ def get_transaction_count_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return int(data["result"])
         else:
-            print(f"error from get_transaction_count_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_transaction_count_by_contract_addr: {data.get('message', '')}")
             return 0
     except Exception as e:
-        print(f"error from get_transaction_count_by_contract_addr: {e}")
+        logger.error(f"error from get_transaction_count_by_contract_addr: {e}")
         return 0
 
 def get_info_by_contract_addr(addr, chainid=1):
@@ -227,10 +229,10 @@ def get_bytecode_by_contract_addr(addr, chainid=1):
         if "result" in data:
             return data["result"]
         else:
-            print(f"error from get_bytecode_by_contract_addr: {data.get('message', 'Unknown error')}")
+            logger.error(f"error from get_bytecode_by_contract_addr: {data.get('message', 'Unknown error')}")
             return ""
     except Exception as e:
-        print(f"error from get_bytecode_by_contract_addr: {e}")
+        logger.error(f"error from get_bytecode_by_contract_addr: {e}")
         return ""
 
 def get_source_code_by_contract_addr(addr, chainid=1):
@@ -246,7 +248,7 @@ def get_source_code_by_contract_addr(addr, chainid=1):
         response = requests.get(url, params=params)
 
         if response.status_code != 200:
-            print(f"HTTP error {response.status_code}: {response.text}")
+            logger.error(f"HTTP error {response.status_code}: {response.text}")
             return dict()
 
         data = response.json()
@@ -254,10 +256,10 @@ def get_source_code_by_contract_addr(addr, chainid=1):
         if data["status"] == "1":
             return data["result"][0]
         else:
-            print(f"error from get_source_code_by_contract_addr: {data.get('message', '')}")
+            logger.error(f"error from get_source_code_by_contract_addr: {data.get('message', '')}")
             return dict()
     except Exception as e:
-        print(f"error from get_source_code_by_contract_addr: {e}")
+        logger.error(f"error from get_source_code_by_contract_addr: {e}")
         return dict()
 
 def reached_limit():
@@ -273,12 +275,12 @@ def reached_limit():
         if data["status"] == "1":
             return data["result"]
         else:
-            print(f"error from reached_limit: {data.get('message', '')}")
+            logger.error(f"error from reached_limit: {data.get('message', '')}")
             if "result" in data:
                 return data["result"]
             return dict()
     except Exception as e:
-        print(f"error from reached_limit: {e}")
+        logger.error(f"error from reached_limit: {e}")
         return dict()
 
 def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
@@ -289,7 +291,7 @@ def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
     with open(file_path, 'w') as f:
         f.write(bytecode)
 
-    print(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path
 
@@ -301,7 +303,7 @@ def save_transactions_by_contract_addr(save_folder, addr, info):
     with open(file_path, "w") as f:
         json.dump(info, f, indent=4)
 
-    print(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path
 
@@ -313,6 +315,6 @@ def save_sol_by_contract_addr(save_folder, addr, source):
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(source)
 
-    print(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path

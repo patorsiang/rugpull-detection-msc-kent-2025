@@ -1,5 +1,4 @@
 import time
-from pathlib import Path
 from backend.utils.data_loader import (
     get_info_by_contract_addr,
     save_bytecode_by_contract_addr,
@@ -9,6 +8,7 @@ from backend.utils.data_loader import (
     save_sol_by_contract_addr
 )
 from backend.utils.logger import get_logger
+from backend.utils.constants import DATA_PATH, LABELED_PATH, UNLABELED_PATH
 
 def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', refresh: bool = False):
     address = address.lower()
@@ -21,10 +21,6 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
         "OP.ETH": 10, "Cronos": 25, "Blast": 81457
     }
 
-    PATH = Path(__file__).resolve().parents[2]
-    DATA_PATH = PATH / "data"
-    LABELED_PATH = DATA_PATH / "labeled"
-    UNLABELED_PATH = DATA_PATH / "unlabeled"
     TMP_PATH = DATA_PATH / tmp_path
 
     def build_paths(base):

@@ -17,9 +17,10 @@ def extract_base_feature_from_address(address: str):
 
     # Feature 2: Transactions
     if Path(txn_path).exists():
-        transaction_features = transaction.extract_transaction_features(txn_path)
+        transaction_features, timeline_seq = transaction.extract_transaction_features(txn_path)
     else:
         transaction_features = {}
+        timeline_seq = []
 
     # Feature 3: Source code
     if Path(sol_path).exists():
@@ -31,7 +32,8 @@ def extract_base_feature_from_address(address: str):
     combined_features = {
         'bytecode': bytecode_features,
         'transaction': transaction_features,
-        "sourcecode": sourcecode_content
+        "timeline_sequence": timeline_seq,
+        "sourcecode": sourcecode_content,
     }
 
     return combined_features

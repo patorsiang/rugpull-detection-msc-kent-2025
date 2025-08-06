@@ -46,6 +46,22 @@ def safe_max(x): return max(x) if x else 0
 def safe_min(x): return min(x) if x else 0
 def safe_std(x): return float(np.std(x)) if x else 0
 
+def extract_tx_sequence(transactions):
+    return [[
+        int(tx.get("blockNumber", 0)),
+        int(tx.get("timeStamp", 0)),
+        int(tx.get("nonce", 0)),
+        int(tx.get("transactionIndex", 0)),
+        int(tx.get("value", 0)),
+        int(tx.get("gas", 0)),
+        int(tx.get("gasPrice", 0)),
+        int(tx.get("isError", 0)),
+        int(tx.get("txreceipt_status", 0)),
+        int(tx.get("cumulativeGasUsed", 0)),
+        int(tx.get("gasUsed", 0)),
+        int(tx.get("confirmations", 0)),
+    ] for tx in transactions]
+
 def extract_transaction_features(txn_file):
     address, creator, transactions, events  = load_transaction(txn_file)
 
@@ -121,7 +137,7 @@ def extract_transaction_features(txn_file):
 
     # Function signature stats
     function_counter = Counter(function_list)
-    # Time features
+    # Time static_feature
     start_block = min(block_numbers) if block_numbers else 0
     end_block = max(block_numbers) if block_numbers else 0
     start_ts = min(timestamps) if timestamps else 0
@@ -130,7 +146,7 @@ def extract_transaction_features(txn_file):
     duration_seconds = end_ts - start_ts
 
     # Feature summary
-    features = {
+    static_feature = {
         "txn_nums": txn_nums,
         "event_nums": event_nums,
         "creation_block": creation_block,
@@ -164,9 +180,11 @@ def extract_transaction_features(txn_file):
         "std_gas_price": safe_std(gas_price_list),
     }
 
-    # Merge with dynamic event/function features
-    features.update(event_topic_counter)
-    features.update(function_counter)
-    features.update(graph_feature)
+    # Merge with dynamic event/function static_feature
+    static_feature.update(event_topic_counter)
+    static_feature.update(function_counter)
+    static_feature.update(graph_feature)
 
-    return features
+    timeline_seq = extract_tx_sequence(transactions)
+
+    return static_feature, timeline_seq

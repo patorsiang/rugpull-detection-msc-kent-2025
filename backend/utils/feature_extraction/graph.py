@@ -33,11 +33,24 @@ def extract_transaction_graph_features(transactions: list):
     return extract_graph_features(G)
 
 def extract_graph_features(G: nx.Graph):
+    num_nodes = G.number_of_nodes()
+    num_edges = G.number_of_edges()
+
+    # Safe handling for clustering and degree
+    avg_degree = sum(dict(G.degree()).values()) / num_nodes if num_nodes > 0 else 0
+    avg_clustering = nx.average_clustering(G.to_undirected()) if num_nodes > 1 else 0
+
+    # Handle component counting depending on graph type
+    if G.is_directed():
+        connected_components = nx.number_weakly_connected_components(G)
+    else:
+        connected_components = nx.number_connected_components(G)
+
     return {
-        "num_nodes": G.number_of_nodes(),
-        "num_edges": G.number_of_edges(),
-        "avg_degree": sum(dict(G.degree()).values()) / G.number_of_nodes() if G.number_of_nodes() > 0 else 0,
+        "num_nodes": num_nodes,
+        "num_edges": num_edges,
+        "avg_degree": avg_degree,
         "density": nx.density(G),
-        "connected_components": nx.number_weakly_connected_components(G),
-        "avg_clustering": nx.average_clustering(G.to_undirected())
+        "connected_components": connected_components,
+        "avg_clustering": avg_clustering
     }

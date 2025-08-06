@@ -3,8 +3,9 @@ import os
 from datetime import datetime
 
 def get_logger(name="train_pipeline", log_dir="backend/logs", level=logging.INFO):
+    log_dir = f"{log_dir}/{name}"
     os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join(log_dir, f"{name}_{datetime.now().strftime('%Y%m%d-%H%M%S')}.log")
+    log_path = os.path.join(log_dir, f"{datetime.now().strftime('%Y%m%d-%H%M%S')}.log")
 
     logger = logging.getLogger(name)
     logger.setLevel(level)

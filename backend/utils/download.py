@@ -52,7 +52,7 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
     has_txn, has_hex, has_sol = txn_path.exists(), hex_path.exists(), sol_path.exists()
 
     if refresh:
-        has_txn, has_hex, has_sol = False, False, False
+        has_txn = False
 
     if has_txn and has_hex and has_sol:
         logger.info(f"Already downloaded previously.")
@@ -62,8 +62,9 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
     for chain_name, chain_id in chains.items():
         logger.info(f"Checking {chain_name} ({chain_id}) ...")
 
-        try:
-            if not has_txn:
+
+        if not has_txn:
+            try:
                 info = get_info_by_contract_addr(address, chain_id)
                 if isinstance(info, dict):
                     save_transactions_by_contract_addr(TXN_PATH, address, info)
@@ -72,28 +73,32 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
                     if 'creator' in info and 'creationBytecode' in info['creator']:
                         save_bytecode_by_contract_addr(HEX_PATH, address, info['creator']['creationBytecode'])
                         has_hex = True
-                time.sleep(0.3)
+                    time.sleep(0.3)
+            except Exception as e:
+                logger.warning(f"Failed on {chain_name}: {e}")
 
-            if not has_hex:
+        if not has_hex:
+            try:
                 bytecode = get_bytecode_by_contract_addr(address, chain_id)
                 if bytecode:
                     save_bytecode_by_contract_addr(HEX_PATH, address, bytecode)
                     has_hex = True
                 time.sleep(0.3)
+            except Exception as e:
+                logger.warning(f"Failed on {chain_name}: {e}")
 
-            if not has_sol:
+        if not has_sol:
+            try:
                 source = get_source_code_by_contract_addr(address, chain_id)
                 if source and 'SourceCode' in source:
                     save_sol_by_contract_addr(SOL_PATH, address, source['SourceCode'])
                     has_sol = True
                 time.sleep(0.3)
+            except Exception as e:
+                logger.warning(f"Failed on {chain_name}: {e}")
 
-        except Exception as e:
-            logger.warning(f"Failed on {chain_name}: {e}")
-            continue
-
-        # Exit early if any are found
         if has_txn or has_hex or has_sol:
             break
+
 
     return [txn_path, hex_path, sol_path] if has_txn or has_hex or has_sol else None

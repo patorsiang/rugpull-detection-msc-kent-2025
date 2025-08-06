@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from backend.utils.feature_extraction import bytecode, transaction, sourcecode
 from backend.utils.download import download_contract_from_etherscan
-from backend.utils.constants import PROJECT_ROOT, FEATURE_PATH
+from backend.utils.constants import PROJECT_ROOT, FEATURE_PATH, LABELED_PATH
 
 def extract_base_feature_from_address(address: str, save: bool = True, refresh: bool = False, output_dir="data/features"):
 
@@ -14,7 +14,7 @@ def extract_base_feature_from_address(address: str, save: bool = True, refresh: 
         with open(feature_path) as f:
             return json.load(f)
 
-    result = download_contract_from_etherscan(address, refresh=refresh)
+    result = download_contract_from_etherscan(address, tmp_path=LABELED_PATH, refresh=refresh)
     if not result:
         return {"error": f"Unable to fetch files for {address}"}
 

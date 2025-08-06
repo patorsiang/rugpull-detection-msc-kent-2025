@@ -10,7 +10,7 @@ from backend.utils.data_loader import (
 )
 from backend.utils.logger import get_logger
 
-def download_contract_from_etherscan(address: str, tmp_path: str = 'interim'):
+def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', refresh: bool = False):
     address = address.lower()
     logger = get_logger('download_contract_from_etherscan')
     logger.info(f"Searching {address} ...")
@@ -34,17 +34,18 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim'):
             base / 'sol' / f"{address}.sol"
         )
 
-    # 1. Check Labeled
-    txn_path, hex_path, sol_path = build_paths(LABELED_PATH)
-    if txn_path.exists() or hex_path.exists() or sol_path.exists():
-        logger.info(f"Found {address} in labeled dataset.")
-        return [txn_path, hex_path, sol_path]
+    if not refresh:
+        # 1. Check Labeled
+        txn_path, hex_path, sol_path = build_paths(LABELED_PATH)
+        if txn_path.exists() or hex_path.exists() or sol_path.exists():
+            logger.info(f"Found {address} in labeled dataset.")
+            return [txn_path, hex_path, sol_path]
 
-    # 2. Check Unlabeled
-    txn_path, hex_path, sol_path = build_paths(UNLABELED_PATH)
-    if txn_path.exists() or hex_path.exists() or sol_path.exists():
-        logger.info(f"Found {address} in unlabeled dataset.")
-        return [txn_path, hex_path, sol_path]
+        # 2. Check Unlabeled
+        txn_path, hex_path, sol_path = build_paths(UNLABELED_PATH)
+        if txn_path.exists() or hex_path.exists() or sol_path.exists():
+            logger.info(f"Found {address} in unlabeled dataset.")
+            return [txn_path, hex_path, sol_path]
 
     # 3. Prepare interim folders
     TXN_PATH, HEX_PATH, SOL_PATH = TMP_PATH / 'txn', TMP_PATH / 'hex', TMP_PATH / 'sol'
@@ -53,6 +54,9 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim'):
 
     txn_path, hex_path, sol_path = build_paths(TMP_PATH)
     has_txn, has_hex, has_sol = txn_path.exists(), hex_path.exists(), sol_path.exists()
+
+    if refresh:
+        has_txn, has_hex, has_sol = False, False, False
 
     if has_txn and has_hex and has_sol:
         logger.info(f"Already downloaded previously.")

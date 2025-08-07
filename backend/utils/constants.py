@@ -1,12 +1,16 @@
 from pathlib import Path
 
+SEQ_LEN = 500
+N_TRIALS = 1
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data"
 FEATURE_PATH = DATA_PATH / "features"
 LABELED_PATH = DATA_PATH / "labeled"
 UNLABELED_PATH = DATA_PATH / "unlabeled"
-MODELS_PATH = PROJECT_ROOT / "backend" / "models"
+BACKEND_PATH = PROJECT_ROOT / "backend"
+MODELS_PATH = BACKEND_PATH / "models"
 CURRENT_MODEL_PATH = MODELS_PATH / "current"
 BACKUP_MODEL_PATH = MODELS_PATH / "backup"
-LOGS_PATH = PROJECT_ROOT / "logs"
+LOGS_PATH = BACKEND_PATH / "logs"
 TRAINING_LOG_PATH = LOGS_PATH / "training"

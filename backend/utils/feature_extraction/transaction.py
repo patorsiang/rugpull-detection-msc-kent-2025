@@ -34,17 +34,17 @@ def load_transaction(txn_file):
     with open(txn_file) as f:
         data = json.load(f)
 
-    address = Path(txn_file).stem
     transactions = data.get("transaction", [])
     events = data.get("event", [])
     creator = data.get("creator", {})
-    return address, creator, transactions, events
+    return creator, transactions, events
 
 # Safe statistical functions
 def safe_mean(x): return float(np.mean(x)) if x else 0
 def safe_max(x): return max(x) if x else 0
 def safe_min(x): return min(x) if x else 0
 def safe_std(x): return float(np.std(x)) if x else 0
+
 
 def extract_tx_sequence(transactions):
     return [[
@@ -63,7 +63,7 @@ def extract_tx_sequence(transactions):
     ] for tx in transactions]
 
 def extract_transaction_features(txn_file):
-    address, creator, transactions, events  = load_transaction(txn_file)
+    creator, transactions, events  = load_transaction(txn_file)
 
     creator_address = creator.get("contractAddress", "").lower()
 

@@ -12,14 +12,13 @@ def get_full_dataset(filename='groundtruth.csv', refresh=False, addresses:Option
         df = df[df.index.isin(addresses)]
 
     keys = df.index.tolist()
-    dataset = []
+    dataset = dict()
 
-    for key in tqdm(keys):
-        feature = extract_base_feature_from_address(key, output_dir=FEATURE_PATH, refresh=refresh)
-        dataset.append({
-          "Address": key,
+    for address in tqdm(keys):
+        feature = extract_base_feature_from_address(address, output_dir=FEATURE_PATH, refresh=refresh)
+        dataset[address] = {
           **feature,
-          "Label": df.loc[key].to_dict()
-        })
+          "Label": df.loc[address].to_dict()
+        }
 
     return dataset

@@ -28,7 +28,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "21834580",
             "gasUsed": "27329",
-            "confirmations": "7700290",
+            "confirmations": "7701576",
             "methodId": "0x",
             "functionName": ""
         },
@@ -50,7 +50,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "24906061",
             "gasUsed": "78633",
-            "confirmations": "7690896",
+            "confirmations": "7692182",
             "methodId": "0x6a761202",
             "functionName": "execTransaction(address to, uint256 value, bytes data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, bytes signatures)"
         },
@@ -72,7 +72,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4332574",
             "gasUsed": "97770",
-            "confirmations": "7690876",
+            "confirmations": "7692162",
             "methodId": "0x6a761202",
             "functionName": "execTransaction(address to, uint256 value, bytes data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, bytes signatures)"
         },

@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 import os
 import json
@@ -34,12 +35,18 @@ from backend.core.dataset_service import get_full_dataset
 
 from backend.utils.logger import get_logger
 
+from backend.utils.training.backup import backup_model_and_logs
+
 def get_train_test_group(test_size=0.2):
+    backup_model_and_logs()
     dataset = get_full_dataset()
     addresses = list(dataset.keys())
 
     # Split addresses
-    addresses_train, addresses_test = train_test_split(addresses, test_size=test_size, random_state=42)
+    if test_size > 0:
+        addresses_train, addresses_test = train_test_split(addresses, test_size=test_size, random_state=42)
+    else:
+        addresses_train, addresses_test = shuffle(addresses, addresses, random_state=42)
 
     # Prepare Y (multi-label DataFrame)
     y_train_df = pd.DataFrame([dataset[a].get("Label", {}) for a in addresses_train], index=addresses_train)
@@ -82,8 +89,8 @@ def get_train_test_group(test_size=0.2):
     return {
         "X_opcode_seq_train": X_opcode_seq_train,
         "X_opcode_seq_test": X_opcode_seq_test,
-        "X_timeline_seq_train": X_timeline_seq_train,
-        "X_timeline_seq_test": X_timeline_seq_test,
+        "X_timeline_seq_train": pad_sequences(X_timeline_seq_train, maxlen=SEQ_LEN, padding='post', dtype='float32'),
+        "X_timeline_seq_test": pad_sequences(X_timeline_seq_test, maxlen=SEQ_LEN, padding='post', dtype='float32'),
         "X_code_train": X_code_train,
         "X_code_test": X_code_test,
         "X_feature_train": X_feature_train_df,
@@ -112,6 +119,16 @@ def plot_multilabel_confusion_matrix(y_true, y_pred, labels, save_path=None):
     else:
         plt.show()
 
+def plot_anomaly_distribution(fused_score, anomaly_threshold, save_path=None):
+    plt.figure(figsize=(8, 4))
+    sns.histplot(fused_score, kde=True, bins=50)
+    plt.axvline(anomaly_threshold, color='red', linestyle='--', label=f'Threshold: {anomaly_threshold:.2f}')
+    plt.title("Anomaly Fusion Score Distribution")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
+
 def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
     logger = get_logger("train_and_save")
     logger.info("📦 Loading data and splitting train/test...")
@@ -125,12 +142,13 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
     version_metadata = {
         "version": datetime.now().strftime("%Y%m%d_%H%M%S"),
         "timestamp": datetime.now().isoformat(),
-        "clg_model_summary": {},
+        "clf_model_summary": {},
         "anomaly_model_summary": {},
     }
 
     ##### 🎯 General Model  #####
-    for mode, X_train, X_test in [('general', data["X_feature_train"], data["X_feature_test"]), ('sol', data["X_code_train"], data["X_code_test"]), ('opcode', data["X_opcode_seq_train"], data["X_opcode_seq_test"])]:
+    for mode, field in [('general', "X_feature"), ('sol', "X_code"), ('opcode', "X_opcode_seq")]:
+        X_train, X_test = data[f'{field}_train'], data[f'{field}_test']
         logger.info(f"🧠 Running Optuna for {mode} Model...")
         study = optuna.create_study(direction="maximize")
         study.optimize(
@@ -153,17 +171,18 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
 
         joblib.dump(model, CURRENT_MODEL_PATH /  f"{mode}_model.pkl")
 
-        version_metadata['clg_model_summary'][f'{mode}_model'] = {
+        version_metadata['clf_model_summary'][f'{mode}_model'] = {
             "filename": f"{mode}_model.pkl",
             "f1_score": study.best_value,
-            "params": study.best_trial.params
+            "params": study.best_trial.params,
+            "field": field,
         }
 
     ##### 🔁 GRU Model #####
     logger.info("🧠 Running Optuna for GRU (timeline)...")
 
-    X_timeline_seq_train = pad_sequences(data["X_timeline_seq_train"], maxlen=SEQ_LEN, padding='post', dtype='float32')
-    X_timeline_seq_test = pad_sequences(data["X_timeline_seq_test"], maxlen=SEQ_LEN, padding='post', dtype='float32')
+    X_timeline_seq_train = data["X_timeline_seq_train"]
+    X_timeline_seq_test = data["X_timeline_seq_test"]
 
     study_gru = optuna.create_study(direction="maximize")
     study_gru.optimize(
@@ -182,11 +201,11 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
 
     save_model(model_gru, CURRENT_MODEL_PATH / "gru_model.keras")
 
-    version_metadata['clg_model_summary']['gru_model'] = {
+    version_metadata['clf_model_summary']['gru_model'] = {
         "filename": "gru_model.keras",
         "f1_score": study_gru.best_value,
-        "units": study_gru.best_trial.params["units"],
-        "lr": study_gru.best_trial.params["lr"]
+        "params": study_gru.best_trial.params,
+        "field": "X_timeline_seq"
     }
 
     ##### 🔗 Fusion #####
@@ -199,10 +218,10 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
     best_thresholds = [study_fusion.best_params[f"t{i}"] for i in range(y_test.shape[1])]
     y_pred, _ = fuse_predictions(model_preds, weights=best_weights, thresholds=best_thresholds)
 
-    version_metadata['clg_model_summary']['fusion_model'] = {
+    version_metadata['clf_model_summary']['fusion_model'] = {
         "f1_score": study_fusion.best_value,
         "weights": best_weights,
-        "thresholds": best_thresholds
+        "thresholds": best_thresholds,
     }
 
 
@@ -218,9 +237,10 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
 
     ##### 🧩 Isolation Forest Anomaly Detection #####
     isolation_preds = []
-    y_anomaly = (data["y_train"].sum(axis=1) == 0).astype(int)
+    y_anomaly = (data["y_train"].sum(axis=1) > 0).astype(int)
 
-    for mode, train, test in [('general', data['X_feature_train'], data['X_feature_test']), ('sol', data['X_code_train'], data['X_code_test']), ('opcode', data['X_opcode_seq_train'], data['X_opcode_seq_test'])]:
+    for mode, field in [('general', 'X_feature'), ('sol', 'X_code'), ('opcode', 'X_opcode_seq')]:
+        train, test = data[f'{field}_train'], data[f'{field}_test']
         logger.info(f"🌲 Running Optuna for IsolationForest on {mode}...")
         study = optuna.create_study(direction="maximize")
         study.optimize(lambda trial: if_objective(trial, mode, train, y_anomaly), n_trials=N_TRIALS)
@@ -233,7 +253,8 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
         version_metadata['anomaly_model_summary'][f'{mode}_model'] = {
             "filename": f"if_{mode}_model.pkl",
             "f1_score": study.best_value,
-            "params": study.best_trial.params
+            "params": study.best_trial.params,
+            "field": field
         }
 
     ##### 🔁 GRU AE Model #####
@@ -271,9 +292,9 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
     version_metadata['anomaly_model_summary']['gru_model'] = {
         "filename": "gru_ae_model.keras",
         "MSE": study_ae.best_value,
-        "units": study_ae.best_trial.params["units"],
-        "lr": study_ae.best_trial.params["lr"],
-        "threshold": threshold
+        "params": study_ae.best_trial.params,
+        "threshold": threshold,
+        "field": "X_timeline_seq"
     }
 
     logger.info("🔗 Running Optuna for Anomaly Fusion...")
@@ -296,14 +317,8 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
         json.dump(report_anomaly, f, indent=2)
 
     fused_score = np.average(np.stack(isolation_preds, axis=1), axis=1, weights=anomaly_weights)
-    plt.figure(figsize=(8, 4))
-    sns.histplot(fused_score, kde=True, bins=50)
-    plt.axvline(anomaly_threshold, color='red', linestyle='--', label=f'Threshold: {anomaly_threshold:.2f}')
-    plt.title("Anomaly Fusion Score Distribution")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(CURRENT_TRAINING_LOG_PATH / "anomaly_fusion_distribution.png")
-    plt.close()
+
+    plot_anomaly_distribution(fused_score, anomaly_threshold, CURRENT_TRAINING_LOG_PATH / "anomaly_fusion_distribution.png")
 
     version_metadata['label_names'] = y_train.columns.tolist()
     version_metadata['train_size'] = len(y_train)

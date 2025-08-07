@@ -27,7 +27,7 @@ tmp/
 # === ML Artifacts ===
 *.h5
 *.hdf5
-*.pkl
+# *.pkl
 *.joblib
 *.pt
 *.pth
@@ -35,14 +35,14 @@ tmp/
 *.ckpt
 *.tflite
 *.sav
-*.keras
+# *.keras
 
 # === Data Files ===
 !*.csv
 *.tsv
 *.xls
 *.xlsx
-*.json
+# *.json
 *.txt
 *.sol
 *.hex

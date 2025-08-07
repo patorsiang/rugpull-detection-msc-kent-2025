@@ -45,21 +45,26 @@ def safe_max(x): return max(x) if x else 0
 def safe_min(x): return min(x) if x else 0
 def safe_std(x): return float(np.std(x)) if x else 0
 
+def safe_int(value, default=0):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return default
 
 def extract_tx_sequence(transactions):
     return [[
-        int(tx.get("blockNumber", 0)),
-        int(tx.get("timeStamp", 0)),
-        int(tx.get("nonce", 0)),
-        int(tx.get("transactionIndex", 0)),
-        int(tx.get("value", 0)),
-        int(tx.get("gas", 0)),
-        int(tx.get("gasPrice", 0)),
-        int(tx.get("isError", 0)),
-        int(tx.get("txreceipt_status", 0)),
-        int(tx.get("cumulativeGasUsed", 0)),
-        int(tx.get("gasUsed", 0)),
-        int(tx.get("confirmations", 0)),
+        safe_int(tx.get("blockNumber", 0)),
+        safe_int(tx.get("timeStamp", 0)),
+        safe_int(tx.get("nonce", 0)),
+        safe_int(tx.get("transactionIndex", 0)),
+        safe_int(tx.get("value", 0)),
+        safe_int(tx.get("gas", 0)),
+        safe_int(tx.get("gasPrice", 0)),
+        safe_int(tx.get("isError", 0)),
+        safe_int(tx.get("txreceipt_status", 0)),
+        safe_int(tx.get("cumulativeGasUsed", 0)),
+        safe_int(tx.get("gasUsed", 0)),
+        safe_int(tx.get("confirmations", 0)),
     ] for tx in transactions]
 
 def extract_transaction_features(txn_file):

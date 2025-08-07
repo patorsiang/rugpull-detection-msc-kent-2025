@@ -10,6 +10,7 @@ load_dotenv()
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 
 url = "https://api.etherscan.io/v2/api"
+
 logger = get_logger('etherscan_api')
 
 def get_most_recent_blocknumber(chainid=1):

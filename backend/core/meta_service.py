@@ -1,14 +1,14 @@
 import os
+import json
 from datetime import datetime
 from backend.utils.constants import CURRENT_MODEL_PATH, BACKUP_MODEL_PATH
 
 def get_status():
     # Current version
-    version_file = CURRENT_MODEL_PATH / "version.txt"
+    version_file = CURRENT_MODEL_PATH / "version.json"
 
     if os.path.exists(version_file):
-        with open(version_file) as f:
-            current_version = f.read().strip()
+        current_version = json.load(open(version_file, 'r'))['version']
     else:
         current_version = "Not trained yet"
 

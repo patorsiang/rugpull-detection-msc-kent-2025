@@ -1,7 +1,7 @@
 from pathlib import Path
 
 SEQ_LEN = 500
-N_TRIALS = 1
+N_TRIALS = 100
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data"
@@ -14,3 +14,5 @@ CURRENT_MODEL_PATH = MODELS_PATH / "current"
 BACKUP_MODEL_PATH = MODELS_PATH / "backup"
 LOGS_PATH = BACKEND_PATH / "logs"
 TRAINING_LOG_PATH = LOGS_PATH / "training"
+CURRENT_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "current"
+BACKUP_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "backup"

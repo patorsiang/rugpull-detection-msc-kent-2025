@@ -1,0 +1,132 @@
+{
+    "version": "20250807_204345",
+    "timestamp": "2025-08-07T20:43:45.873398",
+    "clf_model_summary": {
+        "general_model": {
+            "filename": "general_model.pkl",
+            "f1_score": 0.4151515151515151,
+            "params": {
+                "model": "LogisticRegression",
+                "C": 7.84739882452827
+            },
+            "field": "X_feature"
+        },
+        "sol_model": {
+            "filename": "sol_model.pkl",
+            "f1_score": 0.42063492063492064,
+            "params": {
+                "model": "LogisticRegression",
+                "C": 1.284541780242936,
+                "n_max_features": 16715,
+                "n_min_df": 1
+            },
+            "field": "X_code"
+        },
+        "opcode_model": {
+            "filename": "opcode_model.pkl",
+            "f1_score": 0.6722222222222222,
+            "params": {
+                "model": "LightGBM",
+                "n_estimators": 124,
+                "max_depth": 14,
+                "learning_rate": 0.2192719150513523,
+                "ngram_range": "2",
+                "n_max_features": 17328,
+                "n_min_df": 2
+            },
+            "field": "X_opcode_seq"
+        },
+        "gru_model": {
+            "filename": "gru_model.keras",
+            "f1_score": 0.47973856209150334,
+            "params": {
+                "units": 475,
+                "lr": 0.00010378567903835531,
+                "batch_size": 16,
+                "epochs": 100
+            },
+            "field": "X_timeline_seq"
+        },
+        "fusion_model": {
+            "f1_score": 0.7037037037037037,
+            "weights": [
+                0.6522620911062071,
+                0.8582521431992661,
+                0.8897802568735615,
+                0.8849236597171067
+            ],
+            "thresholds": [
+                0.5384067017660447,
+                0.45594230889419457,
+                0.4933987307205306
+            ]
+        }
+    },
+    "anomaly_model_summary": {
+        "general_model": {
+            "filename": "if_general_model.pkl",
+            "f1_score": 0.23255813953488372,
+            "params": {
+                "n_estimators": 165,
+                "contamination": 0.19963687771392963,
+                "max_features": 0.6814563095697104
+            },
+            "field": "X_feature"
+        },
+        "sol_model": {
+            "filename": "if_sol_model.pkl",
+            "f1_score": 0.358974358974359,
+            "params": {
+                "n_estimators": 51,
+                "contamination": 0.11184829024139598,
+                "max_features": 0.7687990717565,
+                "n_max_features": 18723,
+                "n_min_df": 3
+            },
+            "field": "X_code"
+        },
+        "opcode_model": {
+            "filename": "if_opcode_model.pkl",
+            "f1_score": 0.37209302325581395,
+            "params": {
+                "n_estimators": 169,
+                "contamination": 0.19089478776093985,
+                "max_features": 0.839530753684125,
+                "ngram_range": "3",
+                "n_max_features": 408,
+                "n_min_df": 5
+            },
+            "field": "X_opcode_seq"
+        },
+        "gru_model": {
+            "filename": "gru_ae_model.keras",
+            "MSE": 5.220661527198403e+31,
+            "params": {
+                "units": 194,
+                "lr": 0.00038694963201921744,
+                "batch_size": 40,
+                "epochs": 82
+            },
+            "threshold": 3.432588129981077e+32,
+            "field": "X_timeline_seq"
+        },
+        "fusion_model": {
+            "f1_score": 0.5714285714285714,
+            "weights": [
+                0.2722929979713847,
+                0.3197620958231348,
+                0.7832505032040384,
+                0.7831226367602859
+            ],
+            "thresholds": 0.34447990617259594
+        }
+    },
+    "label_names": [
+        "Mint",
+        "Leak",
+        "Limit"
+    ],
+    "train_size": 55,
+    "test_size": 14,
+    "notes": "Trained with Optuna 100 trials per model. All models evaluated on 0.2 test split."
+}

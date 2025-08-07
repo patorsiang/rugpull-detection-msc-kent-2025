@@ -1,0 +1,132 @@
+{
+    "version": "20250807_204345",
+    "timestamp": "2025-08-07T20:43:45.873398",
+    "clf_model_summary": {
+        "general_model": {
+            "filename": "general_model.pkl",
+            "f1_score": 1.0,
+            "params": {
+                "model": "LogisticRegression",
+                "C": 7.84739882452827
+            },
+            "field": "X_feature"
+        },
+        "sol_model": {
+            "filename": "sol_model.pkl",
+            "f1_score": 0.45717372970693654,
+            "params": {
+                "model": "LogisticRegression",
+                "C": 1.284541780242936,
+                "n_max_features": 16715,
+                "n_min_df": 1
+            },
+            "field": "X_code"
+        },
+        "opcode_model": {
+            "filename": "opcode_model.pkl",
+            "f1_score": 0.9914529914529915,
+            "params": {
+                "model": "LightGBM",
+                "n_estimators": 124,
+                "max_depth": 14,
+                "learning_rate": 0.2192719150513523,
+                "ngram_range": "2",
+                "n_max_features": 17328,
+                "n_min_df": 2
+            },
+            "field": "X_opcode_seq"
+        },
+        "gru_model": {
+            "filename": "gru_model.keras",
+            "f1_score": 0.17007844401461422,
+            "params": {
+                "units": 475,
+                "lr": 0.00010378567903835531,
+                "batch_size": 16,
+                "epochs": 100
+            },
+            "field": "X_timeline_seq"
+        },
+        "fusion_model": {
+            "f1_score": 1.0,
+            "weights": [
+                0.562156717123785,
+                0.15894360024904408,
+                0.618477320473307,
+                0.8096318339216808
+            ],
+            "thresholds": [
+                0.35392904601692265,
+                0.4937397545524709,
+                0.5051889789245074
+            ]
+        }
+    },
+    "anomaly_model_summary": {
+        "general_model": {
+            "filename": "if_general_model.pkl",
+            "f1_score": 0.25,
+            "params": {
+                "n_estimators": 165,
+                "contamination": 0.19963687771392963,
+                "max_features": 0.6814563095697104
+            },
+            "field": "X_feature"
+        },
+        "sol_model": {
+            "filename": "if_sol_model.pkl",
+            "f1_score": 0.28,
+            "params": {
+                "n_estimators": 51,
+                "contamination": 0.11184829024139598,
+                "max_features": 0.7687990717565,
+                "n_max_features": 18723,
+                "n_min_df": 3
+            },
+            "field": "X_code"
+        },
+        "opcode_model": {
+            "filename": "if_opcode_model.pkl",
+            "f1_score": 0.36363636363636365,
+            "params": {
+                "n_estimators": 169,
+                "contamination": 0.19089478776093985,
+                "max_features": 0.839530753684125,
+                "ngram_range": "3",
+                "n_max_features": 408,
+                "n_min_df": 5
+            },
+            "field": "X_opcode_seq"
+        },
+        "gru_model": {
+            "filename": "gru_ae_model.keras",
+            "MSE": 6.81919657496614e+32,
+            "params": {
+                "units": 194,
+                "lr": 0.00038694963201921744,
+                "batch_size": 40,
+                "epochs": 82
+            },
+            "threshold": 1.1135421682056724e+33,
+            "field": "X_timeline_seq"
+        },
+        "fusion_model": {
+            "f1_score": 0.4666666666666667,
+            "weights": [
+                0.007030193994798317,
+                0.9784931424452339,
+                0.7624552526465365,
+                0.3468432212096252
+            ],
+            "thresholds": 0.30493533693169306
+        }
+    },
+    "label_names": [
+        "Mint",
+        "Leak",
+        "Limit"
+    ],
+    "train_size": 69,
+    "test_size": 69,
+    "notes": "Trained with whole dataset"
+}

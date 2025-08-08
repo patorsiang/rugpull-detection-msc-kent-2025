@@ -3,6 +3,8 @@ from pathlib import Path
 SEQ_LEN = 500
 N_TRIALS = 100
 
+GROUND_TRUTH_FILE = 'groundtruth.csv'
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = PROJECT_ROOT / "data"
 FEATURE_PATH = DATA_PATH / "features"

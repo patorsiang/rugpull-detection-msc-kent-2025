@@ -1,124 +1,124 @@
 {
-    "version": "20250807_204345",
-    "timestamp": "2025-08-07T20:43:45.873398",
+    "version": "20250808_035347",
+    "timestamp": "2025-08-08T03:53:47.205625",
     "clf_model_summary": {
         "general_model": {
             "filename": "general_model.pkl",
-            "f1_score": 1.0,
+            "f1_score": 0.6262626262626262,
             "params": {
                 "model": "LogisticRegression",
-                "C": 7.84739882452827
+                "C": 1.7203089121263053
             },
             "field": "X_feature"
         },
         "sol_model": {
             "filename": "sol_model.pkl",
-            "f1_score": 0.45717372970693654,
+            "f1_score": 0.6443850267379679,
             "params": {
                 "model": "LogisticRegression",
-                "C": 1.284541780242936,
-                "n_max_features": 16715,
-                "n_min_df": 1
+                "C": 4.733590696735775,
+                "n_max_features": 351,
+                "n_min_df": 2
             },
             "field": "X_code"
         },
         "opcode_model": {
             "filename": "opcode_model.pkl",
-            "f1_score": 0.9914529914529915,
+            "f1_score": 0.6108932461873638,
             "params": {
                 "model": "LightGBM",
-                "n_estimators": 124,
-                "max_depth": 14,
-                "learning_rate": 0.2192719150513523,
-                "ngram_range": "2",
-                "n_max_features": 17328,
-                "n_min_df": 2
+                "n_estimators": 109,
+                "max_depth": 19,
+                "learning_rate": 0.24343521125645318,
+                "ngram_range": "3",
+                "n_max_features": 360,
+                "n_min_df": 5
             },
             "field": "X_opcode_seq"
         },
         "gru_model": {
             "filename": "gru_model.keras",
-            "f1_score": 0.17007844401461422,
+            "f1_score": 0.5555555555555555,
             "params": {
-                "units": 475,
-                "lr": 0.00010378567903835531,
-                "batch_size": 16,
-                "epochs": 100
+                "units": 202,
+                "lr": 0.0016967859468085852,
+                "batch_size": 124,
+                "epochs": 90
             },
             "field": "X_timeline_seq"
         },
         "fusion_model": {
-            "f1_score": 1.0,
+            "f1_score": 0.7638888888888888,
             "weights": [
-                0.562156717123785,
-                0.15894360024904408,
-                0.618477320473307,
-                0.8096318339216808
+                0.11748786989006894,
+                0.8931622188960922,
+                0.6791907059406038,
+                0.9967185551085184
             ],
             "thresholds": [
-                0.35392904601692265,
-                0.4937397545524709,
-                0.5051889789245074
+                0.33179723000234834,
+                0.42255683320596454,
+                0.5853637001350304
             ]
         }
     },
     "anomaly_model_summary": {
         "general_model": {
             "filename": "if_general_model.pkl",
-            "f1_score": 0.25,
+            "f1_score": 0.23255813953488372,
             "params": {
-                "n_estimators": 165,
-                "contamination": 0.19963687771392963,
-                "max_features": 0.6814563095697104
+                "n_estimators": 60,
+                "contamination": 0.18969635880399982,
+                "max_features": 0.7616519069211523
             },
             "field": "X_feature"
         },
         "sol_model": {
             "filename": "if_sol_model.pkl",
-            "f1_score": 0.28,
+            "f1_score": 0.38095238095238093,
             "params": {
-                "n_estimators": 51,
-                "contamination": 0.11184829024139598,
-                "max_features": 0.7687990717565,
-                "n_max_features": 18723,
-                "n_min_df": 3
+                "n_estimators": 127,
+                "contamination": 0.18143458136691082,
+                "max_features": 0.7746642551454994,
+                "n_max_features": 18420,
+                "n_min_df": 2
             },
             "field": "X_code"
         },
         "opcode_model": {
             "filename": "if_opcode_model.pkl",
-            "f1_score": 0.36363636363636365,
+            "f1_score": 0.32558139534883723,
             "params": {
-                "n_estimators": 169,
-                "contamination": 0.19089478776093985,
-                "max_features": 0.839530753684125,
-                "ngram_range": "3",
-                "n_max_features": 408,
-                "n_min_df": 5
+                "n_estimators": 299,
+                "contamination": 0.1982652158937005,
+                "max_features": 0.8521156177315179,
+                "ngram_range": "2",
+                "n_max_features": 14268,
+                "n_min_df": 1
             },
             "field": "X_opcode_seq"
         },
         "gru_model": {
             "filename": "gru_ae_model.keras",
-            "MSE": 6.81919657496614e+32,
+            "MSE": 5.785800014374965e+31,
             "params": {
-                "units": 194,
-                "lr": 0.00038694963201921744,
-                "batch_size": 40,
-                "epochs": 82
+                "units": 486,
+                "lr": 0.00022948012445328877,
+                "batch_size": 38,
+                "epochs": 27
             },
-            "threshold": 1.1135421682056724e+33,
+            "threshold": 3.432588129981077e+32,
             "field": "X_timeline_seq"
         },
         "fusion_model": {
-            "f1_score": 0.4666666666666667,
+            "f1_score": 0.5714285714285714,
             "weights": [
-                0.007030193994798317,
-                0.9784931424452339,
-                0.7624552526465365,
-                0.3468432212096252
+                0.6474872753515085,
+                0.026103265059370273,
+                0.15812159633523173,
+                0.6505702251708121
             ],
-            "thresholds": 0.30493533693169306
+            "thresholds": 0.3645819475502548
         }
     },
     "label_names": [
@@ -126,7 +126,7 @@
         "Leak",
         "Limit"
     ],
-    "train_size": 69,
-    "test_size": 69,
-    "notes": "Trained with whole dataset"
+    "train_size": 55,
+    "test_size": 14,
+    "notes": "Trained with Optuna 50 trials per model. All models evaluated on 0.2 test split."
 }

@@ -10,15 +10,15 @@ from backend.utils.constants import CURRENT_MODEL_PATH
 from backend.utils.training.training_objectives import training_gru, fusion_objective, anomaly_fusion_objective
 from backend.utils.logger import get_logger
 from backend.utils.predict.fusion import fuse_predictions
-from backend.utils.constants import N_TRIALS, CURRENT_TRAINING_LOG_PATH
+from backend.utils.constants import N_TRIALS, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
 from backend.utils.training.tuning import plot_multilabel_confusion_matrix, plot_anomaly_distribution
 from backend.utils.training.backup import backup_model_and_logs
 
 logger = get_logger('train_pipeline')
 
-def full_training():
+def full_training(source=GROUND_TRUTH_FILE):
     backup_model_and_logs()
-    dataset = get_train_test_group(0.0)
+    dataset = get_train_test_group(source, 0.0)
 
     y_train = dataset["y_train"]
     y_test = dataset["y_test"]
@@ -38,19 +38,19 @@ def full_training():
                 model, _ = training_gru(model, X_train, X_test, y_train, y_test, model_meta["params"])
                 model.save(file_path)
                 probas = model.predict(X_train)
-                model_preds.append(preds)
+                model_preds.append(probas)
                 y_pred_bin = (probas > 0.5).astype(int)
-                model_meta['f1_score'] = f1_score(y_test, y_pred_bin, average='macro', zero_division=0)
+                model_meta["f1_score"] = f1_score(y_test.values, y_pred_bin, average='macro', zero_division=0)
             else:
                 model = joblib.load(file_path)
                 model.fit(X_train, y_train)
                 probas = model.predict_proba(X_test)
-                preds = np.array([p[:, 1] for p in probas]).T
+                probas = np.array([p[:, 1] for p in probas]).T
 
-                model_preds.append(preds)
+                model_preds.append(probas)
                 joblib.dump(model, file_path)
                 preds = model.predict(X_test)
-                model_meta['f1_score'] = f1_score(y_test, preds, average='macro', zero_division=0)
+                model_meta["f1_score"] = f1_score(y_test, preds, average='macro', zero_division=0)
 
     isolation_preds = []
     y_anomaly_test = (y_test.sum(axis=1) > 0).astype(int).values
@@ -132,7 +132,7 @@ def full_training():
     version_meta['anomaly_model_summary']['fusion_model'] = {
         "f1_score": study_anomaly.best_value,
         "weights": anomaly_weights,
-        "thresholds": anomaly_threshold
+        "threshold": anomaly_threshold
     }
 
     report_anomaly = classification_report(y_anomaly_test, (np.average(np.stack(isolation_preds, axis=1), axis=1, weights=anomaly_weights) > anomaly_threshold).astype(int), output_dict=True, zero_division=0)

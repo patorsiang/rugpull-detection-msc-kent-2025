@@ -24,7 +24,13 @@ def training(requests: FullTraining = Depends()):
     result = full_training(requests.source)
     return {"status": "success", "metrics": result}
 
+class PipelineTraining(BaseModel):
+    test_size: Optional[float] = 0.2
+    N_TRIALS: Optional[int] = 50
+    source: ChoiceLiteral # type: ignore
+    eval_source: ChoiceLiteral # type: ignore
+
 @router.post("/training-pipeline", summary="Full Train Model")
-def training_pipe(requests: TuningTraining = Depends()):
+def training_pipe(requests: PipelineTraining = Depends()):
     result = train_pipeline(**requests.dict())
     return {"status": "success", "metrics": result}

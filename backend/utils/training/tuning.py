@@ -32,7 +32,7 @@ from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PAT
 
 from backend.core.dataset_service import get_full_dataset
 
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
 
 from backend.utils.training.backup import backup_model_and_logs
 
@@ -129,10 +129,11 @@ def plot_anomaly_distribution(fused_score, anomaly_threshold, save_path=None):
     plt.savefig(save_path)
     plt.close()
 
+#logger = get_logger("train_and_save")
+
 def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TRUTH_FILE):
     backup_model_and_logs()
-    logger = get_logger("train_and_save")
-    logger.info("📦 Loading data and splitting train/test...")
+    # logger.info("📦 Loading data and splitting train/test...")
     # Get train/test split
     data = get_train_test_group(source=source, test_size=test_size)
 
@@ -150,7 +151,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
     ##### 🎯 General Model  #####
     for mode, field in [('general', "X_feature"), ('sol', "X_code"), ('opcode', "X_opcode_seq")]:
         X_train, X_test = data[f'{field}_train'], data[f'{field}_test']
-        logger.info(f"🧠 Running Optuna for {mode} Model...")
+        # logger.info(f"🧠 Running Optuna for {mode} Model...")
         study = optuna.create_study(direction="maximize")
         study.optimize(
             lambda trial: general_objective(trial, X_train, X_test, y_train, y_test, mode),
@@ -180,7 +181,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
         }
 
     ##### 🔁 GRU Model #####
-    logger.info("🧠 Running Optuna for GRU (timeline)...")
+    # logger.info("🧠 Running Optuna for GRU (timeline)...")
 
     X_timeline_seq_train = data["X_timeline_seq_train"]
     X_timeline_seq_test = data["X_timeline_seq_test"]
@@ -210,7 +211,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
     }
 
     ##### 🔗 Fusion #####
-    logger.info("🔗 Running Optuna for Fusion...")
+    # logger.info("🔗 Running Optuna for Fusion...")
     model_preds.append(probas_gru)
     study_fusion = optuna.create_study(direction="maximize")
     study_fusion.optimize(lambda trial: fusion_objective(trial, model_preds, y_test.values), n_trials=N_TRIALS)
@@ -227,7 +228,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
 
 
     ##### 📊 Logging #####
-    logger.info("📊 Saving classification report and confusion matrix...")
+    # logger.info("📊 Saving classification report and confusion matrix...")
     report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
     report_path = CURRENT_TRAINING_LOG_PATH / "classification_report.json"
     with open(report_path, "w") as f:
@@ -242,7 +243,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
 
     for mode, field in [('general', 'X_feature'), ('sol', 'X_code'), ('opcode', 'X_opcode_seq')]:
         train, test = data[f'{field}_train'], data[f'{field}_test']
-        logger.info(f"🌲 Running Optuna for IsolationForest on {mode}...")
+        # logger.info(f"🌲 Running Optuna for IsolationForest on {mode}...")
         study = optuna.create_study(direction="maximize")
         study.optimize(lambda trial: if_objective(trial, mode, train, y_anomaly), n_trials=N_TRIALS)
         best_model = build_if_model_by_mode(mode, study.best_trial.params)
@@ -259,7 +260,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
         }
 
     ##### 🔁 GRU AE Model #####
-    logger.info("🧠 Running Optuna for GRU Autoencoder (Timeline)...")
+    # logger.info("🧠 Running Optuna for GRU Autoencoder (Timeline)...")
 
     study_ae = optuna.create_study(direction="minimize")
     study_ae.optimize(lambda trial: ae_objective(trial, X_timeline_seq_train, X_timeline_seq_test), n_trials=N_TRIALS)
@@ -286,7 +287,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
 
     save_model(best_model_ae, CURRENT_MODEL_PATH / "gru_ae_model.keras")
 
-    logger.info(f"📉 GRU AE MSE: {study_ae.best_value:.6f} | Threshold (95%): {threshold:.6f}")
+    # logger.info(f"📉 GRU AE MSE: {study_ae.best_value:.6f} | Threshold (95%): {threshold:.6f}")
 
     y_anomaly_test = (y_test.sum(axis=1) > 0).astype(int).values
 
@@ -298,7 +299,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TR
         "field": "X_timeline_seq"
     }
 
-    logger.info("🔗 Running Optuna for Anomaly Fusion...")
+    # logger.info("🔗 Running Optuna for Anomaly Fusion...")
 
     study_anomaly = optuna.create_study(direction="maximize")
     study_anomaly.optimize(lambda trial: anomaly_fusion_objective(trial, isolation_preds, y_anomaly_test), n_trials=N_TRIALS)

@@ -3,9 +3,9 @@ import shutil
 import json
 
 from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, BACKUP_MODEL_PATH, BACKUP_TRAINING_LOG_PATH  # Adjust if needed
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
 
-logger = get_logger("backup")
+#logger = get_logger("backup")
 
 def backup_model_and_logs():
     # Load version
@@ -16,7 +16,7 @@ def backup_model_and_logs():
             version_meta = json.load(f)
         version = version_meta.get("version")
         if not version:
-            logger.error("Missing 'version' key in version.json")
+            # logger.error("Missing 'version' key in version.json")
             raise ValueError("Missing 'version' key in version.json")
 
         # Paths
@@ -37,4 +37,4 @@ def backup_model_and_logs():
             if file.is_file():
                 shutil.copy(file, log_backup_dir / file.name)
 
-        logger.info(f"✅ Backup completed: {version}")
+        # logger.info(f"✅ Backup completed: {version}")

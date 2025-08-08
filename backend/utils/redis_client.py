@@ -1,9 +1,18 @@
+import os
 import redis
+from dotenv import load_dotenv
+# from backend.utils.logger import get_logger
 
-# Use Redis as a shared cache or trigger flag system
+load_dotenv()
+
 class RedisNamespace:
-    def __init__(self, host='localhost', port=6379, db=0, namespace="default"):
-        self.redis = redis.Redis(host=host, port=port, db=db, decode_responses=True)
+    def __init__(self, host=None, port=None, db=0, namespace="default"):
+        self.redis = redis.Redis(
+            host=host or os.getenv("REDIS_HOST", "localhost"),
+            port=port or int(os.getenv("REDIS_PORT", 6379)),
+            db=db,
+            decode_responses=True
+        )
         self.ns = namespace
 
     def _key(self, key):
@@ -31,8 +40,8 @@ class RedisNamespace:
         return self.redis.hgetall(self._key(key))
 
 
-# Example: select Redis DB by context
+# Instances
 redis_cache = RedisNamespace(db=0, namespace="topic")             # topic cache
-redis_log = RedisNamespace(db=1, namespace="log:predict")         # prediction cache
+redis_log   = RedisNamespace(db=1, namespace="log:predict")       # prediction cache
 redis_flags = RedisNamespace(db=2, namespace="lock")              # trigger flags / locks
-redis_meta = RedisNamespace(db=3, namespace="meta")               # metadata
+redis_meta  = RedisNamespace(db=3, namespace="meta")              # metadata

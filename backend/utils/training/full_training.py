@@ -8,13 +8,13 @@ import optuna
 from backend.utils.training.tuning import get_train_test_group
 from backend.utils.constants import CURRENT_MODEL_PATH
 from backend.utils.training.training_objectives import training_gru, fusion_objective, anomaly_fusion_objective
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
 from backend.utils.predict.fusion import fuse_predictions
 from backend.utils.constants import N_TRIALS, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
 from backend.utils.training.tuning import plot_multilabel_confusion_matrix, plot_anomaly_distribution
 from backend.utils.training.backup import backup_model_and_logs
 
-logger = get_logger('train_pipeline')
+#logger = get_logger('train_pipeline')
 
 def full_training(source=GROUND_TRUTH_FILE):
     backup_model_and_logs()
@@ -95,7 +95,7 @@ def full_training(source=GROUND_TRUTH_FILE):
                 model_meta['f1_score'] = f1_score(y_anomaly, preds_bin, zero_division=0)
 
     #### 🔗 Fusion #####
-    logger.info("🔗 Running Optuna for Fusion...")
+    # logger.info("🔗 Running Optuna for Fusion...")
     study_fusion = optuna.create_study(direction="maximize")
     study_fusion.optimize(lambda trial: fusion_objective(trial, model_preds, y_test.values), n_trials=N_TRIALS)
 
@@ -110,7 +110,7 @@ def full_training(source=GROUND_TRUTH_FILE):
     }
 
     #### 📊 Logging #####
-    logger.info("📊 Saving classification report and confusion matrix...")
+    # logger.info("📊 Saving classification report and confusion matrix...")
     report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
     report_path = CURRENT_TRAINING_LOG_PATH / "classification_report.json"
     with open(report_path, "w") as f:
@@ -119,7 +119,7 @@ def full_training(source=GROUND_TRUTH_FILE):
     cm_path = CURRENT_TRAINING_LOG_PATH / "confusion_matrix.png"
     plot_multilabel_confusion_matrix(y_test.values, y_pred, labels=y_train.columns.tolist(), save_path=cm_path)
 
-    logger.info("🔗 Running Optuna for Anomaly Fusion...")
+    # logger.info("🔗 Running Optuna for Anomaly Fusion...")
 
     study_anomaly = optuna.create_study(direction="maximize")
     study_anomaly.optimize(lambda trial: anomaly_fusion_objective(trial, isolation_preds, y_anomaly_test), n_trials=N_TRIALS)
@@ -143,6 +143,7 @@ def full_training(source=GROUND_TRUTH_FILE):
 
     plot_anomaly_distribution(fused_score, anomaly_threshold, CURRENT_TRAINING_LOG_PATH / "anomaly_fusion_distribution.png")
 
+    version_meta["current_version"] = version_meta.get("current_version", "") + '_1'
     version_meta['label_names'] = y_train.columns.tolist()
     version_meta['train_size'] = len(y_train)
     version_meta['test_size'] = len(y_test)

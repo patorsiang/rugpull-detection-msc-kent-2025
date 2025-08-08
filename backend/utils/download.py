@@ -7,13 +7,14 @@ from backend.utils.data_loader import (
     get_source_code_by_contract_addr,
     save_sol_by_contract_addr
 )
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
 from backend.utils.constants import HEX_PATH, TXN_PATH, SOL_PATH
+
+#logger = get_logger('download_contract_from_etherscan')
 
 def download_contract_from_etherscan(address: str, refresh: bool = False):
     address = address.lower()
-    logger = get_logger('download_contract_from_etherscan')
-    logger.info(f"Searching {address} ...")
+    # logger.info(f"Searching {address} ...")
 
     chains = {
         "ETH": 1, "BSC": 56, "Polygon": 137, "Arbitrum": 42161,
@@ -29,12 +30,12 @@ def download_contract_from_etherscan(address: str, refresh: bool = False):
         has_txn = False
 
     if has_txn and has_hex and has_sol:
-        logger.info(f"Already downloaded previously.")
+        # logger.info(f"Already downloaded previously.")
         return [txn_path, hex_path, sol_path]
 
     # 4. Attempt download from multiple chains
     for chain_name, chain_id in chains.items():
-        logger.info(f"Checking {chain_name} ({chain_id}) ...")
+        # logger.info(f"Checking {chain_name} ({chain_id}) ...")
 
 
         if not has_txn:
@@ -49,7 +50,8 @@ def download_contract_from_etherscan(address: str, refresh: bool = False):
                         has_hex = True
                     time.sleep(0.3)
             except Exception as e:
-                logger.warning(f"Failed on {chain_name}: {e}")
+                # logger.warning(f"Failed on {chain_name}: {e}")
+                pass
 
         if not has_hex:
             try:
@@ -59,7 +61,8 @@ def download_contract_from_etherscan(address: str, refresh: bool = False):
                     has_hex = True
                 time.sleep(0.3)
             except Exception as e:
-                logger.warning(f"Failed on {chain_name}: {e}")
+                # logger.warning(f"Failed on {chain_name}: {e}")
+                pass
 
         if not has_sol:
             try:
@@ -69,7 +72,8 @@ def download_contract_from_etherscan(address: str, refresh: bool = False):
                     has_sol = True
                 time.sleep(0.3)
             except Exception as e:
-                logger.warning(f"Failed on {chain_name}: {e}")
+                # logger.warning(f"Failed on {chain_name}: {e}")
+                pass
 
         if has_txn and has_hex and has_sol:
             break

@@ -1,0 +1,13 @@
+# Ignore unnecessary or large files
+notebooks/data.zip
+*.zip
+*.tar
+*.tar.gz
+__pycache__/
+*.pyc
+# .env
+venv/
+.git/
+.gitignore
+.idea/
+.vscode/

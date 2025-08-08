@@ -8,9 +8,9 @@ from backend.utils.data_loader import (
     save_sol_by_contract_addr
 )
 from backend.utils.logger import get_logger
-from backend.utils.constants import DATA_PATH, LABELED_PATH, UNLABELED_PATH
+from backend.utils.constants import HEX_PATH, TXN_PATH, SOL_PATH
 
-def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', refresh: bool = False):
+def download_contract_from_etherscan(address: str, refresh: bool = False):
     address = address.lower()
     logger = get_logger('download_contract_from_etherscan')
     logger.info(f"Searching {address} ...")
@@ -21,34 +21,8 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
         "OP.ETH": 10, "Cronos": 25, "Blast": 81457
     }
 
-    TMP_PATH = DATA_PATH / tmp_path
+    txn_path, hex_path, sol_path = TXN_PATH / f"{address}.json", HEX_PATH / f"{address}.hex", SOL_PATH / f"{address}.sol"
 
-    def build_paths(base):
-        return (
-            base / 'txn' / f"{address}.json",
-            base / 'hex' / f"{address}.hex",
-            base / 'sol' / f"{address}.sol"
-        )
-
-    if not refresh:
-        # 1. Check Labeled
-        txn_path, hex_path, sol_path = build_paths(LABELED_PATH)
-        if txn_path.exists() or hex_path.exists() or sol_path.exists():
-            logger.info(f"Found {address} in labeled dataset.")
-            return [txn_path, hex_path, sol_path]
-
-        # 2. Check Unlabeled
-        txn_path, hex_path, sol_path = build_paths(UNLABELED_PATH)
-        if txn_path.exists() or hex_path.exists() or sol_path.exists():
-            logger.info(f"Found {address} in unlabeled dataset.")
-            return [txn_path, hex_path, sol_path]
-
-    # 3. Prepare interim folders
-    TXN_PATH, HEX_PATH, SOL_PATH = TMP_PATH / 'txn', TMP_PATH / 'hex', TMP_PATH / 'sol'
-    for path in [TXN_PATH, HEX_PATH, SOL_PATH]:
-        path.mkdir(parents=True, exist_ok=True)
-
-    txn_path, hex_path, sol_path = build_paths(TMP_PATH)
     has_txn, has_hex, has_sol = txn_path.exists(), hex_path.exists(), sol_path.exists()
 
     if refresh:
@@ -70,7 +44,7 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
                     save_transactions_by_contract_addr(TXN_PATH, address, info)
                     has_txn = True
 
-                    if 'creator' in info and 'creationBytecode' in info['creator']:
+                    if 'creator' in info and 'creationBytecode' in info['creator'] and not has_hex:
                         save_bytecode_by_contract_addr(HEX_PATH, address, info['creator']['creationBytecode'])
                         has_hex = True
                     time.sleep(0.3)
@@ -97,7 +71,7 @@ def download_contract_from_etherscan(address: str, tmp_path: str = 'interim', re
             except Exception as e:
                 logger.warning(f"Failed on {chain_name}: {e}")
 
-        if has_txn or has_hex or has_sol:
+        if has_txn and has_hex and has_sol:
             break
 
 

@@ -1,32 +1,24 @@
-import logging
 import os
-from datetime import datetime
+import yaml
+import logging.config
+import logging
+import coloredlogs
+from backend.utils.constants import PROJECT_ROOT
 
-def get_logger(name="train_pipeline", log_dir="backend/logs", level=logging.INFO):
-    log_dir = f"{log_dir}/{name}"
-    os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join(log_dir, f"{datetime.now().strftime('%Y%m%d-%H%M%S')}.log")
-
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-
-    # Avoid duplicate handlers
-    if not logger.handlers:
-        # File handler
-        file_handler = logging.FileHandler(log_path)
-        file_handler.setLevel(level)
-
-        # Console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(level)
-
-        # Format
-        formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s')
-        file_handler.setFormatter(formatter)
-        console_handler.setFormatter(formatter)
-
-        # Add handlers
-        logger.addHandler(file_handler)
-        logger.addHandler(console_handler)
-
-    return logger
+def setup_logging(default_path=PROJECT_ROOT/'logging.yaml', default_level=logging.NOTSET):
+    path = default_path
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            try:
+                config = yaml.safe_load(f.read())
+                logging.config.dictConfig(config)
+                coloredlogs.install()
+            except Exception as e:
+                print(e)
+                print('Error in Logging Configuration. Using default configs')
+                logging.basicConfig(level=default_level)
+                coloredlogs.install(level=default_level)
+    else:
+        logging.basicConfig(level=default_level)
+        coloredlogs.install(level=default_level)
+        print('Failed to load configuration file. Using default configs')

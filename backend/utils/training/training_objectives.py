@@ -30,11 +30,11 @@ from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, LearningRateScheduler
 
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
 from backend.utils.predict.fusion import fuse_predictions
 from backend.utils.predict.anomaly_fusion import anomaly_fuse_predictions
 
-logger = get_logger("auto_ml")
+#logger = get_logger("auto_ml")
 
 def scheduler(epoch, lr):
     return lr if epoch < 10 else lr * 0.9
@@ -194,7 +194,7 @@ def general_objective(trial, X_train, X_test, y_train, y_test, mode='general', r
 
         model = build_model_by_name(model_name, mode, trial, is_trial=True, random_state=random_state)
 
-        logger.info(f"[Trial {trial.number}] {model}")
+        # logger.info(f"[Trial {trial.number}] {model}")
 
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
@@ -203,7 +203,7 @@ def general_objective(trial, X_train, X_test, y_train, y_test, mode='general', r
 
         return f1_score(y_test, y_pred, average='macro', zero_division=0)
     except Exception as e:
-        logger.error(f"[Trial failed] {e}")
+        # logger.error(f"[Trial failed] {e}")
         return float('-inf')  # or np.nan
     finally:
         del_vars = ['model_name', 'model', 'X_train', 'X_test', 'y_train', 'y_test']
@@ -222,7 +222,7 @@ def gru_objective(trial, X_train, X_test, y_train, y_test):
         batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
         epochs = trial.suggest_int("epochs", 8, 100)
 
-        logger.info(f"[Trial {trial.number}] {{'units': {units}, 'lr': {lr}, 'batch_size': {batch_size}, 'epochs': {epochs},}}")
+        # logger.info(f"[Trial {trial.number}] {{'units': {units}, 'lr': {lr}, 'batch_size': {batch_size}, 'epochs': {epochs},}}")
 
         model = build_gru_model(
             input_shape=(X_train.shape[1], X_train.shape[2]),
@@ -240,7 +240,7 @@ def gru_objective(trial, X_train, X_test, y_train, y_test):
 
         return f1_score(y_test, y_pred_bin, average='macro')
     except Exception as e:
-        logger.error(f"[Trial failed] {e}")
+        # logger.error(f"[Trial failed] {e}")
         return float('-inf')  # or np.nan
     finally:
         tfkb.clear_session()
@@ -287,7 +287,7 @@ def ae_objective(trial, X_train, X_test):
         batch_size = trial.suggest_int("batch_size", 16, 256, log=True)
         epochs = trial.suggest_int("epochs", 8, 100)
 
-        logger.info(f"[Trial {trial.number}] {{'units': {units}, 'lr': {lr}, 'batch_size': {batch_size}, 'epochs': {epochs},}}")
+        # logger.info(f"[Trial {trial.number}] {{'units': {units}, 'lr': {lr}, 'batch_size': {batch_size}, 'epochs': {epochs},}}")
 
         model = build_ae_gru_model(
             input_shape=X_train.shape[1:],
@@ -307,7 +307,7 @@ def ae_objective(trial, X_train, X_test):
 
         return score
     except Exception as e:
-        logger.error(f"[Trial failed] {e}")
+        # logger.error(f"[Trial failed] {e}")
         return float('-inf')  # or np.nan
     finally:
         tfkb.clear_session()

@@ -10,11 +10,11 @@ from backend.utils.training.tuning import get_train_test_group
 from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
 from backend.utils.training.training_objectives import training_gru
 from backend.utils.predict.fusion import fuse_predictions
-from backend.utils.logger import get_logger
+# from backend.utils.logger import get_logger
+from backend.utils.predict.transform import _align_X_to_model
+#logger = get_logger("eval_no_optuna")
 
-logger = get_logger("eval_no_optuna")
-
-def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE):
+def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE, freeze_gru=True, freeze_sklearn=False):
     """
     Load CURRENT models, refit them on the new 80%, evaluate on 20%, and
     fuse using the *saved* fusion weights/thresholds. No Optuna anywhere.
@@ -46,8 +46,10 @@ def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE):
             # Keras model (GRU classifier)
             model = load_model(file_path)
             # retrain on 80% with saved params (epochs/batch_size)
-            params = meta.get("params", {"epochs": 10, "batch_size": 64})
-            model, _ = training_gru(model, X_train, X_test, y_train.values, y_test.values, params)
+            if not freeze_gru:
+                params = meta.get("params", {"epochs": 10, "batch_size": 64})
+                # train on the 80% split
+                model, _ = training_gru(model, X_train, X_test, y_train.values, y_test.values, params)
             probas = model.predict(X_test)  # shape: (n_samples, n_labels)
             y_pred_bin = (probas > 0.5).astype(int)
             meta["f1_score"] = f1_score(y_test.values, y_pred_bin, average='macro', zero_division=0)
@@ -55,7 +57,10 @@ def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE):
         else:
             # sklearn pipeline
             model = joblib.load(file_path)
-            model.fit(X_train, y_train)  # fit on 80%
+            if not freeze_sklearn:
+                model.fit(X_train, y_train)  # fit on 80%
+            else:
+                X_test = _align_X_to_model(X_test, model)
             # proba list per label → stack into (n_samples, n_labels)
             probas_list = model.predict_proba(X_test)
             probas = np.array([p[:, 1] for p in probas_list]).T
@@ -80,7 +85,7 @@ def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE):
 
     # --- Reports (to logs current) ---
     report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
-    with open(CURRENT_TRAINING_LOG_PATH / "classification_report_80_20.json", "w") as f:
+    with open(CURRENT_TRAINING_LOG_PATH / f"classification_report_eval_{source.split(".")[0]}_test{test_size}.json", "w") as f:
         json.dump(report, f, indent=2)
 
     fusion_f1 = f1_score(y_test.values, y_pred, average='macro', zero_division=0)

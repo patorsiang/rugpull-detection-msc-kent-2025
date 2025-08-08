@@ -1,23 +1,24 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Depends
+from typing import Literal
+from pydantic import BaseModel
+from enum import Enum
+
+from backend.utils.constants import DATA_PATH
 from backend.core.dataset_service import get_full_dataset
-from typing import List, Optional
-from backend.utils.constants import UNLABELED_PATH
+
 router = APIRouter()
 
-@router.get("/dataset", summary="Get dataset features")
-def get_dataset():
-    dataset = get_full_dataset()
-    return dataset
+# Get CSV files at startup for dropdown
+csv_files = [file.name for file in DATA_PATH.glob("*.csv")]
+
+ChoiceLiteral = Literal[tuple(csv_files)] if csv_files else Literal[""]
 
 
-@router.post("/dataset/refresh", summary="Refresh dataset features")
-def refresh_dataset(
-    addresses: Optional[List[str]] = Query(default=None)
-):
-    dataset = get_full_dataset(refresh=True, addresses=addresses)
-    return dataset
+class DatasetRequest(BaseModel):
+    filename: ChoiceLiteral  # type: ignore # Dropdown in Swagger UI
+    refresh: bool = True     # Default value
 
-@router.get("/dataset-unlabeled", summary="Get dataset features")
-def get_dataset():
-    dataset = get_full_dataset(UNLABELED_PATH / 'groundtruth.csv')
+@router.post("/dataset", summary="Get dataset features")
+def get_dataset(request: DatasetRequest = Depends()):
+    dataset = get_full_dataset(request.filename, request.refresh)
     return dataset

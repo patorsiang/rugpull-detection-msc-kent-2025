@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.utils import shuffle
 
 import os
 import json
@@ -29,7 +28,7 @@ from backend.utils.training.training_objectives import (general_objective,
                                                         training_gru)
 from backend.utils.predict.fusion import fuse_predictions
 
-from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, N_TRIALS, SEQ_LEN
+from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, N_TRIALS, SEQ_LEN, GROUND_TRUTH_FILE
 
 from backend.core.dataset_service import get_full_dataset
 
@@ -37,16 +36,17 @@ from backend.utils.logger import get_logger
 
 from backend.utils.training.backup import backup_model_and_logs
 
-def get_train_test_group(test_size=0.2):
-    backup_model_and_logs()
-    dataset = get_full_dataset()
+def get_train_test_group(source=GROUND_TRUTH_FILE, test_size=0.2):
+    dataset = get_full_dataset(filename=source)
     addresses = list(dataset.keys())
 
     # Split addresses
-    if test_size > 0:
+    if test_size and test_size > 0:
         addresses_train, addresses_test = train_test_split(addresses, test_size=test_size, random_state=42)
     else:
-        addresses_train, addresses_test = shuffle(addresses, addresses, random_state=42)
+        # use ALL data both sides (for "train on 100%" stage)
+        addresses_train = addresses
+        addresses_test  = addresses
 
     # Prepare Y (multi-label DataFrame)
     y_train_df = pd.DataFrame([dataset[a].get("Label", {}) for a in addresses_train], index=addresses_train)
@@ -129,11 +129,12 @@ def plot_anomaly_distribution(fused_score, anomaly_threshold, save_path=None):
     plt.savefig(save_path)
     plt.close()
 
-def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
+def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS, source=GROUND_TRUTH_FILE):
+    backup_model_and_logs()
     logger = get_logger("train_and_save")
     logger.info("📦 Loading data and splitting train/test...")
     # Get train/test split
-    data = get_train_test_group(test_size=test_size)
+    data = get_train_test_group(source=source, test_size=test_size)
 
     y_train = data["y_train"]
     y_test = data["y_test"]
@@ -309,7 +310,7 @@ def train_and_save_best_model(test_size=0.2, N_TRIALS=N_TRIALS):
     version_metadata['anomaly_model_summary']['fusion_model'] = {
         "f1_score": study_anomaly.best_value,
         "weights": anomaly_weights,
-        "thresholds": anomaly_threshold
+        "threshold": anomaly_threshold
     }
 
     report_anomaly = classification_report(y_anomaly_test, (np.average(np.stack(isolation_preds, axis=1), axis=1, weights=anomaly_weights) > anomaly_threshold).astype(int), output_dict=True, zero_division=0)

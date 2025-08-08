@@ -330,46 +330,45 @@ def build_if_model_by_mode(mode, param_source, is_trial=False):
         def get_int(param_name, *_, **__): return params[param_name]
         def get_cat(param_name, *_, **__): return params[param_name]
 
-    base_model = Pipeline([
-                ("imputer", SimpleImputer(strategy="mean")),
-                ("scaler", StandardScaler(with_mean=False)),
-                ("clf", IsolationForest(
-                    n_estimators=get_int("n_estimators", 50, 300),
-                    contamination=get_float("contamination", 0.01, 0.2),
-                    max_features=get_float("max_features", 0.5, 1.0),
-                    random_state=42
-                ))
-            ])
+    iso = IsolationForest(
+        n_estimators=get_int("n_estimators", 50, 300),
+        contamination=get_float("contamination", 0.01, 0.2),
+        max_features=get_float("max_features", 0.5, 1.0),
+        random_state=42
+    )
+
     match mode:
         case 'general':
-            return base_model
+            return Pipeline([
+            ("imputer", SimpleImputer(strategy="mean")),
+            ("scaler", StandardScaler(with_mean=False)),
+            ("clf", iso)
+        ])
         case 'sol':
             return Pipeline([
-                ("tfidf", TfidfVectorizer(
-                    lowercase=True,
-                    analyzer='word',
-                    token_pattern=r'\b\w+\b',
-                    max_features=get_int("n_max_features", 10, 20000),
-                    min_df=get_int("n_min_df", 1, 5)
-                )),
-                ("clf", base_model)
-            ])
+            ("tfidf", TfidfVectorizer(
+                lowercase=True,
+                analyzer='word',
+                token_pattern=r'\b\w+\b',
+                max_features=get_int("n_max_features", 10, 20000),
+                min_df=get_int("n_min_df", 1, 5)
+            )),
+            ("clf", iso)
+        ])
         case 'opcode':
-            ngram_range_options = {
-                "1": (1, 1),
-                "2": (1, 2),
-                "3": (1, 3),
-            }
+            ngram_range_options = {"1": (1,1), "2": (1,2), "3": (1,3)}
             key = get_cat("ngram_range", list(ngram_range_options.keys()))
             return Pipeline([
-              ("count", CountVectorizer(
+                ("count", CountVectorizer(
                     analyzer='word',
                     ngram_range=ngram_range_options[key],
                     max_features=get_int("n_max_features", 10, 20000),
                     min_df=get_int("n_min_df", 1, 5)
-              )),
-              ("clf", base_model)
+                )),
+                ("clf", iso)
             ])
+        case _:
+            raise ValueError(f"Unknown mode: {mode}")
 
 def if_objective(trial, mode, X_train, y_true):
     model = build_if_model_by_mode(mode, trial, is_trial=True)

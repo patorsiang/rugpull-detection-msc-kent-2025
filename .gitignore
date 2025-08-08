@@ -77,3 +77,4 @@ Thumbs.db
 *.pid
 *.tar
 docker-compose.override.yml
+backend/models/backup/

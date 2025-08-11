@@ -3,7 +3,7 @@ import json
 import time
 import requests
 from dotenv import load_dotenv
-# from backend.utils.logger import get_logger
+from backend.utils.logger import logging
 
 load_dotenv()
 
@@ -11,7 +11,7 @@ ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 
 url = "https://api.etherscan.io/v2/api"
 
-#logger = get_logger('etherscan_api')
+logger = logging.getLogger(__name__)
 
 def get_most_recent_blocknumber(chainid=1):
     params = {
@@ -269,7 +269,7 @@ def save_bytecode_by_contract_addr(save_folder, addr, bytecode):
     with open(file_path, 'w') as f:
         f.write(bytecode)
 
-    # logger.info(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path
 
@@ -281,7 +281,7 @@ def save_transactions_by_contract_addr(save_folder, addr, info):
     with open(file_path, "w") as f:
         json.dump(info, f, indent=4)
 
-    # logger.info(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path
 
@@ -293,6 +293,6 @@ def save_sol_by_contract_addr(save_folder, addr, source):
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(source)
 
-    # logger.info(f'Saved {filename}')
+    logger.info(f'Saved {filename}')
 
     return file_path

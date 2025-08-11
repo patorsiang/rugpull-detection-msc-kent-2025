@@ -1,159 +1,129 @@
 import json
 import joblib
 import numpy as np
-from tensorflow.keras.models import load_model
-from sklearn.metrics import classification_report, f1_score
 import optuna
+from tensorflow.keras.models import load_model, save_model
+from sklearn.metrics import classification_report, f1_score
 
-from backend.utils.training.tuning import get_train_test_group
-from backend.utils.constants import CURRENT_MODEL_PATH
-from backend.utils.training.training_objectives import training_gru, fusion_objective, anomaly_fusion_objective
-# from backend.utils.logger import get_logger
-from backend.utils.predict.fusion import fuse_predictions
-from backend.utils.constants import N_TRIALS, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
-from backend.utils.training.tuning import plot_multilabel_confusion_matrix, plot_anomaly_distribution
-from backend.utils.training.backup import backup_model_and_logs
+from backend.utils.training.extra_classes import DatasetBuilder, Plotter
+from backend.utils.training.training_objectives import GRUBlocks
+from backend.utils.predict.fusion import Fusion
+from backend.utils.predict.anomaly_fusion import AnomalyFusion
+from backend.core.meta_service import MetaService
+from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, N_TRIALS, GROUND_TRUTH_FILE
+from backend.utils.training.backup import BackupManager
 
-#logger = get_logger('train_pipeline')
+class FullTrainer:
+    """Retrain all on 100% labeled data, then re‑optimize both fusions."""
 
-def full_training(source=GROUND_TRUTH_FILE):
-    backup_model_and_logs()
-    dataset = get_train_test_group(source, 0.0)
+    def __init__(self, n_trials: int = N_TRIALS):
+        self.n_trials = n_trials
 
-    y_train = dataset["y_train"]
-    y_test = dataset["y_test"]
+    def run(self, source=GROUND_TRUTH_FILE) -> dict:
+        BackupManager.backup_current()
 
-    version_meta = json.load(open(CURRENT_MODEL_PATH / 'version.json', 'r'))
+        ds = DatasetBuilder.get_train_test_group(source, 0.0)
+        y_train, y_test = ds["y_train"], ds["y_test"]  # same index/split
+        label_names = y_train.columns.tolist()
 
-    model_preds = []
+        meta = MetaService.read_version()
+        meta["version"] = meta.get("version", "v") + "_1"
 
-    for model_meta in list(version_meta['clf_model_summary'].values()):
-        if 'filename' in model_meta:
-            X_train = dataset[f"{model_meta['field']}_train"]
-            X_test = dataset[f"{model_meta['field']}_test"]
-            file_path = CURRENT_MODEL_PATH / model_meta['filename']
-            if '.keras' in model_meta['filename']:
-                model =  load_model(file_path)
-                model.summary()
-                model, _ = training_gru(model, X_train, X_test, y_train, y_test, model_meta["params"])
-                model.save(file_path)
-                probas = model.predict(X_train)
-                model_preds.append(probas)
-                y_pred_bin = (probas > 0.5).astype(int)
-                model_meta["f1_score"] = f1_score(y_test.values, y_pred_bin, average='macro', zero_division=0)
+        # refit models
+        prob_map = {}
+        for key, m in list(meta["clf_model_summary"].items()):
+            if "filename" not in m: continue
+            field = m["field"]
+            X = ds[f"{field}_train"]
+            fpath = CURRENT_MODEL_PATH / m["filename"]
+
+            if m["filename"].endswith(".keras"):
+                model = load_model(fpath)
+                params = m.get("params", {"epochs":10, "batch_size":64})
+                model, _ = GRUBlocks.train(model, X, X, y_train.values, y_test.values, params)
+                save_model(model, fpath)
+                prob_map["gru"] = model.predict(X, verbose=1)
             else:
-                model = joblib.load(file_path)
-                model.fit(X_train, y_train)
-                probas = model.predict_proba(X_test)
-                probas = np.array([p[:, 1] for p in probas]).T
+                model = joblib.load(fpath)
+                model.fit(X, y_train)
+                joblib.dump(model, fpath)
+                plist = model.predict_proba(X)
+                prob_map["general" if key.startswith("general") else "sol" if key.startswith("sol") else "opcode"] = \
+                    np.array([p[:,1] for p in plist]).T
 
-                model_preds.append(probas)
-                joblib.dump(model, file_path)
-                preds = model.predict(X_test)
-                model_meta["f1_score"] = f1_score(y_test, preds, average='macro', zero_division=0)
+        # fusion re‑opt via Optuna (dicts)
+        study_f = optuna.create_study(direction="maximize")
+        study_f.optimize(lambda t: self._fusion_obj(t, prob_map, y_train.values, label_names), n_trials=self.n_trials)
+        w = {k.replace("w_",""):v for k,v in study_f.best_params.items() if k.startswith("w_")}
+        t = {k.replace("t_",""):v for k,v in study_f.best_params.items() if k.startswith("t_")}
+        y_pred, _ = Fusion.fuse(prob_map, label_names, w, t)
+        CURRENT_TRAINING_LOG_PATH.mkdir(parents=True, exist_ok=True)
+        json.dump(classification_report(y_train.values, y_pred, output_dict=True, zero_division=0),
+                  open(CURRENT_TRAINING_LOG_PATH / "classification_report.json","w"), indent=2)
+        Plotter.multilabel_confusion(y_train.values, y_pred, label_names, CURRENT_TRAINING_LOG_PATH / "confusion_matrix.png")
+        meta["clf_model_summary"]["fusion_model"] = {"f1_score": float(study_f.best_value), "weights": w, "thresholds": t}
 
-    isolation_preds = []
-    y_anomaly_test = (y_test.sum(axis=1) > 0).astype(int).values
+        # anomaly re‑fit
+        iso_maps = {}
+        y_anom = (y_train.sum(axis=1) > 0).astype(int).values
+        for key, m in list(meta["anomaly_model_summary"].items()):
+            if "filename" not in m: continue
+            field = m["field"]
+            X = ds[f"{field}_train"]
+            fpath = CURRENT_MODEL_PATH / m["filename"]
 
-    for model_meta in list(version_meta['anomaly_model_summary'].values()):
-        if 'filename' in model_meta:
-            X_train = dataset[f"{model_meta['field']}_train"]
-            X_test = dataset[f"{model_meta['field']}_test"]
-            file_path = CURRENT_MODEL_PATH / model_meta['filename']
-            if '.keras' in model_meta['filename']:
-                model =  load_model(file_path)
-                model.summary()
-                model, _ = training_gru(model, X_train, X_test, X_train, X_test, model_meta["params"])
-                model.save(file_path)
-                # Calculate reconstruction errors
-                recon = model.predict(X_test)
-                reconstruction_errors = np.mean((X_test - recon)**2, axis=(1, 2))
+            if m["filename"].endswith(".keras"):
+                model = load_model(fpath)
+                params = m.get("params", {"epochs":10, "batch_size":64})
+                model, _ = GRUBlocks.train(model, X, X, X, X, params)
+                save_model(model, fpath)
+                recon = model.predict(X, verbose=1)
+                err = np.mean((X - recon) ** 2, axis=(1, 2))
+                err = np.nan_to_num(err, nan=0.0, posinf=1e12, neginf=0.0)
 
-                reconstruction_errors = np.nan_to_num(
-                    reconstruction_errors, nan=0.0, posinf=1e12, neginf=-1e12
-                )
+                finite = np.isfinite(err)
+                if np.any(finite):
+                    finite_vals = err[finite]
+                    thr = float(np.percentile(finite_vals, 95))
+                else:
+                    med = float(np.median(err))
+                    mad = float(np.median(np.abs(err - med))) or 1.0
+                    thr = med + 3.0 * mad
 
-                # Optional: Find a threshold (e.g. 95th percentile) to mark anomaly
-                threshold = np.percentile(reconstruction_errors, 95)
-                anomaly_flags = (reconstruction_errors > threshold).astype(int)
-                isolation_preds.append(anomaly_flags)  # Now len = 4
-                model_meta['MSE'] = float(np.mean(reconstruction_errors))
-                model_meta['threshold'] = threshold
+                thr = float(min(thr, 1e6))
 
+                iso_maps["ae_timeline"] = (err > thr).astype(int).reshape(-1)
+                m["MSE"] = float(np.mean(err[finite])) if np.any(finite) else float(np.mean(err))
+                m["threshold"] = thr
             else:
-            # if '.pkl' in model_meta['filename']:
-                model = joblib.load(file_path)
-                model.fit(X_train)
-                joblib.dump(model, file_path)
-                pred = model.predict(X_test)
-                preds_bin = (pred == -1).astype(int)
+                model = joblib.load(fpath)
+                model.fit(X)
+                joblib.dump(model, fpath)
+                pred = (model.predict(X) == -1).astype(int).reshape(-1)
+                name = "if_general" if "if_general" in key else ("if_sol" if "if_sol" in key else "if_opcode")
+                iso_maps[name] = pred
 
-                isolation_preds.append(preds_bin)  # anomaly = 1
+        # anomaly fusion re‑opt
+        study_a = optuna.create_study(direction="maximize")
+        study_a.optimize(lambda t: self._anom_obj(t, iso_maps, y_anom), n_trials=self.n_trials)
+        aw = {k.replace("w_",""):v for k,v in study_a.best_params.items() if k.startswith("w_")}
+        ath = float(study_a.best_params["threshold"])
+        meta["anomaly_model_summary"]["fusion_model"] = {"f1_score": float(study_a.best_value), "weights": aw, "threshold": ath}
+        _, score = AnomalyFusion.fuse(iso_maps, aw, ath)
+        Plotter.anomaly_hist(score, ath, CURRENT_TRAINING_LOG_PATH / "anomaly_fusion_distribution.png")
+        MetaService.write_version(meta)
+        return meta
 
-                y_anomaly = (y_test.sum(axis=1) > 0).astype(int)
+    def _fusion_obj(self, trial, prob_map, y_true, label_names):
+        w = {f"w_{k}": trial.suggest_float(f"w_{k}", 0.0, 1.0) for k in prob_map.keys()}
+        t = {f"t_{lbl}": trial.suggest_float(f"t_{lbl}", 0.3, 0.7) for lbl in label_names}
+        pred, _ = Fusion.fuse(prob_map, label_names,
+                              {k.replace("w_",""):v for k,v in w.items()},
+                              {k.replace("t_",""):v for k,v in t.items()})
+        return f1_score(y_true, pred, average="macro")
 
-                model_meta['f1_score'] = f1_score(y_anomaly, preds_bin, zero_division=0)
-
-    #### 🔗 Fusion #####
-    # logger.info("🔗 Running Optuna for Fusion...")
-    study_fusion = optuna.create_study(direction="maximize")
-    study_fusion.optimize(lambda trial: fusion_objective(trial, model_preds, y_test.values), n_trials=N_TRIALS)
-
-    best_weights = [study_fusion.best_params[f"w{i}"] for i in range(len(model_preds))]
-    best_thresholds = [study_fusion.best_params[f"t{i}"] for i in range(y_test.shape[1])]
-    y_pred, _ = fuse_predictions(model_preds, weights=best_weights, thresholds=best_thresholds)
-
-    version_meta['clf_model_summary']['fusion_model'] = {
-        "f1_score": study_fusion.best_value,
-        "weights": best_weights,
-        "thresholds": best_thresholds,
-    }
-
-    #### 📊 Logging #####
-    # logger.info("📊 Saving classification report and confusion matrix...")
-    report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
-    report_path = CURRENT_TRAINING_LOG_PATH / "classification_report.json"
-    with open(report_path, "w") as f:
-        json.dump(report, f, indent=2)
-
-    cm_path = CURRENT_TRAINING_LOG_PATH / "confusion_matrix.png"
-    plot_multilabel_confusion_matrix(y_test.values, y_pred, labels=y_train.columns.tolist(), save_path=cm_path)
-
-    # logger.info("🔗 Running Optuna for Anomaly Fusion...")
-
-    study_anomaly = optuna.create_study(direction="maximize")
-    study_anomaly.optimize(lambda trial: anomaly_fusion_objective(trial, isolation_preds, y_anomaly_test), n_trials=N_TRIALS)
-
-    # Save results
-    anomaly_weights = [study_anomaly.best_params[f"w{i}"] for i in range(len(isolation_preds))]
-    anomaly_threshold = study_anomaly.best_params["threshold"]
-
-
-    version_meta['anomaly_model_summary']['fusion_model'] = {
-        "f1_score": study_anomaly.best_value,
-        "weights": anomaly_weights,
-        "threshold": anomaly_threshold
-    }
-
-    report_anomaly = classification_report(y_anomaly_test, (np.average(np.stack(isolation_preds, axis=1), axis=1, weights=anomaly_weights) > anomaly_threshold).astype(int), output_dict=True, zero_division=0)
-    with open(CURRENT_TRAINING_LOG_PATH / "anomaly_report.json", "w") as f:
-        json.dump(report_anomaly, f, indent=2)
-
-    fused_score = np.average(np.stack(isolation_preds, axis=1), axis=1, weights=anomaly_weights)
-
-    plot_anomaly_distribution(fused_score, anomaly_threshold, CURRENT_TRAINING_LOG_PATH / "anomaly_fusion_distribution.png")
-
-    version_meta["current_version"] = version_meta.get("current_version", "") + '_1'
-    version_meta['label_names'] = y_train.columns.tolist()
-    version_meta['train_size'] = len(y_train)
-    version_meta['test_size'] = len(y_test)
-    version_meta['notes'] = f"Trained with whole dataset"
-
-    # Save version timestamp
-    version_path = CURRENT_MODEL_PATH / "version.json"
-    version_path.parent.mkdir(parents=True, exist_ok=True)  # Ensure the folder exists
-
-    with open(version_path, "w") as f:
-        json.dump(version_meta, f, indent=4)
-
-    return version_meta
+    def _anom_obj(self, trial, iso_maps, y_true):
+        w = {f"w_{k}": trial.suggest_float(f"w_{k}", 0.0, 1.0) for k in iso_maps.keys()}
+        flag, _ = AnomalyFusion.fuse(iso_maps, {k.replace("w_",""):v for k,v in w.items()},
+                                     trial.suggest_float("threshold", 0.3, 0.7))
+        return f1_score(y_true, flag, zero_division=0)

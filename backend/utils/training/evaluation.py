@@ -1,106 +1,70 @@
-# utils/training/evaluate_without_optuna.py
-
 import json
 import joblib
 import numpy as np
 from sklearn.metrics import classification_report, f1_score
 from tensorflow.keras.models import load_model
 
-from backend.utils.training.tuning import get_train_test_group
+from backend.utils.training.extra_classes import DatasetBuilder, Plotter
 from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
-from backend.utils.training.training_objectives import training_gru
-from backend.utils.predict.fusion import fuse_predictions
-# from backend.utils.logger import get_logger
-from backend.utils.predict.transform import _align_X_to_model
-#logger = get_logger("eval_no_optuna")
+from backend.utils.training.training_objectives import GRUBlocks
+from backend.utils.predict.fusion import Fusion
+from backend.utils.predict.transform import FeatureAligner
+from backend.core.meta_service import MetaService
 
-def evaluate_with_current_models(test_size=0.2, source=GROUND_TRUTH_FILE, freeze_gru=True, freeze_sklearn=False):
-    """
-    Load CURRENT models, refit them on the new 80%, evaluate on 20%, and
-    fuse using the *saved* fusion weights/thresholds. No Optuna anywhere.
-    Does NOT overwrite saved model files.
-    Returns a meta dict shaped like version.json with only eval metrics updated.
-    """
-    data = get_train_test_group(source=source, test_size=test_size)
-    y_train = data["y_train"]
-    y_test  = data["y_test"]
+class Evaluator:
+    """80/20 evaluation reusing saved models; optional refit on 80%."""
 
-    # Load current version metadata (for filenames + saved fusion weights/thresholds)
-    with open(CURRENT_MODEL_PATH / "version.json", "r") as f:
-        version_meta = json.load(f)
+    def evaluate(self, test_size=0.2, source=GROUND_TRUTH_FILE, freeze_gru=True, freeze_sklearn=False) -> dict:
+        data = DatasetBuilder.get_train_test_group(source=source, test_size=test_size)
+        y_train, y_test = data["y_train"], data["y_test"]
+        label_names = y_train.columns.tolist()
 
-    # --- Collect per-model probabilities on X_test ---
-    model_preds = {}
-    clf_summary = version_meta.get("clf_model_summary", {})
+        meta = MetaService.read_version()
+        clf_summary = meta.get("clf_model_summary", {})
 
-    for key, meta in clf_summary.items():
-        if "filename" not in meta:
-            continue
+        prob_map = {}
+        for key, m in clf_summary.items():
+            if "filename" not in m:
+                continue
+            field = m.get("field")
+            if not field:
+                continue
+            Xtr, Xte = data[f"{field}_train"], data[f"{field}_test"]
+            fpath = CURRENT_MODEL_PATH / m["filename"]
 
-        field = meta["field"]  # e.g., X_feature, X_code, X_opcode_seq, X_timeline_seq
-        X_train = data.get(f"{field}_train")
-        X_test  = data.get(f"{field}_test")
-        file_path = CURRENT_MODEL_PATH / meta["filename"]
-
-        if meta["filename"].endswith(".keras"):
-            # Keras model (GRU classifier)
-            model = load_model(file_path)
-            # retrain on 80% with saved params (epochs/batch_size)
-            if not freeze_gru:
-                params = meta.get("params", {"epochs": 10, "batch_size": 64})
-                # train on the 80% split
-                model, _ = training_gru(model, X_train, X_test, y_train.values, y_test.values, params)
-            probas = model.predict(X_test)  # shape: (n_samples, n_labels)
-            y_pred_bin = (probas > 0.5).astype(int)
-            meta["f1_score"] = f1_score(y_test.values, y_pred_bin, average='macro', zero_division=0)
-            model_preds[key] = probas
-        else:
-            # sklearn pipeline
-            model = joblib.load(file_path)
-            if not freeze_sklearn:
-                model.fit(X_train, y_train)  # fit on 80%
+            if m["filename"].endswith(".keras"):
+                model = load_model(fpath)
+                if not freeze_gru:
+                    params = m.get("params", {"epochs": 10, "batch_size": 64})
+                    model, _ = GRUBlocks.train(model, Xtr, Xte, y_train.values, y_test.values, params)
+                prob = model.predict(Xte, verbose=1)
+                prob_map["gru"] = prob
+                m["f1_score"] = f1_score(y_test.values, (prob > 0.5).astype(int), average="macro", zero_division=0)
             else:
-                X_test = _align_X_to_model(X_test, model)
-            # proba list per label → stack into (n_samples, n_labels)
-            probas_list = model.predict_proba(X_test)
-            probas = np.array([p[:, 1] for p in probas_list]).T
-            preds = model.predict(X_test)
-            meta["f1_score"] = f1_score(y_test, preds, average='macro', zero_division=0)
-            model_preds[key] = probas
+                model = joblib.load(fpath)
+                if not freeze_sklearn:
+                    model.fit(Xtr, y_train)
+                else:
+                    Xte = FeatureAligner.align_dataframe(Xte, model)
+                prob_list = model.predict_proba(Xte)
+                prob = np.array([p[:, 1] for p in prob_list]).T
+                name = "general" if "general" in key else ("sol" if "sol" in key else ("opcode" if "opcode" in key else key))
+                prob_map[name] = prob
+                m["f1_score"] = f1_score(y_test, model.predict(Xte), average="macro", zero_division=0)
 
-    # --- Fuse using saved weights/thresholds (no Optuna) ---
-    fusion_saved = clf_summary.get("fusion_model", {})
-    weights = fusion_saved.get("weights")
-    thresholds = fusion_saved.get("thresholds")
+        fcfg = clf_summary.get("fusion_model", {})
+        weights    = fcfg.get("weights", {})
+        thresholds = fcfg.get("thresholds", {})
 
-    # Fallbacks if not present
-    if weights is None:
-        weights = [1.0] * len([k for k in model_preds.keys() if k != "fusion_model"])
-    if thresholds is None:
-        thresholds = [0.5] * y_test.shape[1]
+        y_pred, _ = Fusion.fuse(prob_map, label_names, weights=weights, thresholds=thresholds)
+        report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
+        CURRENT_TRAINING_LOG_PATH.mkdir(parents=True, exist_ok=True)
+        json.dump(report, open(CURRENT_TRAINING_LOG_PATH / f"classification_report_eval_{source.split('.')[0]}_test{test_size}.json","w"), indent=2)
 
-    # Preserve model order: all non-fusion keys in insertion order
-    pred_stack = [model_preds[k] for k in clf_summary.keys() if k != "fusion_model" and k in model_preds]
-    y_pred, _ = fuse_predictions(pred_stack, weights=weights, thresholds=thresholds)
-
-    # --- Reports (to logs current) ---
-    report = classification_report(y_test.values, y_pred, output_dict=True, zero_division=0)
-    with open(CURRENT_TRAINING_LOG_PATH / f"classification_report_eval_{source.split(".")[0]}_test{test_size}.json", "w") as f:
-        json.dump(report, f, indent=2)
-
-    fusion_f1 = f1_score(y_test.values, y_pred, average='macro', zero_division=0)
-
-    # Return a “trial” meta that looks like version.json enough for comparison
-    return {
-        "clf_model_summary": {
-            **clf_summary,
-            "fusion_model": {
-                **fusion_saved,
-                "f1_score": fusion_f1
-            }
-        },
-        "label_names": y_train.columns.tolist(),
-        "train_size": int(len(y_train)),
-        "test_size": int(len(y_test)),
-        "notes": "80/20 evaluation using current saved models/params; no Optuna.",
-    }
+        return {
+            "clf_model_summary": {**clf_summary, "fusion_model": {**fcfg, "f1_score": f1_score(y_test.values, y_pred, average="macro", zero_division=0)}},
+            "label_names": label_names,
+            "train_size": int(len(y_train)),
+            "test_size": int(len(y_test)),
+            "notes": "80/20 eval using saved models; optional refit disabled by default.",
+        }

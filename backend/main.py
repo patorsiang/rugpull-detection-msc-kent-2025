@@ -1,6 +1,6 @@
 # backend/main.py
 from fastapi import FastAPI
-from backend.api import versions, train, dataset
+from backend.api import versions, train, dataset, predict
 from backend.utils.logger import setup_logging
 
 setup_logging()
@@ -20,3 +20,5 @@ app.include_router(versions.router, prefix="/api")
 app.include_router(train.router, prefix="/api", tags=["training"])
 
 app.include_router(dataset.router, prefix="/api", tags=["dataset"])
+
+app.include_router(predict.router, prefix="/api", tags=["predict"])

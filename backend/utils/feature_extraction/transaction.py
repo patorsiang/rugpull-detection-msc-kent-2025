@@ -5,9 +5,9 @@ import requests
 import numpy as np
 from backend.utils.redis_client import redis_cache
 from backend.utils.feature_extraction.graph import extract_transaction_graph_features
-# from backend.utils.logger import get_logger
+from backend.utils.logger import logging
 
-#logger = get_logger('transaction feature extraction')
+logger = logging.getLogger(__name__)
 
 def lookup_4byte(topic_hash):
     """Lookup event signature using 4byte.directory API with Redis caching."""
@@ -24,7 +24,7 @@ def lookup_4byte(topic_hash):
             redis_cache.set(topic_hash, decoded)
             return decoded
     except Exception as e:
-        # logger.error(f"⚠️ Error decoding {topic_hash}: {e}")
+        logger.error(f"⚠️ Error decoding {topic_hash}: {e}")
         print()
 
     redis_cache.set(topic_hash, "unknown")

@@ -1,7 +1,6 @@
 import os
 import redis
 from dotenv import load_dotenv
-# from backend.utils.logger import get_logger
 
 load_dotenv()
 

@@ -28,7 +28,7 @@
             "contractAddress": "0x1cf33ead073351b3fc63c1f4f35dc10791fe6c7c",
             "cumulativeGasUsed": "2919726",
             "gasUsed": "1527416",
-            "confirmations": "17058068",
+            "confirmations": "17086002",
             "methodId": "0x60806040",
             "functionName": "atInversebrah(int248 a, uint48[] b, uint32 c, bytes20[] d, bytes30[] e)"
         },
@@ -50,7 +50,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4637737",
             "gasUsed": "55554",
-            "confirmations": "17058055",
+            "confirmations": "17085989",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -72,7 +72,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7918094",
             "gasUsed": "55554",
-            "confirmations": "17058053",
+            "confirmations": "17085987",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -94,7 +94,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6347016",
             "gasUsed": "55554",
-            "confirmations": "17058051",
+            "confirmations": "17085985",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -116,7 +116,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7375404",
             "gasUsed": "181470",
-            "confirmations": "17058011",
+            "confirmations": "17085945",
             "methodId": "0xe9445d5a",
             "functionName": "createAudit(uint256 _stake, uint256 _endTimeInDays, uint256 _maxAuditors)"
         },
@@ -138,7 +138,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4429706",
             "gasUsed": "119460",
-            "confirmations": "17057249",
+            "confirmations": "17085183",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -160,7 +160,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7991135",
             "gasUsed": "55554",
-            "confirmations": "17056446",
+            "confirmations": "17084380",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -182,7 +182,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1092346",
             "gasUsed": "105006",
-            "confirmations": "17056363",
+            "confirmations": "17084297",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -204,7 +204,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4001679",
             "gasUsed": "55554",
-            "confirmations": "17052388",
+            "confirmations": "17080322",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -226,7 +226,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5063293",
             "gasUsed": "105006",
-            "confirmations": "17051966",
+            "confirmations": "17079900",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -248,7 +248,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7954082",
             "gasUsed": "55554",
-            "confirmations": "17035402",
+            "confirmations": "17063336",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -270,7 +270,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6435182",
             "gasUsed": "55554",
-            "confirmations": "17035364",
+            "confirmations": "17063298",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -292,7 +292,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2132903",
             "gasUsed": "105006",
-            "confirmations": "17034794",
+            "confirmations": "17062728",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -314,7 +314,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2479313",
             "gasUsed": "55554",
-            "confirmations": "17028447",
+            "confirmations": "17056381",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -336,7 +336,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6167561",
             "gasUsed": "55554",
-            "confirmations": "17008585",
+            "confirmations": "17036519",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -358,7 +358,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6128738",
             "gasUsed": "55554",
-            "confirmations": "17008583",
+            "confirmations": "17036517",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -380,7 +380,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1140394",
             "gasUsed": "105006",
-            "confirmations": "17007542",
+            "confirmations": "17035476",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -402,7 +402,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6703547",
             "gasUsed": "105006",
-            "confirmations": "17005020",
+            "confirmations": "17032954",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -424,7 +424,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6024944",
             "gasUsed": "55554",
-            "confirmations": "16980979",
+            "confirmations": "17008913",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -446,7 +446,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7074056",
             "gasUsed": "55554",
-            "confirmations": "16980190",
+            "confirmations": "17008124",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -468,7 +468,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7431630",
             "gasUsed": "55554",
-            "confirmations": "16969700",
+            "confirmations": "16997634",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -490,7 +490,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5357303",
             "gasUsed": "55554",
-            "confirmations": "16969693",
+            "confirmations": "16997627",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -512,7 +512,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1768932",
             "gasUsed": "61169",
-            "confirmations": "16951213",
+            "confirmations": "16979147",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -534,7 +534,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7025741",
             "gasUsed": "61169",
-            "confirmations": "16951208",
+            "confirmations": "16979142",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -556,7 +556,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6236440",
             "gasUsed": "61169",
-            "confirmations": "16951206",
+            "confirmations": "16979140",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -578,7 +578,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3104717",
             "gasUsed": "61169",
-            "confirmations": "16951204",
+            "confirmations": "16979138",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -600,7 +600,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7800341",
             "gasUsed": "61169",
-            "confirmations": "16862892",
+            "confirmations": "16890826",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -622,7 +622,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5962453",
             "gasUsed": "181470",
-            "confirmations": "16529250",
+            "confirmations": "16557184",
             "methodId": "0xe9445d5a",
             "functionName": "createAudit(uint256 _stake, uint256 _endTimeInDays, uint256 _maxAuditors)"
         },
@@ -644,7 +644,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3521385",
             "gasUsed": "55554",
-            "confirmations": "16528897",
+            "confirmations": "16556831",
             "methodId": "0xe429cef1",
             "functionName": "addAuditor(address _auditor)"
         },
@@ -666,7 +666,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4909591",
             "gasUsed": "134524",
-            "confirmations": "16528860",
+            "confirmations": "16556794",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -688,7 +688,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1301585",
             "gasUsed": "105070",
-            "confirmations": "16528717",
+            "confirmations": "16556651",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -710,7 +710,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3796435",
             "gasUsed": "105070",
-            "confirmations": "16528562",
+            "confirmations": "16556496",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -732,7 +732,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2401660",
             "gasUsed": "105070",
-            "confirmations": "16528069",
+            "confirmations": "16556003",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -754,7 +754,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7435363",
             "gasUsed": "105070",
-            "confirmations": "16522618",
+            "confirmations": "16550552",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -776,7 +776,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6934389",
             "gasUsed": "181470",
-            "confirmations": "16418972",
+            "confirmations": "16446906",
             "methodId": "0xe9445d5a",
             "functionName": "createAudit(uint256 _stake, uint256 _endTimeInDays, uint256 _maxAuditors)"
         },
@@ -798,7 +798,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6898016",
             "gasUsed": "119524",
-            "confirmations": "16418710",
+            "confirmations": "16446644",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -820,7 +820,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1828434",
             "gasUsed": "105070",
-            "confirmations": "16418701",
+            "confirmations": "16446635",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -842,7 +842,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7198063",
             "gasUsed": "105070",
-            "confirmations": "16418622",
+            "confirmations": "16446556",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -864,7 +864,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4668844",
             "gasUsed": "105070",
-            "confirmations": "16418557",
+            "confirmations": "16446491",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -886,7 +886,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1421046",
             "gasUsed": "23927",
-            "confirmations": "16418555",
+            "confirmations": "16446489",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -908,7 +908,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6404786",
             "gasUsed": "61233",
-            "confirmations": "16400375",
+            "confirmations": "16428309",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -930,7 +930,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6998480",
             "gasUsed": "61233",
-            "confirmations": "16400372",
+            "confirmations": "16428306",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -952,7 +952,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5010896",
             "gasUsed": "61233",
-            "confirmations": "16400370",
+            "confirmations": "16428304",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -974,7 +974,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6985878",
             "gasUsed": "61233",
-            "confirmations": "16400366",
+            "confirmations": "16428300",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -996,7 +996,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6020049",
             "gasUsed": "61233",
-            "confirmations": "16400362",
+            "confirmations": "16428296",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1018,7 +1018,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "270309",
             "gasUsed": "23310",
-            "confirmations": "16399748",
+            "confirmations": "16427682",
             "methodId": "0x25d5971f",
             "functionName": "withdrawStake(uint256 value)"
         },
@@ -1040,7 +1040,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "232925",
             "gasUsed": "23246",
-            "confirmations": "16399737",
+            "confirmations": "16427671",
             "methodId": "0x25d5971f",
             "functionName": "withdrawStake(uint256 value)"
         },
@@ -1062,7 +1062,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "249667",
             "gasUsed": "23310",
-            "confirmations": "16397937",
+            "confirmations": "16425871",
             "methodId": "0x25d5971f",
             "functionName": "withdrawStake(uint256 value)"
         },
@@ -1084,7 +1084,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7983553",
             "gasUsed": "16515",
-            "confirmations": "16388029",
+            "confirmations": "16415963",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1106,7 +1106,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5411863",
             "gasUsed": "31515",
-            "confirmations": "16388020",
+            "confirmations": "16415954",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1128,7 +1128,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7965519",
             "gasUsed": "16515",
-            "confirmations": "16388012",
+            "confirmations": "16415946",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1150,7 +1150,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7982034",
             "gasUsed": "16515",
-            "confirmations": "16388012",
+            "confirmations": "16415946",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1172,7 +1172,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7740394",
             "gasUsed": "16515",
-            "confirmations": "16388001",
+            "confirmations": "16415935",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1194,7 +1194,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7603223",
             "gasUsed": "31515",
-            "confirmations": "16387999",
+            "confirmations": "16415933",
             "methodId": "0xca315ca6",
             "functionName": "slashStake(uint256 _id, address _auditor)"
         },
@@ -1216,7 +1216,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7197132",
             "gasUsed": "181470",
-            "confirmations": "16333642",
+            "confirmations": "16361576",
             "methodId": "0xe9445d5a",
             "functionName": "createAudit(uint256 _stake, uint256 _endTimeInDays, uint256 _maxAuditors)"
         },
@@ -1238,7 +1238,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1272731",
             "gasUsed": "119524",
-            "confirmations": "16333554",
+            "confirmations": "16361488",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -1260,7 +1260,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7724610",
             "gasUsed": "105070",
-            "confirmations": "16333534",
+            "confirmations": "16361468",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -1282,7 +1282,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2399864",
             "gasUsed": "26108",
-            "confirmations": "16333530",
+            "confirmations": "16361464",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -1304,7 +1304,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6622542",
             "gasUsed": "105070",
-            "confirmations": "16333486",
+            "confirmations": "16361420",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -1326,7 +1326,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6986199",
             "gasUsed": "22018",
-            "confirmations": "16329732",
+            "confirmations": "16357666",
             "methodId": "0x94c467d0",
             "functionName": "banAuditor(address _auditor)"
         },
@@ -1348,7 +1348,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5949685",
             "gasUsed": "105070",
-            "confirmations": "16328821",
+            "confirmations": "16356755",
             "methodId": "0xa694fc3a",
             "functionName": "stake(uint256 countryID)"
         },
@@ -1370,7 +1370,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "442600",
             "gasUsed": "22018",
-            "confirmations": "16328390",
+            "confirmations": "16356324",
             "methodId": "0x94c467d0",
             "functionName": "banAuditor(address _auditor)"
         },
@@ -1392,7 +1392,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3348204",
             "gasUsed": "22029",
-            "confirmations": "16327893",
+            "confirmations": "16355827",
             "methodId": "0x8da5cb5b",
             "functionName": "owner()"
         },
@@ -1414,7 +1414,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3601086",
             "gasUsed": "22381",
-            "confirmations": "16327893",
+            "confirmations": "16355827",
             "methodId": "0x25d5971f",
             "functionName": "withdrawStake(uint256 value)"
         },
@@ -1436,7 +1436,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5846347",
             "gasUsed": "61233",
-            "confirmations": "16273736",
+            "confirmations": "16301670",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1458,7 +1458,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5749662",
             "gasUsed": "61233",
-            "confirmations": "16273731",
+            "confirmations": "16301665",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1480,7 +1480,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5827907",
             "gasUsed": "61233",
-            "confirmations": "16273729",
+            "confirmations": "16301663",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1502,7 +1502,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6295475",
             "gasUsed": "61233",
-            "confirmations": "16273729",
+            "confirmations": "16301663",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1524,7 +1524,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5397812",
             "gasUsed": "61169",
-            "confirmations": "16273645",
+            "confirmations": "16301579",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1546,7 +1546,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6815894",
             "gasUsed": "61169",
-            "confirmations": "16273635",
+            "confirmations": "16301569",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1568,7 +1568,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6776646",
             "gasUsed": "61233",
-            "confirmations": "16273634",
+            "confirmations": "16301568",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1590,7 +1590,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1260322",
             "gasUsed": "61233",
-            "confirmations": "16273629",
+            "confirmations": "16301563",
             "methodId": "0xc367ec17",
             "functionName": "rewardAuditor(uint256 _id, address _auditor, uint256 _reward)"
         },
@@ -1612,7 +1612,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5352592",
             "gasUsed": "32071",
-            "confirmations": "16273588",
+            "confirmations": "16301522",
             "methodId": "0xa9059cbb",
             "functionName": "transfer(address _to, uint256 _value)"
         },

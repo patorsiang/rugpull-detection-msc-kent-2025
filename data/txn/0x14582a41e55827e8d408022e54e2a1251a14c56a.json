@@ -28,7 +28,7 @@
             "contractAddress": "0x14582a41e55827e8d408022e54e2a1251a14c56a",
             "cumulativeGasUsed": "3977755",
             "gasUsed": "1164068",
-            "confirmations": "18013134",
+            "confirmations": "18041043",
             "methodId": "0x60606040",
             "functionName": ""
         },
@@ -50,7 +50,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3881622",
             "gasUsed": "42413",
-            "confirmations": "18013065",
+            "confirmations": "18040974",
             "methodId": "0xcd4e28b5",
             "functionName": "setNextBidExpireBlockLength(uint256 _n)"
         },
@@ -72,7 +72,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4973379",
             "gasUsed": "177869",
-            "confirmations": "18012861",
+            "confirmations": "18040770",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -94,7 +94,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5884110",
             "gasUsed": "98077",
-            "confirmations": "18012851",
+            "confirmations": "18040760",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -116,7 +116,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6783371",
             "gasUsed": "36182",
-            "confirmations": "18012845",
+            "confirmations": "18040754",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -138,7 +138,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5559734",
             "gasUsed": "44318",
-            "confirmations": "18012835",
+            "confirmations": "18040744",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -160,7 +160,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4374770",
             "gasUsed": "70892",
-            "confirmations": "18012826",
+            "confirmations": "18040735",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -182,7 +182,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3530175",
             "gasUsed": "60941",
-            "confirmations": "18012798",
+            "confirmations": "18040707",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -204,7 +204,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7331183",
             "gasUsed": "60493",
-            "confirmations": "18012770",
+            "confirmations": "18040679",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -226,7 +226,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2050666",
             "gasUsed": "98077",
-            "confirmations": "18012745",
+            "confirmations": "18040654",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -248,7 +248,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5971222",
             "gasUsed": "24105",
-            "confirmations": "18012711",
+            "confirmations": "18040620",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -270,7 +270,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "5726863",
             "gasUsed": "186733",
-            "confirmations": "18012704",
+            "confirmations": "18040613",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -292,7 +292,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4423854",
             "gasUsed": "98077",
-            "confirmations": "18012684",
+            "confirmations": "18040593",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -314,7 +314,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4620994",
             "gasUsed": "186413",
-            "confirmations": "18011613",
+            "confirmations": "18039522",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -336,7 +336,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6222529",
             "gasUsed": "171165",
-            "confirmations": "17934180",
+            "confirmations": "17962089",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -358,7 +358,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "6920183",
             "gasUsed": "170781",
-            "confirmations": "17934065",
+            "confirmations": "17961974",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -380,7 +380,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1900274",
             "gasUsed": "170653",
-            "confirmations": "16824487",
+            "confirmations": "16852396",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -402,7 +402,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2390498",
             "gasUsed": "170525",
-            "confirmations": "16776482",
+            "confirmations": "16804391",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -424,7 +424,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3911315",
             "gasUsed": "170461",
-            "confirmations": "16775847",
+            "confirmations": "16803756",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -446,7 +446,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3329307",
             "gasUsed": "170461",
-            "confirmations": "16775790",
+            "confirmations": "16803699",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -468,7 +468,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1308084",
             "gasUsed": "170397",
-            "confirmations": "16774202",
+            "confirmations": "16802111",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -490,7 +490,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2555493",
             "gasUsed": "154606",
-            "confirmations": "16727105",
+            "confirmations": "16755014",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -512,7 +512,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "3988727",
             "gasUsed": "165860",
-            "confirmations": "16727073",
+            "confirmations": "16754982",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -534,7 +534,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1177962",
             "gasUsed": "154606",
-            "confirmations": "16727019",
+            "confirmations": "16754928",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -556,7 +556,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "2444440",
             "gasUsed": "165476",
-            "confirmations": "16726611",
+            "confirmations": "16754520",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -578,7 +578,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "562228",
             "gasUsed": "60429",
-            "confirmations": "16726586",
+            "confirmations": "16754495",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -600,7 +600,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "4886296",
             "gasUsed": "170973",
-            "confirmations": "16726528",
+            "confirmations": "16754437",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -622,7 +622,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "7830340",
             "gasUsed": "170461",
-            "confirmations": "16724493",
+            "confirmations": "16752402",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },
@@ -644,7 +644,7 @@
             "contractAddress": "",
             "cumulativeGasUsed": "1306436",
             "gasUsed": "60173",
-            "confirmations": "16724491",
+            "confirmations": "16752400",
             "methodId": "0x0fc55fd1",
             "functionName": "bid(uint256 _roundNumber, string _message)"
         },

@@ -231,3 +231,86 @@ class Trainer:
         m, _ = GRUBlocks.train(m, Xtr, Xte, Xtr, Xte, {"epochs": ep, "batch_size": bs})
         recon = m.predict(Xte, verbose=1)
         return float(np.mean((Xte - recon) ** 2))
+
+    def train_preview(self, test_size=0.2, train_source=GROUND_TRUTH_FILE, eval_source=GROUND_TRUTH_FILE) -> dict:
+        """
+        Tune on train_source; evaluate on eval_source's test split.
+        No files are written. Returns fused F1 for fair compare vs baseline.
+        """
+        # Build TRAIN data from train_source
+        train = DatasetBuilder.get_train_test_group(source=train_source, test_size=test_size)
+        Xtr_feat, Xtr_code, Xtr_opc, Xtr_t = (
+            train["X_feature_train"], train["X_code_train"],
+            train["X_opcode_seq_train"], train["X_timeline_seq_train"]
+        )
+        ytr = train["y_train"]
+
+        # Build EVAL data from eval_source (use ONLY the test part)
+        evald = DatasetBuilder.get_train_test_group(source=eval_source, test_size=test_size)
+        Xte_feat, Xte_code, Xte_opc, Xte_t = (
+            evald["X_feature_test"], evald["X_code_test"],
+            evald["X_opcode_seq_test"], evald["X_timeline_seq_test"]
+        )
+        yte = evald["y_test"]
+
+        # Ensure label alignment/order between ytr and yte
+        label_names = ytr.columns.tolist()
+        if list(yte.columns) != label_names:
+            yte = yte.reindex(columns=label_names, fill_value=0)
+
+        model_probs = {}
+
+        # ---- sklearn models (no saving)
+        for mode, (Xtr, Xte) in {
+            "general": (Xtr_feat, Xte_feat),
+            "sol":     (Xtr_code, Xte_code),
+            "opcode":  (Xtr_opc, Xte_opc),
+        }.items():
+            study = optuna.create_study(direction="maximize")
+            study.optimize(lambda t: self._general_objective(t, Xtr, Xte, ytr, yte, mode), n_trials=self.n_trials)
+
+            model = SklearnFactory.build_model_by_name(
+                study.best_trial.user_attrs["model_name"], mode, study.best_trial.params, is_trial=False
+            )
+            model.fit(Xtr, ytr)
+            Xte_aligned = FeatureAligner.align_dataframe(Xte.copy(), model)
+            probas_list = model.predict_proba(Xte_aligned)
+            probs = np.array([p[:, 1] for p in probas_list]).T
+            model_probs[mode] = probs
+
+        # ---- GRU classifier (no saving)
+        study_gru = optuna.create_study(direction="maximize")
+        study_gru.optimize(lambda t: self._gru_objective(t, Xtr_t, Xte_t, ytr.values, yte.values), n_trials=self.n_trials)
+
+        gru = GRUBlocks.build_classifier(
+            (Xtr_t.shape[1], Xtr_t.shape[2]),
+            study_gru.best_trial.params["units"],
+            study_gru.best_trial.params["lr"],
+            output=ytr.shape[1],
+        )
+        gru, _ = GRUBlocks.train(gru, Xtr_t, Xte_t, ytr.values, yte.values, study_gru.best_trial.params)
+        model_probs["gru"] = gru.predict(Xte_t, verbose=0)
+
+        # ---- Fusion (optimize on eval_source test set)
+        study_fusion = optuna.create_study(direction="maximize")
+        study_fusion.optimize(
+            lambda t: self._fusion_objective(t, model_probs, yte.values, label_names),
+            n_trials=self.n_trials,
+        )
+        weights = {k.replace("w_", ""): v for k, v in study_fusion.best_params.items() if k.startswith("w_")}
+        thresholds = {k.replace("t_", ""): v for k, v in study_fusion.best_params.items() if k.startswith("t_")}
+
+        return {
+            "clf_model_summary": {
+                "fusion_model": {
+                    "f1_score": float(study_fusion.best_value),
+                    "weights": weights,
+                    "thresholds": thresholds,
+                }
+            },
+            "label_names": label_names,
+            "train_size": int(len(ytr)),
+            "test_size": int(len(yte)),
+            "notes": f"Preview only (no file writes). Trials={self.n_trials}; train={train_source}; eval={eval_source}",
+        }
+

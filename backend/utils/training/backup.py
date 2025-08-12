@@ -43,7 +43,7 @@ class BackupManager:
 
         for f in CURRENT_TRAINING_LOG_PATH.glob("*"):
             if f.is_file():
-                shutil.copy(f, dst_logs / f.name)
+                shutil.move(f, dst_logs / f.name)
 
         BackupManager._prune(BACKUP_MODEL_PATH, max_backups)
         BackupManager._prune(BACKUP_TRAINING_LOG_PATH, max_backups)

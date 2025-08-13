@@ -1,0 +1,39 @@
+{
+  "config": {
+    "source": "groundtruth-merged-1.5.csv",
+    "target": "crp_large_sample.csv",
+    "round": "2.0",
+    "low": 0.1,
+    "high": 0.9,
+    "eval_source": "groundtruth.csv",
+    "test_size": 0.2,
+    "n_trials": 50,
+    "do_train": true
+  },
+  "status": "ok",
+  "counts": {
+    "new_addresses": 110,
+    "pseudo_rows": 2
+  },
+  "files": {
+    "pseudo_file": "crp_large_sample-pseudo-2.0.csv",
+    "merged_file": "groundtruth-merged-1.5-merged-2.0.csv",
+    "new_groundtruth_file": null,
+    "target_augmented": null
+  },
+  "labels": [
+    "Leak",
+    "Limit",
+    "Mint"
+  ],
+  "thresholds": {
+    "low": 0.1,
+    "high": 0.9
+  },
+  "metrics": {
+    "baseline_f1": 0.46296296296296297,
+    "trial_f1": 0.9803921568627452,
+    "improved": true,
+    "final_version": "20250812_172758_1"
+  }
+}

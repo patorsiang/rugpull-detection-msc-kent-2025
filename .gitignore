@@ -79,3 +79,5 @@ Thumbs.db
 docker-compose.override.yml
 backend/models/backup/
 backend/models/backup/
+
+.vite

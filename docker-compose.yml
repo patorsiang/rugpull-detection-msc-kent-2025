@@ -28,6 +28,28 @@ services:
         - path: requirements.txt
           action: rebuild
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    container_name: frontend
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "5173:5173" # Vite dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app # live code
+      - /app/node_modules # keep node_modules inside container
+    depends_on:
+      - backend
+    # optional compose watch (if your Compose supports it)
+    develop:
+      watch:
+        - path: ./frontend
+          action: sync
+          target: /app
+
   redis:
     image: redis:latest
     container_name: redis-server

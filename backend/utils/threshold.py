@@ -1,29 +1,21 @@
+from typing import Dict, List, Tuple
 import numpy as np
 from sklearn.metrics import f1_score
 
-def tune_thresholds(y_true, y_pred_prob):
-    y_true = np.asarray(y_true)          # Fix: convert to NumPy
-    y_pred_prob = np.asarray(y_pred_prob)
+class ThresholdTuner:
+    """Independent per‑label threshold scan, returns dicts keyed by label."""
 
-    best_thresholds = []
-    best_scores = []
-
-    for i in range(y_true.shape[1]):
-        label_true = y_true[:, i]
-        label_probs = y_pred_prob[:, i]  # Fix here too
-        thresholds = np.linspace(0.0, 1.0, 101)
-        scores = []
-
-        for t in thresholds:
-            label_pred = (label_probs >= t).astype(int)
-            score = f1_score(label_true, label_pred, zero_division=0)
-            scores.append(score)
-        best_t = thresholds[np.argmax(scores)]
-        best_score = np.max(scores)
-
-        best_thresholds.append(best_t)
-        best_scores.append(best_score)
-
-        print(f"Label {i}: Best threshold = {best_t}, Best f1 = {best_score}")
-
-    return best_thresholds, best_scores
+    @staticmethod
+    def tune(y_true: np.ndarray, y_prob: np.ndarray, label_names: List[str]) -> Tuple[Dict[str, float], Dict[str, float]]:
+        y_true = np.asarray(y_true)
+        y_prob = np.asarray(y_prob)
+        L = y_true.shape[1]
+        best_t, best_s = {}, {}
+        for i in range(L):
+            yy = y_true[:, i]; pp = y_prob[:, i]
+            grid = np.linspace(0, 1, 101)
+            scores = [f1_score(yy, (pp >= t).astype(int), zero_division=0) for t in grid]
+            j = int(np.argmax(scores))
+            best_t[label_names[i]] = float(grid[j])
+            best_s[label_names[i]] = float(scores[j])
+        return best_t, best_s

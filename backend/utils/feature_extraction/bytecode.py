@@ -1,100 +1,91 @@
 import os
-from pathlib import Path
-import pandas as pd
-from evmdasm import EvmBytecode
-from sklearn.feature_extraction.text import CountVectorizer
-from scipy.stats import entropy
-from collections import Counter
-import joblib
 
-# === Helper Functions ===
+from typing import List
+
+from evmdasm import EvmBytecode
+from collections import Counter
+from scipy.stats import entropy
+from backend.utils.feature_extraction.evm_cfg_builder.evm_cfg_builder.cfg.cfg import CFG
+from backend.utils.feature_extraction.graph import extract_control_flow_graph_features
+
+from backend.utils.logger import logging
+
+logger = logging.getLogger(__name__)
 
 def load_bytecode(hex_file):
     with open(hex_file, 'r') as f:
         bytecode = f.read().strip()
     return bytecode
 
-def get_opcode_entropy(opcodes):
-    freqs = Counter(opcodes)
-    total = sum(freqs.values())
-    probs = [v / total for v in freqs.values()]
-    return entropy(probs, base=2)
-
-def get_byte_entropy(bytecode_hex):
-    bytes_ = [bytecode_hex[i:i+2] for i in range(0, len(bytecode_hex), 2)]
-    freqs = Counter(bytes_)
-    total = sum(freqs.values())
-    probs = [v / total for v in freqs.values()]
-    return entropy(probs, base=2)
-
-def get_byte_frequency(bytecode_hex):
+def get_byte_frequency_n_entropy(bytecode_hex: str):
     bytes_ = [bytecode_hex[i:i+2] for i in range(0, len(bytecode_hex), 2)]
     freq = Counter(bytes_)
     total = sum(freq.values())
-    return {f'byte_{b}': freq[b] / total for b in freq}
+    probs = [v / total for v in freq.values()]
+    return {f'byte_{b}': freq[b] / total for b in freq}, entropy(probs, base=2)
 
-# === Main Feature Extractor ===
+def get_opcode_frequency_n_entropy(opcodes: List[str]):
+    freq = Counter(opcodes)
+    total = sum(freq.values())
+    probs = [v / total for v in freq.values()]
+    return entropy(probs, base=2)
 
-def extract_bytecode_static_features(hex_path):
-    # Read hex file
-    bytecode_hex = load_bytecode(hex_path)
+def extract_graph_features(bytecode_hex: str):
+    try:
+        if bytecode_hex == '0x' or "":
+            return extract_control_flow_graph_features()
 
-    # Disassemble to opcodes
-    bytecode = EvmBytecode(bytecode=bytecode_hex)
-    opcodes = [op.name for op in bytecode.disassemble()]
-    opcode_sequence = ' '.join(opcodes)
+        return extract_control_flow_graph_features(CFG(bytecode_hex))
+    except Exception as e:
+        logger.error(e)
+        logger.debug(f"{bytecode_hex}: {str(bytecode_hex)}")
 
-    # Extract features
-    opcode_entropy = get_opcode_entropy(opcodes)
-    byte_freq = get_byte_frequency(bytecode_hex)
-    byte_entropy = get_byte_entropy(bytecode_hex)
+def extract_bytecode_features(hex_str: str):
+    try:
+        # Read hex file
+        bytecode_hex = load_bytecode(hex_str)
 
-    return {
-        "Address": os.path.basename(hex_path).replace(".hex", ""),
-        "opcode_sequence": opcode_sequence,
-        "opcode_entropy": opcode_entropy,
-        "byte_entropy": byte_entropy,
-        **byte_freq  # merge byte frequency into the result
-    }
+        # Disassemble to opcodes
+        bytecode = EvmBytecode(bytecode=bytecode_hex)
+        opcodes = [op.name for op in bytecode.disassemble()]
+        opcode_sequence = ' '.join(opcodes)
 
-def generate_ngram_features(opcode_sequences, MODEL_PATH, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False):
-    vectorizer_path = os.path.join(MODEL_PATH, 'opcode_vectorizer.pkl')
-    if use_saved_model and os.path.exists(vectorizer_path):
-        vectorizer = joblib.load(vectorizer_path)
-        X = vectorizer.transform(opcode_sequences)
-    else:
-        vectorizer = CountVectorizer(
-            analyzer='word',
-            ngram_range=ngram_range,
-            max_features=max_features,
-            min_df=min_df
-        )
-        X = vectorizer.fit_transform(opcode_sequences)
-        # Save the fitted vectorizer
-        os.makedirs(MODEL_PATH, exist_ok=True)
-        joblib.dump(vectorizer, vectorizer_path)
+        byte_freq, byte_entropy = get_byte_frequency_n_entropy(bytecode_hex)
+        opcode_entropy = get_opcode_frequency_n_entropy(opcodes)
+        graph_feature = extract_graph_features(bytecode_hex)
 
-    feature_names = vectorizer.vocabulary_.keys()
-    return pd.DataFrame(X.toarray(), columns=feature_names), vectorizer
-
-
-def build_bytecode_feature_dataframe(hex_dir, MODEL_PATH, ngram_range=(1, 3), max_features=1000, min_df=2, use_saved_model=False, address=None):
-    # Step 1: Static extraction
-    feature_rows = []
-    for hex_file in list(Path(hex_dir).glob(f"{address if address is not None else '*'}.hex")):
-        row = extract_bytecode_static_features(hex_file)
-        feature_rows.append(row)
-
-    if not feature_rows:
-        print(f"[WARN] No .hex files found for address={address} in {hex_dir}")
-        return pd.DataFrame(), None
-
-    df_static = pd.DataFrame(feature_rows)
-
-    # Step 2: N-gram vectorization
-    ngram_df, vectorizer = generate_ngram_features(df_static["opcode_sequence"].tolist(), MODEL_PATH, ngram_range=ngram_range, max_features=max_features, min_df=min_df, use_saved_model=use_saved_model)
-
-    # Step 3: Merge
-    df_final = pd.concat([df_static.drop(columns=["opcode_sequence"]), ngram_df], axis=1).set_index('Address').fillna(0)
-
-    return df_final, vectorizer
+        return {
+            "opcode_sequence": opcode_sequence,
+            "opcode_entropy": opcode_entropy,
+            "opcode_count": len(opcodes),
+            "unique_opcodes": len(set(opcodes)),
+            "byte_entropy": byte_entropy,
+            **byte_freq,
+            **graph_feature
+        }
+    except Exception as e:
+        logger.error(e)
+        if bytecode:
+            logger.debug(f"bytecode: {bytecode}")
+        else:
+            logger.debug("no bytecode")
+        if opcodes:
+            logger.debug(f"bytecode: {opcodes}")
+        else:
+            logger.debug("no opcodes")
+        if opcode_sequence:
+            logger.debug(f"bytecode: {opcode_sequence}")
+        else:
+            logger.debug("no opcode_sequence")
+        if byte_freq:
+            logger.debug(f"bytecode: {byte_freq}")
+        else:
+            logger.debug("no bytecode")
+        if byte_entropy:
+            logger.debug(f"bytecode: {byte_entropy}")
+        else:
+            logger.debug("no bytecode")
+        if graph_feature:
+            logger.debug(f"bytecode: {graph_feature}")
+        else:
+            logger.debug("no bytecode")

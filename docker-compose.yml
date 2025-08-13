@@ -1,0 +1,62 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    container_name: backend
+    command: >
+      uvicorn backend.main:app
+      --reload --host 0.0.0.0 --port 8000
+      --log-config logging.yml
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PYTHONPATH=/app
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /app
+        - path: requirements.txt
+          action: rebuild
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    container_name: frontend
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "5173:5173" # Vite dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app # live code
+      - /app/node_modules # keep node_modules inside container
+    depends_on:
+      - backend
+    # optional compose watch (if your Compose supports it)
+    develop:
+      watch:
+        - path: ./frontend
+          action: sync
+          target: /app
+
+  redis:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:

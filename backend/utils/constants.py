@@ -1,0 +1,21 @@
+from pathlib import Path
+
+SEQ_LEN = 500
+N_TRIALS = 100
+
+GROUND_TRUTH_FILE = 'groundtruth.csv'
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_PATH = PROJECT_ROOT / "data"
+FEATURE_PATH = DATA_PATH / "features"
+HEX_PATH = DATA_PATH / "hex"
+TXN_PATH = DATA_PATH / "txn"
+SOL_PATH = DATA_PATH / "sol"
+BACKEND_PATH = PROJECT_ROOT / "backend"
+MODELS_PATH = BACKEND_PATH / "models"
+CURRENT_MODEL_PATH = MODELS_PATH / "current"
+BACKUP_MODEL_PATH = MODELS_PATH / "backup"
+LOGS_PATH = BACKEND_PATH / "logs"
+TRAINING_LOG_PATH = LOGS_PATH / "training"
+CURRENT_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "current"
+BACKUP_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "backup"

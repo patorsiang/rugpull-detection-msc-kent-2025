@@ -1,17 +1,17 @@
 import json
-import pandas as pd
 from collections import Counter
 from pathlib import Path
 import requests
-import redis
 import numpy as np
-import os
-# === Global Cache (Redis) ===
-r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+from backend.utils.redis_client import redis_cache
+from backend.utils.feature_extraction.graph import extract_transaction_graph_features
+from backend.utils.logger import logging
+
+logger = logging.getLogger(__name__)
 
 def lookup_4byte(topic_hash):
     """Lookup event signature using 4byte.directory API with Redis caching."""
-    cached = r.get(topic_hash)
+    cached = redis_cache.get(topic_hash)
     if cached:
         return cached
 
@@ -21,12 +21,13 @@ def lookup_4byte(topic_hash):
         results = response.json().get("results", [])
         if results:
             decoded = results[0].get('text_signature', 'unknown')
-            r.set(topic_hash, decoded)
+            redis_cache.set(topic_hash, decoded)
             return decoded
     except Exception as e:
-        print(f"⚠️ Error decoding {topic_hash}: {e}")
+        logger.error(f"⚠️ Error decoding {topic_hash}: {e}")
+        print()
 
-    r.set(topic_hash, "unknown")
+    redis_cache.set(topic_hash, "unknown")
 
     return "unknown"
 
@@ -34,11 +35,10 @@ def load_transaction(txn_file):
     with open(txn_file) as f:
         data = json.load(f)
 
-    address = Path(txn_file).stem
     transactions = data.get("transaction", [])
     events = data.get("event", [])
     creator = data.get("creator", {})
-    return address, creator, transactions, events
+    return creator, transactions, events
 
 # Safe statistical functions
 def safe_mean(x): return float(np.mean(x)) if x else 0
@@ -46,8 +46,30 @@ def safe_max(x): return max(x) if x else 0
 def safe_min(x): return min(x) if x else 0
 def safe_std(x): return float(np.std(x)) if x else 0
 
+def safe_int(value, default=0):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return default
+
+def extract_tx_sequence(transactions):
+    return [[
+        safe_int(tx.get("blockNumber", 0)),
+        safe_int(tx.get("timeStamp", 0)),
+        safe_int(tx.get("nonce", 0)),
+        safe_int(tx.get("transactionIndex", 0)),
+        safe_int(tx.get("value", 0)),
+        safe_int(tx.get("gas", 0)),
+        safe_int(tx.get("gasPrice", 0)),
+        safe_int(tx.get("isError", 0)),
+        safe_int(tx.get("txreceipt_status", 0)),
+        safe_int(tx.get("cumulativeGasUsed", 0)),
+        safe_int(tx.get("gasUsed", 0)),
+        safe_int(tx.get("confirmations", 0)),
+    ] for tx in transactions]
+
 def extract_transaction_features(txn_file):
-    address, creator, transactions, events  = load_transaction(txn_file)
+    creator, transactions, events  = load_transaction(txn_file)
 
     creator_address = creator.get("contractAddress", "").lower()
 
@@ -85,6 +107,8 @@ def extract_transaction_features(txn_file):
         if decoded != 'unknown':
             event_topic_counter[f"{decoded.split('(')[0]}_num".lower()] = num
 
+    graph_feature = extract_transaction_graph_features(transactions)
+
     # Transaction-level analysis
     for txn in transactions:
         block_number = np.float64(txn.get('blockNumber', 0))
@@ -119,7 +143,8 @@ def extract_transaction_features(txn_file):
 
     # Function signature stats
     function_counter = Counter(function_list)
-    # Time features
+
+    # Time static_feature
     start_block = min(block_numbers) if block_numbers else 0
     end_block = max(block_numbers) if block_numbers else 0
     start_ts = min(timestamps) if timestamps else 0
@@ -128,17 +153,12 @@ def extract_transaction_features(txn_file):
     duration_seconds = end_ts - start_ts
 
     # Feature summary
-    features = {
-        "Address": address,
+    static_feature = {
         "txn_nums": txn_nums,
         "event_nums": event_nums,
         "creation_block": creation_block,
         "creation_timestamp": creation_timestamp,
-        "start_block": start_block,
-        "end_block": end_block,
         "life_time": life_time,
-        "start_time": start_ts,
-        "end_time": end_ts,
         "duration_seconds": duration_seconds,
         "from_creation_to_transfer": start_ts - creation_timestamp if creation_timestamp > 0 else 0,
         "num_addresses": len(all_addresses),
@@ -150,41 +170,18 @@ def extract_transaction_features(txn_file):
         "avg_value": (buy_amt + sell_amt) / (txn_nums + 1),
         "txn_per_block": txn_nums / (life_time + 1) if life_time > 0 else 0,
         "avg_gas_limit": safe_mean(gas_limits),
-        "max_gas_limit": safe_max(gas_limits),
-        "min_gas_limit": safe_min(gas_limits),
         "std_gas_limit": safe_std(gas_limits),
         "avg_gas_used": safe_mean(gas_used_list),
-        "max_gas_used": safe_max(gas_used_list),
-        "min_gas_used": safe_min(gas_used_list),
         "std_gas_used": safe_std(gas_used_list),
         "avg_gas_price": safe_mean(gas_price_list),
-        "max_gas_price": safe_max(gas_price_list),
-        "min_gas_price": safe_min(gas_price_list),
         "std_gas_price": safe_std(gas_price_list),
     }
 
-    # Merge with dynamic event/function features
-    features.update(event_topic_counter)
-    features.update(function_counter)
+    # Merge with dynamic event/function static_feature
+    static_feature.update(event_topic_counter)
+    static_feature.update(function_counter)
+    static_feature.update(graph_feature)
 
-    return features
+    timeline_seq = extract_tx_sequence(transactions)
 
-def save_txn_feature_dataframe(out_dir, address=None):
-    """Process all JSON files in a folder and build a feature DataFrame."""
-    feature_rows = []
-    for txn_file in Path(os.path.join(out_dir, 'txn')).glob(f"{address if address is not None else '*'}.json"):
-        try:
-            row = extract_transaction_features(txn_file)
-            feature_rows.append(row)
-        except Exception as e:
-            print(f"Failed to process {txn_file}: {e}")
-
-    if not feature_rows:
-        print(f"[WARN] No .hex files found for address={address} in {out_dir}")
-        return pd.DataFrame()
-
-    df = pd.DataFrame(feature_rows)
-    df = df.set_index("Address")
-    df = df.fillna(0)
-    df.to_csv(os.path.join(out_dir, f"txn_features.csv"))
-    return df
+    return static_feature, timeline_seq

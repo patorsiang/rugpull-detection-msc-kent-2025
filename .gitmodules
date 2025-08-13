@@ -7,3 +7,6 @@
 [submodule "backend/utils/feature_extraction/evm_cfg_builder"]
 	path = backend/utils/feature_extraction/evm_cfg_builder
 	url = https://github.com/crytic/evm_cfg_builder.git
+[submodule "notebooks/utils/evm_cfg_builder"]
+	path = notebooks/utils/evm_cfg_builder
+	url = https://github.com/crytic/evm_cfg_builder.git

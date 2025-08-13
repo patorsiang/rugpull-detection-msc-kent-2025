@@ -22,11 +22,12 @@ build/
 venv/
 ENV/
 env/
+tmp/
 
 # === ML Artifacts ===
 *.h5
 *.hdf5
-*.pkl
+# *.pkl
 *.joblib
 *.pt
 *.pth
@@ -34,22 +35,20 @@ env/
 *.ckpt
 *.tflite
 *.sav
-*.keras
+# *.keras
 
 # === Data Files ===
-*.csv
+!*.csv
 *.tsv
 *.xls
 *.xlsx
-*.json
+# *.json
 *.txt
 *.sol
 *.hex
 !data/labeled/**
 *.db
 *.sqlite3
-data/raw/
-data/processed/
 
 # === Model Results & Outputs ===
 # models/
@@ -78,3 +77,7 @@ Thumbs.db
 *.pid
 *.tar
 docker-compose.override.yml
+backend/models/backup/
+backend/models/backup/
+
+.vite

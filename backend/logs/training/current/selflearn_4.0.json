@@ -6,7 +6,7 @@
     "low": 0.2,
     "high": 0.7,
     "eval_source": "groundtruth.csv",
-    "test_size": 0.2,
+    "test_size": 0.3,
     "n_trials": 50,
     "do_train": true
   },
@@ -32,7 +32,7 @@
   },
   "metrics": {
     "baseline_f1": 1.0,
-    "trial_f1": 0.9803921568627452,
+    "trial_f1": 0.9855072463768115,
     "improved": false,
     "final_version": "20250812_185930_1_1"
   }

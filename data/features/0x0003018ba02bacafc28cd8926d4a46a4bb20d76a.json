@@ -1,0 +1,16 @@
+{
+  "opcode_sequence": "",
+  "opcode_entropy": 0.0,
+  "opcode_count": 0,
+  "unique_opcodes": 0,
+  "byte_entropy": 0.0,
+  "byte_0x": 1.0,
+  "num_nodes": 0,
+  "num_edges": 0,
+  "avg_degree": 0,
+  "density": 0,
+  "connected_components": 0,
+  "avg_clustering": 0,
+  "timeline_sequence": [],
+  "sourcecode": ""
+}

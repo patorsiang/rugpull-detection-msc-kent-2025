@@ -81,3 +81,5 @@ backend/models/backup/
 backend/models/backup/
 
 .vite
+
+**/backup

@@ -146,10 +146,6 @@ class ExpandLabelsService:
             chunk_tag = f"_chunk{idx}of{total}"
 
         df_out = df.copy()
-        if cfg.filtered:
-            # Drop rows that still have any -1 in system labels
-            mask_has_minus1 = df_out[sys_labels].eq(-1).any(axis=1)
-            df_out = df_out.loc[~mask_has_minus1].copy()
 
         expanded_file = DATA_PATH / f"expanded_{base_name}_{cfg.round_name}{chunk_tag}.csv"
         df_out.reset_index(names="Address").to_csv(expanded_file, index=False)
@@ -181,7 +177,6 @@ class ExpandLabelsService:
             "used_thresholds": used_thresholds,
             "num_addresses_in_chunk": int(len(df)),
             "chunk_meta": chunk_meta,
-            "filtered": cfg.filtered,
         }
         self._write_log(cfg, log, chunk_tag)
 

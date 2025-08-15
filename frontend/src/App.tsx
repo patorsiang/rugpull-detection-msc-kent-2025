@@ -1,13 +1,14 @@
+import { useEffect, useState } from "react";
 import {
-  Heading,
-  Stack,
-  Switch,
-  Field,
+  Container,
   Grid,
   GridItem,
-  Container,
+  Heading,
+  Stack,
+  HStack,
+  Switch,
+  Field,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import PredictForm from "./components/PredictForm";
 import ResultsCard from "./components/ResultsCard";
 import type { PredictApiResult } from "./types";
@@ -16,9 +17,15 @@ export default function App() {
   const [data, setData] = useState<PredictApiResult | null>(null);
   const [showJson, setShowJson] = useState(false);
 
+  // Health ping (kept lightweight and eslint-friendly)
+  useEffect(() => {
+    // Fire-and-forget, ignore result
+    void fetch("/api/system/health").catch(() => undefined);
+  }, []);
+
   return (
-    <Container mx="auto">
-      <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="6">
+    <Container mx="auto" py={6}>
+      <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6}>
         <GridItem>
           <Stack gap={6}>
             <Heading size="lg">Rugpull Detector — Predict Demo</Heading>
@@ -26,27 +33,25 @@ export default function App() {
             <PredictForm onResult={setData} />
 
             <Field.Root
-              display="flex"
+              display="inline-flex"
               alignItems="center"
               w="fit-content"
-              id="json-toggle"
             >
-              <Field.Label htmlFor="json-toggle" mb="0">
-                Show raw JSON
-              </Field.Label>
-              <Switch.Root
-                checked={showJson}
-                onCheckedChange={(e) => setShowJson(e.checked)}
-              >
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label />
-              </Switch.Root>
+              <HStack gap={3}>
+                <Switch.Root
+                  size="lg"
+                  checked={showJson}
+                  onCheckedChange={(e) => setShowJson(e.checked)}
+                >
+                  <Switch.HiddenInput />
+                  <Switch.Control />
+                  <Switch.Label>Show raw JSON</Switch.Label>
+                </Switch.Root>
+              </HStack>
             </Field.Root>
           </Stack>
         </GridItem>
+
         <GridItem>
           <Stack gap={6}>
             {data?.results &&

@@ -32,12 +32,12 @@ class PredictReq(BaseModel):
 def predict_endpoint(req: PredictReq):
     try:
         predictor = PredictService()  # load models once per import
-        result = predictor.predict(
+        results = predictor.predict(
             req.addresses,
             label_thresholds=req.label_thresholds,
             anomaly_threshold=req.anomaly_threshold,
         )
-        return {"status": "success", "results": result}
+        return results
     except QuotaExceeded as e:
         return {"status": "quota_exhausted", "message": str(e)}
     except Exception as e:

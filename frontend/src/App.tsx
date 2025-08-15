@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Box,
   Container,
   Grid,
   GridItem,
@@ -54,15 +55,24 @@ export default function App() {
 
         <GridItem>
           <Stack gap={6}>
-            {data?.results &&
+            {data?.results && showJson ? (
+              <Box
+                bg="gray.50"
+                borderWidth="1px"
+                borderRadius="md"
+                p={3}
+                overflow="auto"
+              >
+                <pre style={{ margin: 0, fontSize: "12px" }}>
+                  {JSON.stringify(data, null, 2)}
+                </pre>
+              </Box>
+            ) : (
+              data?.results &&
               Object.entries(data.results).map(([addr, item]) => (
-                <ResultsCard
-                  key={addr}
-                  address={addr}
-                  item={item}
-                  showJson={showJson}
-                />
-              ))}
+                <ResultsCard key={addr} address={addr} item={item} />
+              ))
+            )}
           </Stack>
         </GridItem>
       </Grid>

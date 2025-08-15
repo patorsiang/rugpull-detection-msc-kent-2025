@@ -212,7 +212,7 @@ class PredictService:
                 }
 
             return {
-                "status": "ok",
+                "status": "success",
                 "results": results,
                 "used_thresholds": {lbl: float(used_thresholds.get(lbl, 0.5)) for lbl in self.label_names},
                 "used_anomaly_threshold": float(used_anom_thr),

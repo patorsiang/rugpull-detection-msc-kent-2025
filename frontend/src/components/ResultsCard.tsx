@@ -12,14 +12,9 @@ import type { ResultItem } from "../types";
 type Props = {
   address: string;
   item: ResultItem;
-  showJson?: boolean;
 };
 
-export default function ResultsCard({
-  address,
-  item,
-  showJson = false,
-}: Props) {
+export default function ResultsCard({ address, item }: Props) {
   const labels = item.labels ?? {};
   const probs = item.label_probs ?? {};
   const keys = Array.from(
@@ -88,20 +83,6 @@ export default function ResultsCard({
             </Table.Root>
           </Box>
         </SimpleGrid>
-
-        {showJson && (
-          <Box
-            bg="gray.50"
-            borderWidth="1px"
-            borderRadius="md"
-            p={3}
-            overflow="auto"
-          >
-            <pre style={{ margin: 0, fontSize: "12px" }}>
-              {JSON.stringify(item, null, 2)}
-            </pre>
-          </Box>
-        )}
       </VStack>
     </Box>
   );

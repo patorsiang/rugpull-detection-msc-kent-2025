@@ -1,7 +1,7 @@
 # backend/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import training, dataset, predict, self_learning, gt, unlabeled, system
+from backend.api import training, dataset, predict, self_learning, system, expand_labels
 from backend.api.error_handlers import register_error_handlers
 from backend.utils.middleware import RequestIDMiddleware, AccessLogMiddleware
 from backend.utils.logger import setup_logging
@@ -23,13 +23,11 @@ app.add_middleware(
 app.include_router(training.router, prefix="/api", tags=["training"])
 
 app.include_router(dataset.router, prefix="/api", tags=["dataset"])
-app.include_router(gt.router, prefix="/api", tags=["dataset"])
-app.include_router(unlabeled.router, prefix="/api", tags=["dataset"])
 
 app.include_router(predict.router, prefix="/api", tags=["predict"])
 
 app.include_router(self_learning.router, prefix="/api", tags=["self learning"])
-
+app.include_router(expand_labels.router, prefix="/api", tags=["self learning"])
 # new system routes
 app.include_router(system.router, prefix="/api", tags=["system"])
 

@@ -23,15 +23,14 @@ class TrainingPipeline:
             return meta
 
         baseline = self.eval.evaluate(test_size=test_size, source=eval_source, freeze_gru=True, freeze_sklearn=True)
-        trial    = self.eval.evaluate(test_size=test_size, source=source, freeze_gru=False, freeze_sklearn=False)
+        trial    = self.eval.evaluate(test_size=test_size, source=source,     freeze_gru=False, freeze_sklearn=False)
 
         b = baseline.get("clf_model_summary", {}).get("fusion_model", {}).get("f1_score")
         n = trial.get("clf_model_summary", {}).get("fusion_model", {}).get("f1_score")
-        logger.debug(f"[PIPELINE] baseline={b}, trial={n}, improved={n is None or b is None or n >= b}")
+        logger.info(f"[PIPELINE] baseline={b}, trial={n}, improved={n is None or b is None or n >= b}")
 
         if (b is None) or (n is not None and n >= b):
             self.trainer.train_and_save(test_size=test_size, source=source)
             self.full.run(source=source)
 
         return json.load(open(CURRENT_MODEL_PATH / "version.json", "r"))
-

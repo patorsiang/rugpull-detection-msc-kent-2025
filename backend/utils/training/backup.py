@@ -1,57 +1,48 @@
-import os
-import json
 import shutil
-from typing import List
+from datetime import datetime
 from backend.utils.constants import (
-    CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH,
-    BACKUP_MODEL_PATH, BACKUP_TRAINING_LOG_PATH
+    CURRENT_MODEL_PATH, BACKUP_MODEL_PATH,
+    CURRENT_TRAINING_LOG_PATH, BACKUP_TRAINING_LOG_PATH
 )
+from backend.utils.logger import logging
+
+logger = logging.getLogger(__name__)
 
 class BackupManager:
-    """
-    Back up current models/logs by version and prune old ones.
-    Strategy:
-      • Call before overwriting (start of training/eval that mutates).
-      • Call after success (to capture the new version).
-      • Keep latest K (time‑ordered by version string).
-    """
-
     @staticmethod
-    def _list_dirs(path) -> List[str]:
-        if not os.path.exists(path):
-            return []
-        return sorted([d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))])
+    def backup_current() -> str:
+        """Backup current model & logs only if there is something to back up."""
+        model_files = list(CURRENT_MODEL_PATH.glob("*")) if CURRENT_MODEL_PATH.exists() else []
+        log_files = list(CURRENT_TRAINING_LOG_PATH.glob("*")) if CURRENT_TRAINING_LOG_PATH.exists() else []
 
-    @staticmethod
-    def backup_current(max_backups: int = 5) -> None:
-        meta_path = CURRENT_MODEL_PATH / "version.json"
-        if not meta_path.exists():
-            return
-        meta = json.load(open(meta_path, "r"))
-        version = meta.get("version")
-        if not version:
-            return
+        # Nothing to back up
+        if not model_files and not log_files:
+            logger.info("No model or logs found to back up.")
+            return ""
 
-        dst_model = BACKUP_MODEL_PATH / version
-        dst_logs  = BACKUP_TRAINING_LOG_PATH / version
-        dst_model.mkdir(parents=True, exist_ok=True)
-        dst_logs.mkdir(parents=True, exist_ok=True)
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-        for f in CURRENT_MODEL_PATH.glob("*"):
-            if f.is_file():
-                shutil.copy(f, dst_model / f.name)
+        # Backup models
+        if model_files:
+            model_dst = BACKUP_MODEL_PATH / ts
+            model_dst.mkdir(parents=True, exist_ok=True)
+            for item in model_files:
+                try:
+                    if item.is_file():
+                        shutil.copy2(item, model_dst / item.name)
+                except Exception as e:
+                    logger.warning(f"Failed backing up model {item}: {e}")
 
-        for f in CURRENT_TRAINING_LOG_PATH.glob("*"):
-            if f.is_file():
-                shutil.move(f, dst_logs / f.name)
+        # Backup logs
+        if log_files:
+            logs_dst = BACKUP_TRAINING_LOG_PATH / ts
+            logs_dst.mkdir(parents=True, exist_ok=True)
+            for item in log_files:
+                try:
+                    if item.is_file():
+                        shutil.move(item, logs_dst / item.name)
+                except Exception as e:
+                    logger.warning(f"Failed backing up log {item}: {e}")
 
-        BackupManager._prune(BACKUP_MODEL_PATH, max_backups)
-        BackupManager._prune(BACKUP_TRAINING_LOG_PATH, max_backups)
-
-    @staticmethod
-    def _prune(root, keep: int):
-        versions = BackupManager._list_dirs(root)
-        if len(versions) <= keep:
-            return
-        for v in versions[0 : len(versions) - keep]:
-            shutil.rmtree(root / v, ignore_errors=True)
+        logger.info(f"Backup completed: {ts}")
+        return ts

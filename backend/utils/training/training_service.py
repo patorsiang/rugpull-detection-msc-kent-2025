@@ -154,8 +154,14 @@ class Trainer:
         trial.set_user_attr("model_name", name)
         model = SklearnFactory.build_model_by_name(name, mode, trial, is_trial=True)
         model.fit(Xtr, ytr)
-        Xf_clf = FeatureAligner.align_dataframe(Xte.copy(), model)
-        return f1_score(yte, model.predict(Xf_clf), average="macro", zero_division=0)
+
+        # Align only for numeric features ("general"); text modes pass raw lists
+        if mode == "general":
+            X_eval = FeatureAligner.align_dataframe(Xte.copy(), model)
+        else:
+            X_eval = Xte
+
+        return f1_score(yte, model.predict(X_eval), average="macro", zero_division=0)
 
     def _gru_objective(self, trial, Xtr, Xte, ytr, yte):
         tfbk.clear_session()
@@ -273,8 +279,14 @@ class Trainer:
                 study.best_trial.user_attrs["model_name"], mode, study.best_trial.params, is_trial=False
             )
             model.fit(Xtr, ytr)
-            Xte_aligned = FeatureAligner.align_dataframe(Xte.copy(), model)
-            probas_list = model.predict_proba(Xte_aligned)
+
+            # Align only for "general"
+            if mode == "general":
+                X_eval = FeatureAligner.align_dataframe(Xte.copy(), model)
+            else:
+                X_eval = Xte
+
+            probas_list = model.predict_proba(X_eval)
             probs = np.array([p[:, 1] for p in probas_list]).T
             model_probs[mode] = probs
 
@@ -313,4 +325,3 @@ class Trainer:
             "test_size": int(len(yte)),
             "notes": f"Preview only (no file writes). Trials={self.n_trials}; train={train_source}; eval={eval_source}",
         }
-

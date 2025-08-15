@@ -7,7 +7,6 @@ import {
   defineConfig,
 } from "@chakra-ui/react";
 
-import "./index.css";
 import App from "./App.tsx";
 
 const config = defineConfig({

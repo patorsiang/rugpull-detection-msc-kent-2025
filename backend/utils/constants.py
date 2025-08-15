@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 SEQ_LEN = 500
@@ -19,3 +20,9 @@ LOGS_PATH = BACKEND_PATH / "logs"
 TRAINING_LOG_PATH = LOGS_PATH / "training"
 CURRENT_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "current"
 BACKUP_TRAINING_LOG_PATH = TRAINING_LOG_PATH / "backup"
+
+ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
+ETHERSCAN_BASE_URL = os.getenv("ETHERSCAN_BASE_URL", "https://api.etherscan.io/v2/api")
+ETHERSCAN_HTTP_TIMEOUT = int(os.getenv("ETHERSCAN_HTTP_TIMEOUT", "30"))
+ETHERSCAN_QUOTA_TTL = int(os.getenv("ETHERSCAN_QUOTA_TTL", "60"))
+ETHERSCAN_DAILY_LIMIT = int(os.getenv("ETHERSCAN_DAILY_LIMIT", "100000"))

@@ -1,5 +1,5 @@
 import json
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import numpy as np
 import pandas as pd
 import joblib
@@ -12,9 +12,10 @@ from backend.utils.predict.transform import FeatureAligner
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.anomaly_fusion import AnomalyFusion
 from backend.core.feature_service import extract_base_feature_from_address
+from backend.utils.etherscan_quota import QuotaExceeded
 
 class PredictService:
-    """Single‑request prediction across 4 models + anomaly fusion."""
+    """Single-request prediction across 4 models + anomaly fusion (thresholds overridable per call)."""
 
     def __init__(self):
         status = MetaService.get_status()
@@ -27,9 +28,9 @@ class PredictService:
         # fusion params
         clf = meta.get("clf_model_summary", {})
         anm = meta.get("anomaly_model_summary", {})
-        self.clf_weights = clf.get("fusion_model", {}).get("weights", {})
-        self.clf_thresholds = clf.get("fusion_model", {}).get("thresholds", {})
-        self.anom_weights = anm.get("fusion_model", {}).get("weights", {})
+        self.clf_weights = clf.get("fusion_model", {}).get("weights", {}) or {}
+        self.clf_thresholds = clf.get("fusion_model", {}).get("thresholds", {}) or {}
+        self.anom_weights = anm.get("fusion_model", {}).get("weights", {}) or {}
         self.anom_threshold = float(anm.get("fusion_model", {}).get("threshold", 0.5))
         self.ae_threshold = anm.get("gru_model", {}).get("threshold", None)
 
@@ -44,53 +45,193 @@ class PredictService:
         self.gru_ae      = load_model(CURRENT_MODEL_PATH / "gru_ae_model.keras")
         self.n_features  = int(self.gru_clf.input_shape[-1])
 
-    def predict(self, addresses: List[str]) -> Dict[str, Any]:
+    @staticmethod
+    def _clip01(x: float) -> float:
+        try:
+            return float(min(max(x, 0.0), 1.0))
+        except Exception:
+            return 0.5
+
+    def _merge_label_thresholds(
+        self, overrides: Optional[Dict[str, float]]
+    ) -> Dict[str, float]:
+        """Merge caller overrides with saved thresholds; clip to [0,1]; ignore unknown labels."""
+        merged = dict(self.clf_thresholds or {})
+        if overrides:
+            for k, v in overrides.items():
+                if k in self.label_names:
+                    merged[k] = self._clip01(v)
+        # Ensure all labels have a threshold (fallback 0.5)
+        for lbl in self.label_names:
+            if lbl not in merged:
+                merged[lbl] = 0.5
+        return merged
+
+    def predict(
+        self,
+        addresses: List[str],
+        label_thresholds: Optional[Dict[str, float]] = None,
+        anomaly_threshold: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """
+        Run multi-head predictions and fuse with (optionally) custom thresholds.
+
+        Returns (always the same envelope on success or error):
+        {
+            "status": "ok" | "error" | "quota_exhausted",
+            "message": str (optional),
+            "results": {
+            address: {
+                "labels": {label: 0/1},
+                "label_probs": {label: float},
+                "anomaly": 0/1,
+                "anomaly_score": float
+            },
+            ...
+            },
+            "used_thresholds": {label: float},
+            "used_anomaly_threshold": float
+        }
+        """
+        # ---- thresholds (per call)
+        used_thresholds = self._merge_label_thresholds(label_thresholds)
+        used_anom_thr = (
+            self._clip01(anomaly_threshold)
+            if anomaly_threshold is not None
+            else float(self.anom_threshold)
+        )
+
         results: Dict[str, Any] = {}
-        for addr in addresses:
-            feature = extract_base_feature_from_address(addr)
 
-            # static
-            exclude = {"Label","opcode_sequence","timeline_sequence","sourcecode"}
-            Xf = pd.DataFrame([{k:v for k,v in feature.items() if k not in exclude}])
-            Xf_clf = FeatureAligner.align_dataframe(Xf.copy(), self.general_clf)
-            p_general = np.array([p[:,1] for p in self.general_clf.predict_proba(Xf_clf)]).T
-            an_gen    = (self.if_general.predict(FeatureAligner.align_dataframe(Xf.copy(), self.if_general)) == -1).astype(int).reshape(-1)
+        # Small helpers to keep shapes predictable
+        def _stack_probas_from_multioutput(clf, X) -> np.ndarray:
+            """
+            clf is a MultiOutputClassifier or compatible; returns shape (n_samples, n_labels)
+            with class-1 probabilities for each label.
+            """
+            probas_list = clf.predict_proba(X)  # list of [n_samples x 2] per label
+            # If model returned a single array (binary one-vs-rest wrapper off), normalize to list
+            if not isinstance(probas_list, (list, tuple)):
+                # Expect shape (n_samples, n_classes) – take p(class=1)
+                return np.asarray(probas_list)[:, 1].reshape(-1, 1)
+            # Ensure each element has at least 2 columns; take column 1
+            cols = []
+            for p in probas_list:
+                p = np.asarray(p)
+                if p.ndim == 1:  # rare, but be defensive
+                    # Treat as logit/score; squash via sigmoid to [0,1]
+                    p = 1 / (1 + np.exp(-p))
+                    cols.append(p.reshape(-1, 1))
+                else:
+                    if p.shape[1] == 1:
+                        # Single-column probability; assume it's p(class=1)
+                        cols.append(p[:, 0].reshape(-1, 1))
+                    else:
+                        cols.append(p[:, 1].reshape(-1, 1))
+            return np.hstack(cols)  # (n_samples, n_labels)
 
-            # source
-            xcode = [feature.get("sourcecode","")]
-            p_src = np.array([p[:,1] for p in self.sol_clf.predict_proba(xcode)]).T
-            an_src= (self.if_sol.predict(xcode) == -1).astype(int).reshape(-1)
+        # AE / timeline defaults
+        seq_len = int(getattr(self, "SEQ_LEN", 500))  # fallback if constant is not in scope
+        n_feats = int(getattr(self, "n_features", 12))  # channels per timestep for the AE/GRU
 
-            # opcode
-            xop   = [feature.get("opcode_sequence","")]
-            p_opc = np.array([p[:,1] for p in self.opcode_clf.predict_proba(xop)]).T
-            an_opc= (self.if_opcode.predict(xop) == -1).astype(int).reshape(-1)
+        try:
+            for addr in addresses:
+                feature = extract_base_feature_from_address(addr)  # may raise QuotaExceeded
 
-            # timeline
-            raw_tl = feature.get("timeline_sequence", [])
-            if not raw_tl:
-                raw_tl = [[0.0]*self.n_features]
-            Xtl = pad_sequences([raw_tl], maxlen=SEQ_LEN, padding="post", dtype="float32")
-            p_time = self.gru_clf.predict(Xtl, verbose=1)
-            recon  = self.gru_ae.predict(Xtl, verbose=1)
-            err = np.mean((Xtl - recon)**2, axis=(1,2))
-            thr = float(self.ae_threshold) if self.ae_threshold is not None else float(np.percentile(err,95))
-            an_time = (err > thr).astype(int).reshape(-1)
+                # -------- General (tabular) head
+                exclude = {"Label", "opcode_sequence", "timeline_sequence", "sourcecode"}
+                Xf = pd.DataFrame([{k: v for k, v in feature.items() if k not in exclude}])
 
-            # fusion
-            pred, prob = Fusion.fuse(
-                {"general":p_general, "sol":p_src, "opcode":p_opc, "gru":p_time},
-                self.label_names, self.clf_weights, self.clf_thresholds
-            )
-            an_flag, an_score = AnomalyFusion.fuse(
-                {"if_general":an_gen, "if_sol":an_src, "if_opcode":an_opc, "ae_timeline":an_time},
-                self.anom_weights, self.anom_threshold
-            )
+                Xf_clf = FeatureAligner.align_dataframe(Xf.copy(), self.general_clf)
+                p_general = _stack_probas_from_multioutput(self.general_clf, Xf_clf)
 
-            results[addr] = {
-                "labels": {lbl:int(v) for lbl, v in zip(self.label_names, pred[0].tolist())},
-                "label_probs": {lbl:float(v) for lbl, v in zip(self.label_names, prob[0].tolist())},
-                "anomaly": int(an_flag[0]),
-                "anomaly_score": float(an_score[0]),
+                # IsolationForest for tabular anomaly (align to its fitted features)
+                Xf_if = FeatureAligner.align_dataframe(Xf.copy(), self.if_general)
+                an_gen = (self.if_general.predict(Xf_if) == -1).astype(int)  # shape (n_samples,)
+
+                # -------- Source head
+                xcode = [feature.get("sourcecode", "")]
+                p_src = _stack_probas_from_multioutput(self.sol_clf, xcode)
+                an_src = (self.if_sol.predict(xcode) == -1).astype(int)
+
+                # -------- Opcode head
+                xop = [feature.get("opcode_sequence", "")]
+                p_opc = _stack_probas_from_multioutput(self.opcode_clf, xop)
+                an_opc = (self.if_opcode.predict(xop) == -1).astype(int)
+
+                # -------- Timeline head (GRU classifier + AE anomaly)
+                raw_tl = feature.get("timeline_sequence", [])
+                if not raw_tl:
+                    # Ensure at least one timestep of zeros with correct channel count
+                    raw_tl = [[0.0] * n_feats]
+                # pad_sequences expects list of sequences (timesteps x features)
+                Xtl = pad_sequences([raw_tl], maxlen=seq_len, padding="post", dtype="float32")
+
+                # If GRU classifier outputs per-label probs with sigmoid
+                p_time = np.asarray(self.gru_clf.predict(Xtl, verbose=0)).reshape(1, -1)
+                if p_time.shape[1] != len(self.label_names):
+                    # Defensive: if the GRU outputs a single score, broadcast or adjust
+                    p_time = np.repeat(p_time, len(self.label_names)).reshape(1, -1)
+
+                # AE reconstruction error -> anomaly
+                recon = np.asarray(self.gru_ae.predict(Xtl, verbose=0))
+                err = np.mean((Xtl - recon) ** 2, axis=(1, 2))  # shape (1,)
+                ae_thr = (
+                    float(self.ae_threshold)
+                    if getattr(self, "ae_threshold", None) is not None
+                    else float(np.percentile(err, 95))
+                )
+                an_time = (err > ae_thr).astype(int)  # shape (1,)
+
+                # -------- Fusion
+                # Classifier fusion (per label)
+                pred, prob = Fusion.fuse(
+                    {"general": p_general, "sol": p_src, "opcode": p_opc, "gru": p_time},
+                    self.label_names,
+                    self.clf_weights,
+                    used_thresholds,
+                )  # pred, prob each shape (1, n_labels)
+
+                # Anomaly fusion (heads are binary anomaly flags; score depends on your implementation)
+                an_flag, an_score = AnomalyFusion.fuse(
+                    {
+                        "if_general": an_gen.reshape(-1, 1),   # ensure 2D for weight broadcast
+                        "if_sol": an_src.reshape(-1, 1),
+                        "if_opcode": an_opc.reshape(-1, 1),
+                        "ae_timeline": an_time.reshape(-1, 1),
+                    },
+                    self.anom_weights,
+                    used_anom_thr,
+                )  # shapes (1, 1)
+
+                results[addr] = {
+                    "labels": {lbl: int(v) for lbl, v in zip(self.label_names, pred[0].tolist())},
+                    "label_probs": {lbl: float(v) for lbl, v in zip(self.label_names, prob[0].tolist())},
+                    "anomaly": int(np.asarray(an_flag).ravel()[0]),
+                    "anomaly_score": float(np.asarray(an_score).ravel()[0]),
+                }
+
+            return {
+                "status": "success",
+                "results": results,
+                "used_thresholds": {lbl: float(used_thresholds.get(lbl, 0.5)) for lbl in self.label_names},
+                "used_anomaly_threshold": float(used_anom_thr),
             }
-        return results
+
+        except QuotaExceeded as e:
+            # Keep partial results so callers can decide what to do
+            return {
+                "status": "quota_exhausted",
+                "message": str(e),
+                "result": results,
+                "used_thresholds": {lbl: float(used_thresholds.get(lbl, 0.5)) for lbl in self.label_names},
+                "used_anomaly_threshold": float(used_anom_thr),
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "message": str(e),
+                "result": results,
+                "used_thresholds": {lbl: float(used_thresholds.get(lbl, 0.5)) for lbl in self.label_names},
+                "used_anomaly_threshold": float(used_anom_thr),
+            }

@@ -149,3 +149,10 @@ class MetaService:
             f.flush()
             os.fsync(f.fileno())
         os.replace(tmp, path)  # atomic on POSIX
+
+    @staticmethod
+    def get_meta() -> Dict:
+        """
+        Back-compat shim: historically callers used get_meta(); now we use read_version().
+        """
+        return MetaService.read_version()

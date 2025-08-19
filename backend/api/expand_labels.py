@@ -71,7 +71,6 @@ def expand_labels(req: ExpandLabelsReq = Depends()):
     # validate filename (like your training endpoints)
     fname = _must_exist(req.filename)
 
-    # NOTE: do NOT pass 'overwrite' (dataclass no longer has this field)
     cfg = SelfLearningExpandConfig(
         filename=fname,
         round_name=req.round_name,
@@ -80,6 +79,5 @@ def expand_labels(req: ExpandLabelsReq = Depends()):
         chunk_size=req.chunk_size,
         chunk_index=req.chunk_index,
         save_confident_only=req.save_confident_only
-
     )
     return _service.run(cfg)

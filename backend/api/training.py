@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 from backend.api.dataset import _list_csv_files
 from backend.core.training_service import TrainingPipeline
 from backend.utils.etherscan_quota import QuotaExceeded
+from backend.utils.json_sanitize import sanitize_json
 
 router = APIRouter()
 
@@ -33,7 +34,7 @@ def tuning(requests: TuningTraining = Depends()):
         requests.source = _must_exist(requests.source)
         pipeline = TrainingPipeline(n_trials=requests.N_TRIALS)
         meta = pipeline.trainer.train_and_save(test_size=requests.test_size, source=requests.source)
-        return {"status": "success", "metrics": meta}
+        return sanitize_json({"status": "success", "metrics": meta})
     except QuotaExceeded as e:
         return {"status": "quota_exhausted", "message": str(e)}
     except Exception as e:

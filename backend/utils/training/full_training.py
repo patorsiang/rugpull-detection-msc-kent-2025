@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model, save_model
 from sklearn.metrics import classification_report, f1_score
 
 from backend.utils.training.extra_classes import DatasetBuilder, Plotter
-from backend.utils.training.training_objectives import GRUBlocks
+from backend.utils.training.training_objectives import TSBlocks
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.anomaly_fusion import AnomalyFusion
 from backend.core.meta_service import MetaService
@@ -40,7 +40,7 @@ class FullTrainer:
             if m["filename"].endswith(".keras"):
                 model = load_model(fpath)
                 params = m.get("params", {"epochs":10, "batch_size":64})
-                model, _ = GRUBlocks.train(model, X, X, y_train.values, y_test.values, params)
+                model, _ = TSBlocks.train(model, X, X, y_train.values, y_test.values, params)
                 save_model(model, fpath)
                 prob_map["gru"] = model.predict(X, verbose=1)
             else:
@@ -75,7 +75,7 @@ class FullTrainer:
             if m["filename"].endswith(".keras"):
                 model = load_model(fpath)
                 params = m.get("params", {"epochs":10, "batch_size":64})
-                model, _ = GRUBlocks.train(model, X, X, X, X, params)
+                model, _ = TSBlocks.train(model, X, X, X, X, params)
                 save_model(model, fpath)
                 recon = model.predict(X, verbose=1)
                 err = np.mean((X - recon) ** 2, axis=(1, 2))

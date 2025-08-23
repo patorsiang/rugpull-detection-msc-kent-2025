@@ -1,6 +1,6 @@
 name: rugpull-dev
 
-version: "3.9"
+# version: "3.9"
 services:
   backend:
     build: .
@@ -15,7 +15,8 @@ services:
       - .:/app
       - ./data:/app/data
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     env_file:
       - .env
     environment:
@@ -58,17 +59,14 @@ services:
     image: redis:7-alpine
     container_name: redis
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    # optional: only expose to host, not 0.0.0.0 explicitly
     ports:
-      - "0.0.0.0:6379:6379" # exposes to host + other machines on your LAN/WAN
+      - "6379:6379"
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
       - ./redis_data:/data
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "redis-cli -a ${REDIS_PASSWORD:-SuperStrongPassword123!} PING || exit 1",
-        ]
+      test: ["CMD", "redis-cli", "-h", "127.0.0.1", "PING"]
       interval: 10s
       timeout: 3s
       retries: 5

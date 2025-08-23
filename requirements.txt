@@ -6,114 +6,183 @@
 #
 absl-py==2.3.1
     # via
+    #   -r requirements.in
     #   keras
     #   tensorboard
     #   tensorflow
 alembic==1.16.4
-    # via optuna
+    # via
+    #   -r requirements.in
+    #   optuna
 annotated-types==0.7.0
-    # via pydantic
+    # via
+    #   -r requirements.in
+    #   pydantic
 anyio==4.10.0
-    # via starlette
+    # via
+    #   -r requirements.in
+    #   starlette
 asttokens==3.0.0
-    # via stack-data
+    # via
+    #   -r requirements.in
+    #   stack-data
 astunparse==1.6.3
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 cbor2==5.6.5
-    # via crytic-compile
+    # via
+    #   -r requirements.in
+    #   crytic-compile
 certifi==2025.8.3
-    # via requests
+    # via
+    #   -r requirements.in
+    #   requests
 charset-normalizer==3.4.2
-    # via requests
+    # via
+    #   -r requirements.in
+    #   requests
 click==8.2.1
-    # via uvicorn
+    # via
+    #   -r requirements.in
+    #   uvicorn
 coloredlogs==15.0.1
     # via -r requirements.in
 colorlog==6.9.0
-    # via optuna
+    # via
+    #   -r requirements.in
+    #   optuna
 contourpy==1.3.3
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 crytic-compile==0.3.10
     # via
     #   -r requirements.in
     #   evm-cfg-builder
 cycler==0.12.1
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 decorator==5.2.1
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 evm-cfg-builder==0.3.1
     # via -r requirements.in
 evmdasm==0.1.10
     # via -r requirements.in
 executing==2.2.0
-    # via stack-data
+    # via
+    #   -r requirements.in
+    #   stack-data
 fastapi==0.116.1
     # via -r requirements.in
 flatbuffers==25.2.10
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 fonttools==4.59.0
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 future==1.0.0
-    # via pyevmasm
+    # via
+    #   -r requirements.in
+    #   pyevmasm
 gast==0.6.0
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 google-pasta==0.2.0
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 greenlet==3.2.4
-    # via sqlalchemy
+    # via
+    #   -r requirements.in
+    #   sqlalchemy
 grpcio==1.74.0
     # via
+    #   -r requirements.in
     #   tensorboard
     #   tensorflow
 h11==0.16.0
-    # via uvicorn
+    # via
+    #   -r requirements.in
+    #   uvicorn
 h5py==3.14.0
     # via
+    #   -r requirements.in
     #   keras
     #   tensorflow
 humanfriendly==10.0
-    # via coloredlogs
+    # via
+    #   -r requirements.in
+    #   coloredlogs
 idna==3.10
     # via
+    #   -r requirements.in
     #   anyio
     #   requests
 imbalanced-learn==0.13.0
     # via -r requirements.in
 ipython==9.4.0
-    # via pyvis
+    # via
+    #   -r requirements.in
+    #   pyvis
 ipython-pygments-lexers==1.1.1
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 jedi==0.19.2
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 jinja2==3.1.6
-    # via pyvis
+    # via
+    #   -r requirements.in
+    #   pyvis
 joblib==1.4.2
     # via
     #   -r requirements.in
     #   imbalanced-learn
     #   scikit-learn
 jsonpickle==4.1.1
-    # via pyvis
+    # via
+    #   -r requirements.in
+    #   pyvis
 keras==3.11.1
     # via
     #   -r requirements.in
     #   tensorflow
 kiwisolver==1.4.8
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 lark==1.2.2
     # via -r requirements.in
 libclang==18.1.1
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 lightgbm==4.6.0
     # via -r requirements.in
 mako==1.3.10
-    # via alembic
+    # via
+    #   -r requirements.in
+    #   alembic
 markdown==3.8.2
-    # via tensorboard
+    # via
+    #   -r requirements.in
+    #   tensorboard
 markdown-it-py==3.0.0
-    # via rich
+    # via
+    #   -r requirements.in
+    #   rich
 markupsafe==3.0.2
     # via
+    #   -r requirements.in
     #   jinja2
     #   mako
     #   werkzeug
@@ -122,15 +191,22 @@ matplotlib==3.10.5
     #   -r requirements.in
     #   seaborn
 matplotlib-inline==0.1.7
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 mdurl==0.1.2
-    # via markdown-it-py
+    # via
+    #   -r requirements.in
+    #   markdown-it-py
 ml-dtypes==0.3.2
     # via
+    #   -r requirements.in
     #   keras
     #   tensorflow
 namex==0.1.0
-    # via keras
+    # via
+    #   -r requirements.in
+    #   keras
 networkx==3.5
     # via
     #   -r requirements.in
@@ -154,13 +230,22 @@ numpy==1.26.4
     #   tensorflow
     #   xgboost
 opt-einsum==3.4.0
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 optree==0.17.0
-    # via keras
+    # via
+    #   -r requirements.in
+    #   keras
 optuna==4.4.0
+    # via
+    #   -r requirements.in
+    #   optuna-integration
+optuna-integration==4.5.0
     # via -r requirements.in
 packaging==25.0
     # via
+    #   -r requirements.in
     #   keras
     #   matplotlib
     #   optuna
@@ -171,23 +256,37 @@ pandas==2.3.1
     #   -r requirements.in
     #   seaborn
 parso==0.8.4
-    # via jedi
+    # via
+    #   -r requirements.in
+    #   jedi
 pexpect==4.9.0
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 pillow==11.3.0
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 prompt-toolkit==3.0.51
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 protobuf==4.25.8
     # via
+    #   -r requirements.in
     #   tensorboard
     #   tensorflow
 ptyprocess==0.7.0
-    # via pexpect
+    # via
+    #   -r requirements.in
+    #   pexpect
 pure-eval==0.2.3
-    # via stack-data
+    # via
+    #   -r requirements.in
+    #   stack-data
 pycryptodome==3.23.0
     # via
+    #   -r requirements.in
     #   crytic-compile
     #   solc-select
 pydantic==2.11.7
@@ -195,26 +294,34 @@ pydantic==2.11.7
     #   -r requirements.in
     #   fastapi
 pydantic-core==2.33.2
-    # via pydantic
+    # via
+    #   -r requirements.in
+    #   pydantic
 pyevmasm==0.2.3
     # via
     #   -r requirements.in
     #   evm-cfg-builder
 pygments==2.19.2
     # via
+    #   -r requirements.in
     #   ipython
     #   ipython-pygments-lexers
     #   rich
 pyparsing==3.2.3
-    # via matplotlib
+    # via
+    #   -r requirements.in
+    #   matplotlib
 python-dateutil==2.9.0.post0
     # via
+    #   -r requirements.in
     #   matplotlib
     #   pandas
 python-dotenv==1.1.1
     # via -r requirements.in
 pytz==2025.2
-    # via pandas
+    # via
+    #   -r requirements.in
+    #   pandas
 pyvis==0.3.2
     # via -r requirements.in
 pyyaml==6.0.2
@@ -228,7 +335,9 @@ requests==2.32.4
     #   -r requirements.in
     #   tensorflow
 rich==14.1.0
-    # via keras
+    # via
+    #   -r requirements.in
+    #   keras
 scikit-learn==1.6.1
     # via
     #   -r requirements.in
@@ -245,35 +354,54 @@ seaborn==0.13.2
     # via -r requirements.in
 six==1.17.0
     # via
+    #   -r requirements.in
     #   astunparse
     #   google-pasta
     #   python-dateutil
     #   tensorboard
     #   tensorflow
 sklearn-compat==0.1.3
-    # via imbalanced-learn
+    # via
+    #   -r requirements.in
+    #   imbalanced-learn
 sniffio==1.3.1
-    # via anyio
+    # via
+    #   -r requirements.in
+    #   anyio
 solc-select==1.1.0
-    # via crytic-compile
+    # via
+    #   -r requirements.in
+    #   crytic-compile
 sqlalchemy==2.0.42
     # via
+    #   -r requirements.in
     #   alembic
     #   optuna
 stack-data==0.6.3
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 starlette==0.47.2
-    # via fastapi
+    # via
+    #   -r requirements.in
+    #   fastapi
 tensorboard==2.16.2
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 tensorboard-data-server==0.7.2
-    # via tensorboard
+    # via
+    #   -r requirements.in
+    #   tensorboard
 tensorflow==2.16.2
     # via -r requirements.in
 termcolor==3.1.0
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 threadpoolctl==3.6.0
     # via
+    #   -r requirements.in
     #   imbalanced-learn
     #   scikit-learn
 tqdm==4.67.1
@@ -282,10 +410,12 @@ tqdm==4.67.1
     #   optuna
 traitlets==5.14.3
     # via
+    #   -r requirements.in
     #   ipython
     #   matplotlib-inline
 typing-extensions==4.14.1
     # via
+    #   -r requirements.in
     #   alembic
     #   anyio
     #   fastapi
@@ -297,21 +427,35 @@ typing-extensions==4.14.1
     #   tensorflow
     #   typing-inspection
 typing-inspection==0.4.1
-    # via pydantic
+    # via
+    #   -r requirements.in
+    #   pydantic
 tzdata==2025.2
-    # via pandas
+    # via
+    #   -r requirements.in
+    #   pandas
 urllib3==2.5.0
-    # via requests
+    # via
+    #   -r requirements.in
+    #   requests
 uvicorn==0.35.0
     # via -r requirements.in
 wcwidth==0.2.13
-    # via prompt-toolkit
+    # via
+    #   -r requirements.in
+    #   prompt-toolkit
 werkzeug==3.1.3
-    # via tensorboard
+    # via
+    #   -r requirements.in
+    #   tensorboard
 wheel==0.45.1
-    # via astunparse
+    # via
+    #   -r requirements.in
+    #   astunparse
 wrapt==1.17.2
-    # via tensorflow
+    # via
+    #   -r requirements.in
+    #   tensorflow
 xgboost==3.0.3
     # via -r requirements.in
 

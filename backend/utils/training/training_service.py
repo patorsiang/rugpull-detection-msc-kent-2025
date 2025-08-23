@@ -1,16 +1,19 @@
 import json
 from datetime import datetime
 import numpy as np
+import pandas as pd
 import optuna
 import joblib
+from tqdm import tqdm
 from tensorflow.keras.models import save_model
 import tensorflow.keras.backend as tfbk
 from sklearn.ensemble import IsolationForest
 from backend.utils.training.extra_classes import DatasetBuilder, Plotter
 from backend.utils.training.training_objectives import (
-    SklearnFactory, GRUBlocks,
+    SklearnFactory, TSBlocks,
     Pipeline, SimpleImputer, StandardScaler, TfidfVectorizer, CountVectorizer
 )
+from sklearn.model_selection import KFold
 from backend.utils.predict.transform import FeatureAligner
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.anomaly_fusion import AnomalyFusion
@@ -18,6 +21,10 @@ from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PAT
 from backend.core.meta_service import MetaService
 from backend.utils.training.backup import BackupManager
 from sklearn.metrics import classification_report, f1_score
+
+from optuna_integration.tfkeras import TFKerasPruningCallback
+
+pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=2)
 
 class Trainer:
     """End‑to‑end Optuna training that writes version.json (dict‑based fusion)."""
@@ -45,9 +52,9 @@ class Trainer:
 
         # ---- sklearn models
         model_probs = {}
-        for mode, field in [("general", "X_feature"), ("sol", "X_code"), ("opcode", "X_opcode_seq")]:
+        for mode, field in tqdm([("general", "X_feature"), ("sol", "X_code"), ("opcode", "X_opcode_seq")]):
             Xtr, Xte = data[f"{field}_train"], data[f"{field}_test"]
-            study = optuna.create_study(direction="maximize")
+            study = optuna.create_study(direction="maximize",  study_name=f"{mode}_clf_tuning", pruner=pruner)
             study.optimize(lambda t: self._general_objective(t, Xtr, Xte, y_train, y_test, mode), n_trials=self.n_trials)
 
             model = SklearnFactory.build_model_by_name(study.best_trial.user_attrs["model_name"], mode, study.best_trial.params, is_trial=False)
@@ -66,11 +73,11 @@ class Trainer:
 
         # ---- GRU clf
         Xtr_t, Xte_t = data["X_timeline_seq_train"], data["X_timeline_seq_test"]
-        study_gru = optuna.create_study(direction="maximize")
+        study_gru = optuna.create_study(direction="maximize", pruner=pruner)
         study_gru.optimize(lambda t: self._gru_objective(t, Xtr_t, Xte_t, y_train.values, y_test.values), n_trials=self.n_trials)
 
-        gru = GRUBlocks.build_classifier((Xtr_t.shape[1], Xtr_t.shape[2]), study_gru.best_trial.params["units"], study_gru.best_trial.params["lr"], output=y_train.shape[1])
-        gru, _ = GRUBlocks.train(gru, Xtr_t, Xte_t, y_train.values, y_test.values, study_gru.best_trial.params)
+        gru = TSBlocks.build_classifier((Xtr_t.shape[1], Xtr_t.shape[2]), study_gru.best_trial.params["units"], study_gru.best_trial.params["lr"], output=y_train.shape[1])
+        gru, _ = TSBlocks.train(gru, Xtr_t, Xte_t, y_train.values, y_test.values, study_gru.best_trial.params)
         prob_gru = gru.predict(Xte_t, verbose=1)
         model_probs["gru"] = prob_gru
         save_model(gru, CURRENT_MODEL_PATH / "gru_model.keras")
@@ -82,7 +89,7 @@ class Trainer:
         }
 
         # ---- fusion (dicts)
-        study_fusion = optuna.create_study(direction="maximize")
+        study_fusion = optuna.create_study(direction="maximize", pruner=pruner)
         study_fusion.optimize(lambda t: self._fusion_objective(t, model_probs, y_test.values, label_names), n_trials=self.n_trials)
         weights = {k.replace("w_", ""): v for k, v in study_fusion.best_params.items() if k.startswith("w_")}
         thresholds = {k.replace("t_", ""): v for k, v in study_fusion.best_params.items() if k.startswith("t_")}
@@ -103,9 +110,9 @@ class Trainer:
         y_anom_tr = (y_train.sum(axis=1) > 0).astype(int)
         y_anom_te = (y_test.sum(axis=1) > 0).astype(int).values
 
-        for mode, field in [("general", "X_feature"), ("sol", "X_code"), ("opcode", "X_opcode_seq")]:
+        for mode, field in tqdm([("general", "X_feature"), ("sol", "X_code"), ("opcode", "X_opcode_seq")]):
             Xtr, Xte = data[f"{field}_train"], data[f"{field}_test"]
-            study = optuna.create_study(direction="maximize")
+            study = optuna.create_study(direction="maximize", pruner=pruner)
             study.optimize(lambda t: self._if_objective(t, mode, Xtr, y_anom_tr), n_trials=self.n_trials)
             model = self._build_if(mode, study.best_trial.params)
             model.fit(Xtr)
@@ -119,10 +126,10 @@ class Trainer:
             }
 
         # AE timeline
-        study_ae = optuna.create_study(direction="minimize")
+        study_ae = optuna.create_study(direction="maximize", pruner=pruner)
         study_ae.optimize(lambda t: self._ae_objective(t, Xtr_t, Xte_t), n_trials=self.n_trials)
-        ae = GRUBlocks.build_autoencoder(Xtr_t.shape[1:], study_ae.best_trial.params["units"], study_ae.best_trial.params["lr"])
-        ae, _ = GRUBlocks.train(ae, Xtr_t, Xte_t, Xtr_t, Xte_t, study_ae.best_trial.params)
+        ae = TSBlocks.build_autoencoder(Xtr_t.shape[1:], study_ae.best_trial.params["units"], study_ae.best_trial.params["lr"])
+        ae, _ = TSBlocks.train(ae, Xtr_t, Xte_t, Xtr_t, Xte_t, study_ae.best_trial.params)
         save_model(ae, CURRENT_MODEL_PATH / "gru_ae_model.keras")
         recon = ae.predict(Xte_t, verbose=1)
         recon_err = np.mean((Xte_t - recon) ** 2, axis=(1, 2))
@@ -137,7 +144,7 @@ class Trainer:
         }
 
         # anomaly fusion
-        study_anom = optuna.create_study(direction="maximize")
+        study_anom = optuna.create_study(direction="maximize", pruner=pruner)
         study_anom.optimize(lambda t: self._anomaly_fusion_objective(t, isolation_maps, y_anom_te), n_trials=self.n_trials)
         aw = {k.replace("w_", ""): v for k, v in study_anom.best_params.items() if k.startswith("w_")}
         ath = float(study_anom.best_params["threshold"])
@@ -150,12 +157,60 @@ class Trainer:
 
     # ---- objective wrappers
     def _general_objective(self, trial, Xtr, Xte, ytr, yte, mode):
-        name = trial.suggest_categorical("model", ["RandomForest","XGBoost","LightGBM","LogisticRegression","MLP","BaggingClassifier"])
+        # ---- Coerce to pandas so we can safely use .iloc (and keep feature names)
+        if mode == "general":
+            if not isinstance(Xtr, pd.DataFrame):
+                Xtr = pd.DataFrame(Xtr)
+            if not isinstance(Xte, pd.DataFrame):
+                # try to keep the same column order when possible
+                Xte = pd.DataFrame(Xte, columns=getattr(Xtr, "columns", None))
+        else:
+            # text modes can be Series (Count/Tfidf accept any iterable); Series gives us .iloc
+            if not isinstance(Xtr, (pd.Series, pd.DataFrame)):
+                Xtr = pd.Series(Xtr)
+            if not isinstance(Xte, (pd.Series, pd.DataFrame)):
+                Xte = pd.Series(Xte)
+
+        if not isinstance(ytr, (pd.Series, pd.DataFrame)):
+            ytr = pd.DataFrame(ytr)
+        if not isinstance(yte, (pd.Series, pd.DataFrame)):
+            yte = pd.DataFrame(yte, columns=getattr(ytr, "columns", None))
+
+        # ---- Choose model
+        name = trial.suggest_categorical(
+            "model",
+            ["RandomForest", "XGBoost", "LightGBM", "LogisticRegression", "MLP", "BaggingClassifier"]
+        )
         trial.set_user_attr("model_name", name)
+
+        # ---- Small CV on train for a pruning signal
+        kf = KFold(n_splits=3, shuffle=True, random_state=42)
+        for fold, (idx_tr, idx_va) in tqdm(enumerate(kf.split(Xtr), start=1)):
+            model_cv = SklearnFactory.build_model_by_name(name, mode, trial, is_trial=True)
+
+            X_tr_fold = Xtr.iloc[idx_tr]
+            y_tr_fold = ytr.iloc[idx_tr]
+            X_va_fold = Xtr.iloc[idx_va]
+            y_va_fold = ytr.iloc[idx_va]
+
+            model_cv.fit(X_tr_fold, y_tr_fold)
+
+            if mode == "general":
+                X_va_eval = FeatureAligner.align_dataframe(X_va_fold.copy(), model_cv)
+            else:
+                X_va_eval = X_va_fold
+
+            pred_va = model_cv.predict(X_va_eval)
+            score = f1_score(y_va_fold, pred_va, average="macro", zero_division=0)
+
+            trial.report(float(score), step=fold)
+            if trial.should_prune():
+                raise optuna.TrialPruned()
+
+        # ---- Fit on all train; evaluate on provided holdout (keeps behavior consistent)
         model = SklearnFactory.build_model_by_name(name, mode, trial, is_trial=True)
         model.fit(Xtr, ytr)
 
-        # Align only for numeric features ("general"); text modes pass raw lists
         if mode == "general":
             X_eval = FeatureAligner.align_dataframe(Xte.copy(), model)
         else:
@@ -163,14 +218,15 @@ class Trainer:
 
         return f1_score(yte, model.predict(X_eval), average="macro", zero_division=0)
 
+
     def _gru_objective(self, trial, Xtr, Xte, ytr, yte):
         tfbk.clear_session()
         units = trial.suggest_int("units", 32, 516)
-        lr    = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
-        bs    = trial.suggest_int("batch_size", 16, 256, log=True)
-        ep    = trial.suggest_int("epochs", 8, 100)
-        m = GRUBlocks.build_classifier((Xtr.shape[1], Xtr.shape[2]), units, lr, output=ytr.shape[1])
-        m, _ = GRUBlocks.train(m, Xtr, Xte, ytr, yte, {"epochs": ep, "batch_size": bs})
+        lr = trial.suggest_float("lr", 1e-10, 1e-2, log=True)
+        bs = trial.suggest_int("batch_size", 16, 256, log=True)
+        ep = trial.suggest_int("epochs", 8, 100)
+        m = TSBlocks.build_classifier((Xtr.shape[1], Xtr.shape[2]), units, lr, output=ytr.shape[1])
+        m, _ = TSBlocks.train(m, Xtr, Xte, ytr, yte, {"epochs": ep, "batch_size": bs, "pruning_cb": TFKerasPruningCallback(trial, "val_loss")})
         return f1_score(yte, (m.predict(Xte, verbose=1) > 0.5).astype(int), average="macro")
 
     def _fusion_objective(self, trial, prob_map, y_true, label_names):
@@ -230,11 +286,11 @@ class Trainer:
     def _ae_objective(self, trial, Xtr, Xte):
         tfbk.clear_session()
         units = trial.suggest_int("units", 32, 516)
-        lr    = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
-        bs    = trial.suggest_int("batch_size", 16, 256, log=True)
-        ep    = trial.suggest_int("epochs", 8, 100)
-        m = GRUBlocks.build_autoencoder(Xtr.shape[1:], units, lr)
-        m, _ = GRUBlocks.train(m, Xtr, Xte, Xtr, Xte, {"epochs": ep, "batch_size": bs})
+        lr = trial.suggest_float("lr", 1e-4, 1e-2, log=True)
+        bs = trial.suggest_int("batch_size", 16, 256, log=True)
+        ep = trial.suggest_int("epochs", 8, 100)
+        m = TSBlocks.build_autoencoder(Xtr.shape[1:], units, lr)
+        m, _ = TSBlocks.train(m, Xtr, Xte, Xtr, Xte, {"epochs": ep, "batch_size": bs})
         recon = m.predict(Xte, verbose=1)
         return float(np.mean((Xte - recon) ** 2))
 
@@ -267,12 +323,12 @@ class Trainer:
         model_probs = {}
 
         # ---- sklearn models (no saving)
-        for mode, (Xtr, Xte) in {
+        for mode, (Xtr, Xte) in tqdm({
             "general": (Xtr_feat, Xte_feat),
             "sol":     (Xtr_code, Xte_code),
             "opcode":  (Xtr_opc, Xte_opc),
-        }.items():
-            study = optuna.create_study(direction="maximize")
+        }.items()):
+            study = optuna.create_study(direction="maximize", pruner=pruner)
             study.optimize(lambda t: self._general_objective(t, Xtr, Xte, ytr, yte, mode), n_trials=self.n_trials)
 
             model = SklearnFactory.build_model_by_name(
@@ -291,20 +347,20 @@ class Trainer:
             model_probs[mode] = probs
 
         # ---- GRU classifier (no saving)
-        study_gru = optuna.create_study(direction="maximize")
+        study_gru = optuna.create_study(direction="maximize", pruner=pruner)
         study_gru.optimize(lambda t: self._gru_objective(t, Xtr_t, Xte_t, ytr.values, yte.values), n_trials=self.n_trials)
 
-        gru = GRUBlocks.build_classifier(
+        gru = TSBlocks.build_classifier(
             (Xtr_t.shape[1], Xtr_t.shape[2]),
             study_gru.best_trial.params["units"],
             study_gru.best_trial.params["lr"],
             output=ytr.shape[1],
         )
-        gru, _ = GRUBlocks.train(gru, Xtr_t, Xte_t, ytr.values, yte.values, study_gru.best_trial.params)
+        gru, _ = TSBlocks.train(gru, Xtr_t, Xte_t, ytr.values, yte.values, study_gru.best_trial.params)
         model_probs["gru"] = gru.predict(Xte_t, verbose=0)
 
         # ---- Fusion (optimize on eval_source test set)
-        study_fusion = optuna.create_study(direction="maximize")
+        study_fusion = optuna.create_study(direction="maximize", pruner=pruner)
         study_fusion.optimize(
             lambda t: self._fusion_objective(t, model_probs, yte.values, label_names),
             n_trials=self.n_trials,

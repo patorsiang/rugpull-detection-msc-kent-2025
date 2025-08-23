@@ -1,11 +1,11 @@
 import os
 import gc
 import optuna
+import numpy as np
 import pandas as pd
 from functools import partial
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.metrics import f1_score
-from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 
 from backend.utils.feature_extraction.bytecode import build_bytecode_feature_dataframe
@@ -34,15 +34,17 @@ def get_feature_df(path, model_path, max_features, min_df, use_saved_model, mode
 # === OBJECTIVE FUNCTION ===
 def objective(trial, ground_df, path, model_path, random_state, mode, df=None, test_size=0):
     try:
-        model_name = trial.suggest_categorical("model", [
-            "LogisticRegression", "DecisionTree", "RandomForest", "AdaBoost", "ExtraTrees",
-            "XGBoost", "LightGBM", "GaussianNB", "KNN", "SGD", "MLP"
-        ])
+        # pick model with a default
+        model_name = trial.suggest_categorical(
+            "model",
+            ["LogisticRegression", "DecisionTree", "RandomForest", "AdaBoost", "ExtraTrees",
+             "XGBoost", "LightGBM", "GaussianNB", "KNN", "SGD", "MLP"],
+        )
 
         base_model = build_model_by_name(model_name, trial, is_trial=True, random_state=random_state)
-
         print(f"[Trial {trial.number}] base_model={base_model}")
 
+        # build features if needed
         if df is None:
             df, _ = get_feature_df(
                 path,
@@ -55,21 +57,41 @@ def objective(trial, ground_df, path, model_path, random_state, mode, df=None, t
             print(df.head())
 
         X_full, _, y_full, _ = merge_n_split(ground_df, df, test_size=test_size)
-
         kf = KFold(n_splits=3, shuffle=True, random_state=random_state)
 
-        model = MultiOutputClassifier(base_model)
-        score = cross_val_score(model, X_full, y_full, scoring="f1_macro", cv=kf).mean()
-        return score
+        scores = []
+        for fold, (tr_idx, va_idx) in enumerate(kf.split(X_full), start=1):
+            Xtr, Xva = X_full.iloc[tr_idx], X_full.iloc[va_idx]
+            ytr, yva = y_full.iloc[tr_idx], y_full.iloc[va_idx]
+
+            model = MultiOutputClassifier(base_model)
+            model.fit(Xtr, ytr)
+
+            pred = model.predict(Xva)
+            score = f1_score(yva, pred, average="macro", zero_division=0)
+            scores.append(score)
+
+            # report and possibly prune
+            trial.report(score, step=fold)
+            if trial.should_prune():
+                raise optuna.TrialPruned()
+
+            # inside the KFold loop right after computing `score`
+            if fold >= 2 and np.mean(scores) < 0.2:  # your bar
+                trial.report(np.mean(scores), step=fold)
+                raise optuna.TrialPruned()
+
+
+        return float(np.mean(scores))
+    except optuna.TrialPruned:
+        raise
     except Exception as e:
         print(f"[Trial failed] {e}")
-        return float('-inf')  # or np.nan
+        return float('-inf')
     finally:
-        del_vars = ['base_model', 'model', 'X_full', 'y_full']
-        for var in del_vars:
-            obj = locals().get(var, None)
-            if obj is not None:
-                del obj
+        for var in ['base_model', 'model', 'X_full', 'y_full', 'Xtr', 'Xva', 'ytr', 'yva']:
+            if var in locals():
+                del locals()[var]
         gc.collect()
 
 
@@ -84,23 +106,36 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
         df = pd.read_csv(os.path.join(labeled_path, path), index_col=0)
         print(df.head())
 
-    optuna.logging.set_verbosity(optuna.logging.WARNING)  # silence debug spamo
-    study = optuna.create_study(direction="maximize", storage=optuna.storages.InMemoryStorage(), load_if_exists=False)
-    study.optimize(partial(objective,
-                           random_state=random_state,
-                           ground_df=ground_df,
-                           path=path,
-                           model_path=model_path,
-                           mode=mode,
-                           df=df,
-                           test_size=test_size),
-                           n_trials=n_trials,
-                           n_jobs=n_jobs)
+    optuna.logging.set_verbosity(optuna.logging.WARNING)
+
+    pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=2)
+
+    study = optuna.create_study(
+        direction="maximize",
+        storage=optuna.storages.InMemoryStorage(),
+        load_if_exists=False,
+        pruner=pruner
+    )
+
+    study.optimize(
+        partial(
+            objective,
+            random_state=random_state,
+            ground_df=ground_df,
+            path=path,
+            model_path=model_path,
+            mode=mode,
+            df=df,
+            test_size=test_size
+        ),
+        n_trials=n_trials,
+        n_jobs=n_jobs
+    )
 
     print("✅ Best Params:", study.best_params)
     print("🥇 Best Score:", study.best_value)
 
-    best_params = study.best_params
+    best_params = study.best_params.copy()
     model_name = best_params.pop("model")
 
     if df is None:
@@ -121,6 +156,14 @@ def get_trained_best_model(labeled_path, path, model_path, test_size=0.2, random
     model = MultiOutputClassifier(base_model)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
-    save_model(mode, model, weights=f1_score(y_test, y_pred, average=None), save_dir=model_path, feature_cols=list(df.columns), vectorizer=vectorizer)
+
+    save_model(
+        mode,
+        model,
+        weights=f1_score(y_test, y_pred, average=None),
+        save_dir=model_path,
+        feature_cols=list(df.columns),
+        vectorizer=vectorizer
+    )
 
     return model, ground_df, df, X_train, X_test, y_train, y_test

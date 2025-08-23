@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 
 from backend.utils.training.extra_classes import DatasetBuilder, Plotter
 from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
-from backend.utils.training.training_objectives import GRUBlocks
+from backend.utils.training.training_objectives import TSBlocks
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.transform import FeatureAligner
 from backend.core.meta_service import MetaService
@@ -53,7 +53,7 @@ class Evaluator:
                 model = load_model(fpath)
                 if not freeze_gru:
                     params = m.get("params", {"epochs": 10, "batch_size": 64})
-                    model, _ = GRUBlocks.train(model, Xtr, Xte, y_train.values, y_test.values, params)
+                    model, _ = TSBlocks.train(model, Xtr, Xte, y_train.values, y_test.values, params)
 
                 prob = model.predict(Xte, verbose=0)
                 prob_map["gru"] = prob

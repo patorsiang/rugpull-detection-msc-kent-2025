@@ -30,11 +30,16 @@ def download_contract_from_etherscan(address: str, refresh: bool = False):
         "Polygon": 137,
         "Arbitrum": 42161,
         "Fantom": 146,
+        "Sonic": 146,
+        "Avax": 43114,
         "BASE": 8453,
         "AVAX": 43114,
+        "Cchain": 43114,
         "OP.ETH": 10,
+        "SnowTrace": 43114,
+        "Heco": 128,
         "Cronos": 25,
-        "Blast": 81457,
+        "Blast": 81457
     }
 
     txn_path = TXN_PATH / f"{address}.json"

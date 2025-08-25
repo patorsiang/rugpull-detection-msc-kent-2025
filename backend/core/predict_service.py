@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from backend.core.meta_service import MetaService
-from backend.utils.constants import CURRENT_MODEL_PATH, SEQ_LEN
+from backend.utils.constants import CURRENT_MODEL_PATH
 from backend.utils.predict.transform import FeatureAligner
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.anomaly_fusion import AnomalyFusion

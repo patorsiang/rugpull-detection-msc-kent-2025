@@ -1,11 +1,9 @@
-# backend/core/expand_labels_service.py
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Union, Tuple
 from pathlib import Path
 import json
-
 import numpy as np
 import pandas as pd
 
@@ -30,7 +28,7 @@ class SelfLearningExpandConfig:
     chunk_size: Optional[int] = None
     chunk_index: int = 0
     # post-processing
-    save_confident_only: bool = True       # also emit *_confident.csv (all system labels strictly 0 or 1)
+    save_confident_only: bool = True  # also emit *_confident.csv (all system labels strictly 0 or 1)
 
 
 class ExpandLabelsService:
@@ -66,7 +64,7 @@ class ExpandLabelsService:
 
         # 3) Ensure Address and index by it (normalized), de-dup, and sort index (default)
         if "Address" not in df.columns:
-            candidates = [c for c in df.columns if c.lower() in ("contract", "contractaddress", "addr")]
+            candidates = [c for c in df.columns if str(c).lower() in ("contract", "contractaddress", "addr")]
             if candidates:
                 df = df.rename(columns={candidates[0]: "Address"})
             else:
@@ -75,7 +73,7 @@ class ExpandLabelsService:
         df["Address"] = df["Address"].astype(str).str.strip().str.lower()
         df = df.set_index("Address", drop=True)
         df = df[~df.index.duplicated(keep="last")]
-        df.sort_index(inplace=True)  # default: keep rows ordered by Address
+        df.sort_index(inplace=True)
 
         # 4) Identify label columns in the file
         present_label_cols = [c for c in df.columns if self._is_label_column(c)]
@@ -90,10 +88,8 @@ class ExpandLabelsService:
                 df[lbl] = np.nan
                 added_system_columns.append(lbl)
 
-        # Reorder columns: [system labels in order] + [the rest in original order]
         non_sys_cols = [c for c in df.columns if c not in sys_labels]
-        # preserve the original relative order of non-system columns
-        df = df[sys_labels + non_sys_cols]
+        df = df[sys_labels + non_sys_cols]  # system labels first
 
         addresses = list(df.index)
 
@@ -146,7 +142,17 @@ class ExpandLabelsService:
                     added_counts[lbl] += 1
                 # else: existing 0/1 → keep as-is
 
-        # 7) Save outputs (filtering & confident)
+        # 7) Prepare outputs (dtype-safe)
+
+        # --- normalize col names once ---
+        df.rename(columns=lambda c: str(c).strip(), inplace=True)
+
+        # --- force label columns to clean int8 in {-1,0,1} ---
+        self._coerce_label_ints(df, sys_labels)
+
+        # NOTE: Do NOT astype() non-label columns here; we only guarantee label dtypes.
+        # If you later apply numeric transforms, cast those feature matrices there.
+
         base_name = Path(cfg.filename).stem
         chunk_tag = ""
         if chunk_meta["is_chunked"]:
@@ -154,52 +160,17 @@ class ExpandLabelsService:
             idx = chunk_meta["chunk_index"] + 1
             chunk_tag = f"_chunk{idx}of{total}"
 
-        df_out = df.copy()
-
-        # --- ensure CSV writes ints (no floats) for system labels, NaN/inf-proof ---
-        # (1) Normalize column names once (helps if there are trailing spaces)
-        df_out.rename(columns=lambda c: str(c).strip(), inplace=True)
-
-        # (2) Force system-label columns to int8 in {-1,0,1}
-        df_out[sys_labels] = (
-            df_out[sys_labels]
-                .replace({True: 1, False: 0})                                 # bools -> ints
-                .applymap(lambda x: x.strip() if isinstance(x, str) else x)   # trim strings
-                .apply(pd.to_numeric, errors="coerce")                         # strings -> numbers; bad -> NaN
-                .replace([np.inf, -np.inf], np.nan)                            # ±inf -> NaN
-                .fillna(-1)                                                   # NaN -> -1
-                .applymap(lambda x: -1 if x < 0 else (1 if x > 0 else 0))      # compress to {-1,0,1}
-                .astype(np.int8)                                               # final int dtype
-        )
-
-
+        # Save main expanded file
         expanded_file = DATA_PATH / f"expanded_{base_name}_{cfg.round_name}{chunk_tag}.csv"
-        df_out.reset_index(names="Address").to_csv(expanded_file, index=False)
+        df.reset_index(names="Address").to_csv(expanded_file, index=False)
 
+        # Save confident-only (rows where all system labels ∈ {0,1})
         confident_file = None
         if cfg.save_confident_only:
-            confident_mask = df_out[sys_labels].isin([0, 1]).all(axis=1)
-            df_conf = df_out.loc[confident_mask].copy()
+            confident_mask = df[sys_labels].isin([0, 1]).all(axis=1)
+            df_conf = df.loc[confident_mask].copy()
             # enforce dtype again for safety in the confident slice
-            df_conf[sys_labels] = df_conf[sys_labels].astype(np.int8)
-            confident_file = DATA_PATH / f"expanded_{base_name}_{cfg.round_name}{chunk_tag}_confident.csv"
-            df_conf.reset_index(names="Address").to_csv(confident_file, index=False)
-
-
-            def _strict_01(v) -> bool:
-                # treat numeric 0/1 (int/float) and string "0"/"1" as confident
-                if pd.isna(v):
-                    return False
-                if isinstance(v, (int, np.integer)):
-                    return v in (0, 1)
-                if isinstance(v, float):
-                    return v in (0.0, 1.0)
-                if isinstance(v, str):
-                    return v.strip() in ("0", "1")
-                return False
-
-            confident_mask = df_out[sys_labels].applymap(_strict_01).all(axis=1)
-            df_conf = df_out.loc[confident_mask].copy()
+            self._coerce_label_ints(df_conf, sys_labels)
             confident_file = DATA_PATH / f"expanded_{base_name}_{cfg.round_name}{chunk_tag}_confident.csv"
             df_conf.reset_index(names="Address").to_csv(confident_file, index=False)
 
@@ -230,7 +201,7 @@ class ExpandLabelsService:
             "confident_file": str(confident_file) if confident_file else None,
             "counts": {
                 "rows_in_chunk_raw": int(len(df)),
-                "rows_saved": int(len(df_out)),
+                "rows_saved": int(len(df)),
                 "added": added_counts,
                 "changed": changed_counts,
             },
@@ -309,7 +280,6 @@ class ExpandLabelsService:
         """
         labels: Optional[List[str]] = None
         try:
-            # prefer read_version (raw meta), fall back to get_status structure
             meta = MetaService.read_version()
             labels = list(meta.get("label_names") or []) or None
             if not labels:

@@ -150,9 +150,10 @@ class SklearnFactory:
 
         match mode:
             case "general":
-                return Pipeline([("imputer", SimpleImputer(strategy="constant", fill_value=0.0)),
-                                 ("scaler", StandardScaler(with_mean=False)),
-                                 ("clf", base)]).set_output(transform="pandas")
+                return Pipeline([("to_float", FunctionTransformer(SklearnFactory.to_float, accept_sparse=True)),
+                                ("imputer", SimpleImputer(strategy="constant", fill_value=0.0)),
+                                ("scaler", StandardScaler(with_mean=False)),
+                                 ("clf", base)])
             case "sol":
                 return Pipeline([("tfidf", TfidfVectorizer(lowercase=True, analyzer="word", token_pattern=r"\b\w+\b",
                                                            max_features=gI("n_max_features", 10, 20000),

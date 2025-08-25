@@ -13,7 +13,6 @@ from backend.utils.training.training_objectives import (
     SklearnFactory, TSBlocks,
     Pipeline, SimpleImputer, StandardScaler, TfidfVectorizer, CountVectorizer
 )
-from sklearn.model_selection import KFold
 from backend.utils.predict.transform import FeatureAligner
 from backend.utils.predict.fusion import Fusion
 from backend.utils.predict.anomaly_fusion import AnomalyFusion
@@ -157,66 +156,22 @@ class Trainer:
 
     # ---- objective wrappers
     def _general_objective(self, trial, Xtr, Xte, ytr, yte, mode):
-        # ---- Coerce to pandas so we can safely use .iloc (and keep feature names)
-        if mode == "general":
-            if not isinstance(Xtr, pd.DataFrame):
-                Xtr = pd.DataFrame(Xtr)
-            if not isinstance(Xte, pd.DataFrame):
-                # try to keep the same column order when possible
-                Xte = pd.DataFrame(Xte, columns=getattr(Xtr, "columns", None))
-        else:
-            # text modes can be Series (Count/Tfidf accept any iterable); Series gives us .iloc
-            if not isinstance(Xtr, (pd.Series, pd.DataFrame)):
-                Xtr = pd.Series(Xtr)
-            if not isinstance(Xte, (pd.Series, pd.DataFrame)):
-                Xte = pd.Series(Xte)
-
-        if not isinstance(ytr, (pd.Series, pd.DataFrame)):
-            ytr = pd.DataFrame(ytr)
-        if not isinstance(yte, (pd.Series, pd.DataFrame)):
-            yte = pd.DataFrame(yte, columns=getattr(ytr, "columns", None))
-
-        # ---- Choose model
-        name = trial.suggest_categorical(
-            "model",
-            ["RandomForest", "XGBoost", "LightGBM", "LogisticRegression", "MLP", "BaggingClassifier"]
-        )
+        name = trial.suggest_categorical("model", ["RandomForest","XGBoost","LightGBM","LogisticRegression","MLP","BaggingClassifier"])
         trial.set_user_attr("model_name", name)
-
-        # ---- Small CV on train for a pruning signal
-        kf = KFold(n_splits=3, shuffle=True, random_state=42)
-        for fold, (idx_tr, idx_va) in tqdm(enumerate(kf.split(Xtr), start=1)):
-            model_cv = SklearnFactory.build_model_by_name(name, mode, trial, is_trial=True)
-
-            X_tr_fold = Xtr.iloc[idx_tr]
-            y_tr_fold = ytr.iloc[idx_tr]
-            X_va_fold = Xtr.iloc[idx_va]
-            y_va_fold = ytr.iloc[idx_va]
-
-            model_cv.fit(X_tr_fold, y_tr_fold)
-
-            if mode == "general":
-                X_va_eval = FeatureAligner.align_dataframe(X_va_fold.copy(), model_cv)
-            else:
-                X_va_eval = X_va_fold
-
-            pred_va = model_cv.predict(X_va_eval)
-            score = f1_score(y_va_fold, pred_va, average="macro", zero_division=0)
-
-            trial.report(float(score), step=fold)
-            if trial.should_prune():
-                raise optuna.TrialPruned()
-
-        # ---- Fit on all train; evaluate on provided holdout (keeps behavior consistent)
         model = SklearnFactory.build_model_by_name(name, mode, trial, is_trial=True)
         model.fit(Xtr, ytr)
 
+        # Align only for numeric features ("general"); text modes pass raw lists
         if mode == "general":
             X_eval = FeatureAligner.align_dataframe(Xte.copy(), model)
         else:
             X_eval = Xte
 
+        if trial.should_prune():
+            raise optuna.TrialPruned()
+
         return f1_score(yte, model.predict(X_eval), average="macro", zero_division=0)
+
 
 
     def _gru_objective(self, trial, Xtr, Xte, ytr, yte):

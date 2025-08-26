@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.metrics import classification_report, f1_score
 from tensorflow.keras.models import load_model
 
-from backend.utils.training.extra_classes import DatasetBuilder, Plotter
+from backend.utils.training.extra_classes import DatasetBuilder
 from backend.utils.constants import CURRENT_MODEL_PATH, CURRENT_TRAINING_LOG_PATH, GROUND_TRUTH_FILE
 from backend.utils.training.training_objectives import TSBlocks
 from backend.utils.predict.fusion import Fusion

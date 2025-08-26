@@ -39,6 +39,9 @@ VITE_CURL_ENDPOINT="http://localhost:8000/api/predict"
 git clone https://git.cs.kent.ac.uk/nt375/rugpull-detection-msc-kent-2025.git
 cd rugpull-detection-msc-kent-2025
 
+# Make sure that the submodules will be cloned together
+git submodule update --init --force --remote
+
 # Build and start containers
 docker compose up --build -d
 ```

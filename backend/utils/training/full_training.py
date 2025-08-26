@@ -100,7 +100,7 @@ class FullTrainer:
                 model.fit(X)
                 joblib.dump(model, fpath)
                 pred = (model.predict(X) == -1).astype(int).reshape(-1)
-                name = "if_general" if "if_general" in key else ("if_sol" if "if_sol" in key else "if_opcode")
+                name = "if_general" if "general_model" in key else ("if_sol" if "sol_model" in key else "if_opcode")
                 iso_maps[name] = pred
 
         # anomaly fusion re‑opt
